@@ -210,7 +210,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
+	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
 }
 
 void CMario::Render()
@@ -224,7 +224,7 @@ void CMario::Render()
 	{
 		if (is_in_object == true)
 		{
-			if(is_sitdown==false)
+			if(is_sitdown==false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
 				if (vx == 0) //nếu đứng yên
 				{
@@ -249,7 +249,7 @@ void CMario::Render()
 			}
 			else
 			{
-				DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
+				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
 				if (nx > 0) ani = MARIO_ANI_BIG_SITDOWN_RIGT;
 				else ani = MARIO_ANI_BIG_SITDOWN_LEFT;
 			}
@@ -269,7 +269,7 @@ void CMario::Render()
 					ani = MARIO_ANI_BIG_JUMP_UP_LEFT; // mới thêm zô
 				else
 					ani = MARIO_ANI_BIG_JUMP_UP_RIGHT;
-				DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+				//DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
 			}
 		}
 	
@@ -308,7 +308,7 @@ void CMario::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
+	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
 	animations[ani]->Render(x, y, alpha);
 
 	RenderBoundingBox();
@@ -332,8 +332,8 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_SPEED_Y;
 		break;
 	case MARIO_STATE_SITDOWN:
-		DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
-		//y = MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT - 2;
+		//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
+		//y += MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT - 2;
 		is_sitdown = true;
 		vx = 0;
 		break;
@@ -354,8 +354,16 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 
 	if (level==MARIO_LEVEL_BIG)
 	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		if (is_sitdown == false) {
+			right = x + MARIO_BIG_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		}
+		else
+		{
+			right = x + MARIO_BIG_SITDOWN_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_SITDOWN_BBOX_HEIGHT;
+		}
+		
 	}
 	else
 	{

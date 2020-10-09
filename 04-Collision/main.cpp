@@ -90,12 +90,16 @@ CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_S:
-		mario->SetState(MARIO_STATE_JUMP);
-		mario->SetIsInObject(false);
+		if(mario->GetIsInObject()==true)
+		{
+			mario->SetState(MARIO_STATE_JUMP);
+			mario->SetIsInObject(false);
+		}
+		
 		break;
 	case DIK_A: // reset
 		mario->SetState(MARIO_STATE_IDLE);
@@ -103,12 +107,22 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		mario->SetPosition(50.0f,0.0f);
 		mario->SetSpeed(0, 0);
 		break;
+	case DIK_DOWN:
+		mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT );
+		break;
 	}
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	switch (KeyCode)
+	{
+	
+	case DIK_DOWN:
+		DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
+		mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
+		break;
+	}
 }
 
 void CSampleKeyHander::KeyState(BYTE *states)

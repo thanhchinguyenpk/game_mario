@@ -80,6 +80,7 @@ public:
 	void SetIsInObject(bool temp) { is_in_object = temp; };
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	bool GetIsInObject() { return is_in_object; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };
