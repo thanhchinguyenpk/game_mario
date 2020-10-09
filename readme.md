@@ -1,1 +1,1 @@
-this is the first game
+This is the first project game of myseft :D
