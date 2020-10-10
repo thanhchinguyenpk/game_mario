@@ -134,6 +134,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioBullet.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="OngNuoc.h" />
     <ClInclude Include="Plant.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioBullet.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="OngNuoc.cpp" />
     <ClCompile Include="Plant.cpp" />

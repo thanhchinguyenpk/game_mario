@@ -3,7 +3,7 @@
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
-#define MARIO_JUMP_SPEED_Y		0.5f
+#define MARIO_JUMP_SPEED_Y		0.3f
 #define MARIO_JUMP_DEFLECT_SPEED 0.4f
 #define MARIO_GRAVITY			0.002f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
@@ -14,6 +14,7 @@
 #define MARIO_STATE_JUMP			300
 #define MARIO_STATE_DIE				400
 #define MARIO_STATE_SITDOWN			500
+#define MARIO_STATE_JUMP_HIGH			600
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
@@ -66,8 +67,10 @@ class CMario : public CGameObject
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
+	DWORD jumping_start;
 	bool is_in_object = false;
 	bool is_sitdown = false;
+
 public: 
 	CMario() : CGameObject()
 	{
@@ -80,6 +83,10 @@ public:
 	void SetIsInObject(bool temp) { is_in_object = temp; };
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+
+	void StartJumping() { jumping_start = GetTickCount(); };
+	void EndJumping() { jumping_start = 0; };
+	DWORD GetJumpingTime() { return jumping_start; };
 	bool GetIsInObject() { return is_in_object; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

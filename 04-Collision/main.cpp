@@ -94,11 +94,14 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_S:
-		if(mario->GetIsInObject()==true)
+		mario->StartJumping();
+
+		if (mario->GetIsInObject() == true)
 		{
 			mario->SetState(MARIO_STATE_JUMP);
 			mario->SetIsInObject(false);
 		}
+		DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
 		
 		break;
 	case DIK_A: // reset
@@ -117,9 +120,13 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
 	switch (KeyCode)
 	{
+	case DIK_S:
+		mario->EndJumping();
+		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAABBBBBBBBBBBBBBBAAAAAAAAAAAAADown: %d\n", KeyCode);
+		break;
 	
 	case DIK_DOWN:
-		DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
+		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
 		mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
 		break;
 	}

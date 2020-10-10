@@ -59,6 +59,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
+	if (GetTickCount() - jumping_start < 2000) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
+	{											// > ấn nhẹ nhảy cao , ấn mạnh nhảy thấp.
+		vy -= 0.02f;
+		DebugOut(L"[ERROR-----------get-------------------] DINPUT::GetDeviceData failed. Error: %lu\n", GetTickCount());
+	}
+
 	// No collision occured, proceed normally
 	// nếu như không có bất cứ va chạm nào
 	if (coEvents.size()==0)
