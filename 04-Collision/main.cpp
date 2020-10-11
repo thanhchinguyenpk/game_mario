@@ -235,6 +235,17 @@ void LoadResources()
 	sprites->Add(10034,  303, 8,  303 + 17, 8 + 16, texMarioPro);//small jump r
 	sprites->Add(10035, 1367, 8, 1367 + 16, 8 + 16, texMarioPro);	//small jump l
 
+	//lv co duoi
+	sprites->Add(10036,	  80,    142,   80 + 21, 142 + 28, texMarioPro);	// tail idle r
+
+	sprites->Add(10037, 1586,    142, 1586 + 21, 142 + 28, texMarioPro);	//tail idle l
+
+	sprites->Add(10038, 104, 142, 104 + 22, 142 + 28, texMarioPro);	// tail walk r
+	sprites->Add(10039, 129+1, 143, 129 + 23, 143 + 27, texMarioPro);	
+
+	sprites->Add(10040, 1561, 142, 1561 + 22, 142 + 28, texMarioPro);	// tail walk l
+	sprites->Add(10041, 1535, 143, 1535 + 23, 143 + 27, texMarioPro);
+
 	
 		
 
@@ -386,38 +397,57 @@ void LoadResources()
 	ani->Add(10099);
 	animations->Add(599, ani);
 
-	ani = new CAnimation(100);		// Mario b jum up  l
+	ani = new CAnimation(100);		// Mario big jum up  l
 	ani->Add(10100);
 	animations->Add(450, ani);
 
-	ani = new CAnimation(100);		// Mario b jum up  r
+	ani = new CAnimation(100);		// Mario big jum up  r
 	ani->Add(10101);
 	animations->Add(451, ani);
 
-	ani = new CAnimation(100);		// Mario b jum down r
+	ani = new CAnimation(100);		// Mario big jum down r
 	ani->Add(10102);
 	animations->Add(452, ani);
 	
-	ani = new CAnimation(100);		// Mario b jum down l
+	ani = new CAnimation(100);		// Mario big jum down l
 	ani->Add(10103);
 	animations->Add(453, ani);
 
 	//=====
-	ani = new CAnimation(100);		// Mario b jum down l
+	ani = new CAnimation(100);		// Mario big jum down l
 	ani->Add(10034);
 	animations->Add(454, ani);
 
-	ani = new CAnimation(100);		// Mario b jum down l
+	ani = new CAnimation(100);		// Mario big jum down l
 	ani->Add(10035);
 	animations->Add(455, ani);
 
-	ani = new CAnimation(100);		// Mario b sitdowm r
+	ani = new CAnimation(100);		// Mario big sitdowm r
 	ani->Add(10104);
 	animations->Add(456, ani);
 
-	ani = new CAnimation(100);		// Mario b sitdowm l
+	ani = new CAnimation(100);		// Mario big sitdowm l
 	ani->Add(10105);
 	animations->Add(457, ani);
+
+	//tail
+	ani = new CAnimation(100);		// Mario tail idle r
+	ani->Add(10036);
+	animations->Add(458, ani);
+
+	ani = new CAnimation(100);		// Mario tail idle l
+	ani->Add(10037);
+	animations->Add(459, ani);
+
+	ani = new CAnimation(100);		// Mario tail walk r
+	ani->Add(10038);
+	ani->Add(10039);
+	animations->Add(460, ani);
+
+	ani = new CAnimation(100);		// Mario tail walk l
+	ani->Add(10040);
+	ani->Add(10041);
+	animations->Add(461, ani);
 
 	
 
@@ -598,6 +628,12 @@ void LoadResources()
 
 	mario->AddAnimation(456);		//sitdown big r
 	mario->AddAnimation(457);		//sitdown big l
+
+	mario->AddAnimation(458);		//tail idle r
+	mario->AddAnimation(459);		//tail idle l
+
+	mario->AddAnimation(460);		//tail walk r
+	mario->AddAnimation(461);		//tail walk l
 
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);

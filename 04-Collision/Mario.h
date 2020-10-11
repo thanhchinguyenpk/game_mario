@@ -55,6 +55,7 @@
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
+#define	MARIO_LEVEL_BIG_TAIL		3
 
 #define MARIO_BIG_BBOX_WIDTH  15
 #define MARIO_BIG_BBOX_HEIGHT 27
@@ -64,6 +65,9 @@
 
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 15
+
+#define MARIO_BIG_TAIL_BBOX_WIDTH  21
+#define MARIO_BIG_TAIL_BBOX_HEIGHT 28
 
 
 
@@ -83,7 +87,7 @@ class CMario : public CGameObject
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_BIG_TAIL;
 		untouchable = 0;
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
