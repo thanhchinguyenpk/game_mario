@@ -281,6 +281,61 @@ void CMario::Render()
 	
 	
 	}
+	else if (level == MARIO_LEVEL_BIG_ORANGE)
+	{
+		if (is_in_object == true)
+		{
+			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
+			{
+				if (vx == 0) //nếu đứng yên
+				{
+					if (nx > 0) ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
+					else ani = MARIO_ANI_ORANGE_IDLE_LEFT;
+
+					/*if (state == MARIO_STATE_JUMP)
+					{
+						ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
+						DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+					}*/
+
+				}
+				else if (vx > 0) //nếu di chuyển trái
+				{
+					ani = MARIO_ANI_ORANGE_WALKING_RIGHT;
+				}
+				else if (vx < 0)
+				{
+					ani = MARIO_ANI_ORANGE_WALKING_LEFT; // nếu di chuyển phải
+				}
+			}
+		/*	else
+			{
+				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
+				if (nx > 0) ani = MARIO_ANI_BIG_SITDOWN_RIGT;
+				else ani = MARIO_ANI_BIG_SITDOWN_LEFT;
+			}*/
+
+		}
+		else if (is_in_object == false)
+		{
+			if (nx > 0)
+				ani = MARIO_ANI_ORANGE_JUMP_DOWN_RIGHT;
+			else if (nx < 0)
+				ani = MARIO_ANI_ORANGE_JUMP_DOWN_LEFT;
+
+
+			if (vy < 0.0f)
+			{
+				if (nx > 0)
+					ani = MARIO_ANI_ORANGE_JUMP_UP_RIGHT;
+				else
+					ani = MARIO_ANI_ORANGE_JUMP_UP_LEFT; // mới thêm zô
+				//DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+			}
+		}
+
+
+	}
 	else if (level == MARIO_LEVEL_SMALL)
 	{
 		if (is_in_object == true)
@@ -427,7 +482,7 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	left = x;
 	top = y; 
 
-	if (level==MARIO_LEVEL_BIG)
+	if (level==MARIO_LEVEL_BIG|| level== MARIO_LEVEL_BIG_ORANGE)
 	{
 		if (is_sitdown == false) {
 			right = x + MARIO_BIG_BBOX_WIDTH;

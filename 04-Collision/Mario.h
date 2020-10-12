@@ -55,12 +55,22 @@
 #define MARIO_ANI_TAIL_SITDOWN_LEFT			26
 
 
-
+#define MARIO_ANI_ORANGE_IDLE_RIGHT			27
+#define MARIO_ANI_ORANGE_IDLE_LEFT			28
+#define MARIO_ANI_ORANGE_WALKING_RIGHT		29
+#define MARIO_ANI_ORANGE_WALKING_LEFT			30
+#define MARIO_ANI_ORANGE_JUMP_UP_RIGHT			31
+#define MARIO_ANI_ORANGE_JUMP_DOWN_RIGHT			32
+#define MARIO_ANI_ORANGE_JUMP_UP_LEFT				33
+#define MARIO_ANI_ORANGE_JUMP_DOWN_LEFT			34
+#define MARIO_ANI_ORANGE_SITDOWN_RIGHT			35
+#define MARIO_ANI_ORANGE_SITDOWN_LEFT			36
 
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
 #define	MARIO_LEVEL_BIG_TAIL		3
+#define	MARIO_LEVEL_BIG_ORANGE		4
 
 #define MARIO_BIG_BBOX_WIDTH  15
 #define MARIO_BIG_BBOX_HEIGHT 27
@@ -95,7 +105,7 @@ class CMario : public CGameObject
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG_TAIL;
+		level = MARIO_LEVEL_BIG_ORANGE;
 		untouchable = 0;
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

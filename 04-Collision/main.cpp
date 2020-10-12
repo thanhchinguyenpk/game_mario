@@ -261,6 +261,24 @@ void LoadResources()
 	sprites->Add(10046, 522, 152, 522 + 22, 152 + 19, texMarioPro);	// tail sit r
 	sprites->Add(10047, 1143, 152,1143 + 22, 152+ 19, texMarioPro);// tail sit l
 
+	//organe
+	sprites->Add(10048, 206, 109, 206 + 14, 109 + 27, texMarioPro);// idle r
+	sprites->Add(10049, 1467, 109, 1467 + 14, 109 + 27, texMarioPro);// idle l
+
+	sprites->Add(10050, 223, 109, 223 + 16, 109 + 27, texMarioPro);// walk r
+	sprites->Add(10051, 242, 110, 242 + 16, 110 + 26, texMarioPro);// 
+
+	sprites->Add(10052, 1448, 109, 1448 + 16, 109 + 27, texMarioPro);// walk l
+	sprites->Add(10053, 1429, 110, 1429 + 16, 110 + 26, texMarioPro);//
+
+	sprites->Add(10054, 314, 110, 314 + 16, 110 + 26, texMarioPro);//jump up r
+	sprites->Add(10055, 242, 110, 242 + 16, 110 + 26, texMarioPro);//jump down r
+
+	sprites->Add(10056, 1357, 110, 1357 + 16, 110 + 26, texMarioPro);//jump up l
+	sprites->Add(10057, 1429, 110, 1429 + 16, 110 + 26, texMarioPro);//jump down l
+
+
+
 	
 		
 
@@ -487,14 +505,47 @@ void LoadResources()
 	animations->Add(466, ani);
 
 
-	ani = new CAnimation(100);		// jsit down l
+	ani = new CAnimation(100);		// sit down l
 	ani->Add(10047);
 	animations->Add(467, ani);
 
-	
+	//orange
+	ani = new CAnimation(100);		// idle r
+	ani->Add(10048);
+	animations->Add(468, ani);
+
+	ani = new CAnimation(100);		// idle l
+	ani->Add(10049);
+	animations->Add(469, ani);
+
+	ani = new CAnimation(100);		// walk r
+	ani->Add(10048);
+	ani->Add(10050);
+	ani->Add(10051);
+	animations->Add(470, ani);
+
+	ani = new CAnimation(100);		// walk l
+	ani->Add(10049);
+	ani->Add(10052);
+	ani->Add(10053);
+	animations->Add(471, ani);
 
 
+	ani = new CAnimation(100);		// jumb up r
+	ani->Add(10054);
+	animations->Add(472, ani);
 
+	ani = new CAnimation(100);		// jumb down r
+	ani->Add(10055);
+	animations->Add(473, ani);
+
+	ani = new CAnimation(100);		// jumb up l
+	ani->Add(10056);
+	animations->Add(474, ani);
+
+	ani = new CAnimation(100);		// jumb down l
+	ani->Add(10057);
+	animations->Add(475, ani);
 	//====================================================================================================
 
 
@@ -684,6 +735,23 @@ void LoadResources()
 
 	mario->AddAnimation(466);		//tail sitdown r
 	mario->AddAnimation(467);		//tail sitdown l
+
+	//orange
+	mario->AddAnimation(468);		//idle r
+	mario->AddAnimation(469);		//idle l
+
+	mario->AddAnimation(470);		//walk r
+	mario->AddAnimation(471);		//walk l
+
+	mario->AddAnimation(472);		//jump up r
+	mario->AddAnimation(473);		//jump down r
+
+
+	mario->AddAnimation(474);		//jump  up l
+	mario->AddAnimation(475);		//jump down l
+
+
+	
 
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
