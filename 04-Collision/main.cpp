@@ -117,7 +117,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		mario->SetSpeed(0, 0);
 		break;
 	case DIK_DOWN:
-		mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT );
+		if (mario->GetLevel() == MARIO_LEVEL_BIG)
+			mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT );
+		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+			mario->SetPosition(mario->x, mario->y + MARIO_BIG_TAIL_BBOX_HEIGHT - MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
 		break;
 	}
 }
@@ -133,7 +136,10 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
-		mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
+		if(mario->GetLevel()== MARIO_LEVEL_BIG)
+			mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
+		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
 		break;
 	}
 }
@@ -245,6 +251,15 @@ void LoadResources()
 
 	sprites->Add(10040, 1561, 142, 1561 + 22, 142 + 28, texMarioPro);	// tail walk l
 	sprites->Add(10041, 1535, 143, 1535 + 23, 143 + 27, texMarioPro);
+
+	sprites->Add(10042, 257, 143, 257 + 23, 143 + 27, texMarioPro);	// tail jum up r
+	sprites->Add(10043, 283, 143, 283 + 23, 143 + 27, texMarioPro);// tail jum dowm r
+
+	sprites->Add(10044, 1407, 143, 1407 + 23, 143 + 27, texMarioPro);	// tail jum up l
+	sprites->Add(10045, 1381, 143, 1381 + 23, 143 + 27, texMarioPro);// tail jum down l
+
+	sprites->Add(10046, 522, 152, 522 + 22, 152 + 19, texMarioPro);	// tail sit r
+	sprites->Add(10047, 1143, 152,1143 + 22, 152+ 19, texMarioPro);// tail sit l
 
 	
 		
@@ -444,10 +459,37 @@ void LoadResources()
 	ani->Add(10039);
 	animations->Add(460, ani);
 
-	ani = new CAnimation(100);		// Mario tail walk l
+	ani = new CAnimation(100);		// l
 	ani->Add(10040);
 	ani->Add(10041);
 	animations->Add(461, ani);
+
+	//tail
+	ani = new CAnimation(100);		//  jump up r
+	ani->Add(10042);
+	animations->Add(462, ani);
+
+	ani = new CAnimation(100);		//  jump down r
+	ani->Add(10043);
+	animations->Add(463, ani);
+
+	ani = new CAnimation(100);		// jump up l
+	ani->Add(10044);
+	animations->Add(464, ani);
+
+
+	ani = new CAnimation(100);		// jump down l
+	ani->Add(10045);
+	animations->Add(465, ani);
+
+	ani = new CAnimation(100);		// sit down r
+	ani->Add(10046);
+	animations->Add(466, ani);
+
+
+	ani = new CAnimation(100);		// jsit down l
+	ani->Add(10047);
+	animations->Add(467, ani);
 
 	
 
@@ -633,7 +675,15 @@ void LoadResources()
 	mario->AddAnimation(459);		//tail idle l
 
 	mario->AddAnimation(460);		//tail walk r
-	mario->AddAnimation(461);		//tail walk l
+	mario->AddAnimation(461);		//l
+
+	mario->AddAnimation(462);		//tail jumb up r
+	mario->AddAnimation(463);		//tail jumb down r
+	mario->AddAnimation(464);		//tail jumb up l
+	mario->AddAnimation(465);		//tail jumb down l
+
+	mario->AddAnimation(466);		//tail sitdown r
+	mario->AddAnimation(467);		//tail sitdown l
 
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);

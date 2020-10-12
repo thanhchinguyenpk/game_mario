@@ -41,14 +41,19 @@
 #define MARIO_ANI_BIG_SITDOWN_RIGT		15
 #define MARIO_ANI_BIG_SITDOWN_LEFT	16
 
+
+
 #define MARIO_ANI_TAIL_IDLE_RIGHT			17
 #define MARIO_ANI_TAIL_IDLE_LEFT			18
 #define MARIO_ANI_TAIL_WALKING_RIGHT		19
 #define MARIO_ANI_TAIL_WALKING_LEFT			20
-#define MARIO_ANI_TAIL_JUMP_UP_LEFT			21
-#define MARIO_ANI_TAIL_JUMP_UP_RIGHT			22
-#define MARIO_ANI_TAIL_JUMP_DOWN_RIGHT			23
+#define MARIO_ANI_TAIL_JUMP_UP_RIGHT			21
+#define MARIO_ANI_TAIL_JUMP_DOWN_RIGHT			22
+#define MARIO_ANI_TAIL_JUMP_UP_LEFT				23
 #define MARIO_ANI_TAIL_JUMP_DOWN_LEFT			24
+#define MARIO_ANI_TAIL_SITDOWN_RIGHT			25
+#define MARIO_ANI_TAIL_SITDOWN_LEFT			26
+
 
 
 
@@ -68,6 +73,9 @@
 
 #define MARIO_BIG_TAIL_BBOX_WIDTH  21
 #define MARIO_BIG_TAIL_BBOX_HEIGHT 28
+
+#define MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH  22
+#define MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT 19
 
 
 
@@ -101,6 +109,7 @@ public:
 	void EndJumping() { jumping_start = 0; };
 	DWORD GetJumpingTime() { return jumping_start; };
 	bool GetIsInObject() { return is_in_object; };
+	int GetLevel() { return level; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

@@ -308,20 +308,77 @@ void CMario::Render()
 				ani = MARIO_ANI_SMALL_JUMP_LEFT;
 			}
 
+
 		}
 		
 	}
-	else if (level = MARIO_LEVEL_BIG_TAIL)
+	else if (level == MARIO_LEVEL_BIG_TAIL)
 	{
 
-		if (vx == 0)
+		/*if (vx == 0)
 		{
 			if (nx > 0) ani = MARIO_ANI_TAIL_IDLE_RIGHT;
 			else ani = MARIO_ANI_TAIL_IDLE_LEFT;
 		}
 		else if (vx > 0)
 			ani = MARIO_ANI_TAIL_WALKING_RIGHT;
-		else ani = MARIO_ANI_TAIL_WALKING_LEFT;
+		else ani = MARIO_ANI_TAIL_WALKING_LEFT;*/
+
+
+
+
+
+
+		if (is_in_object == true)
+		{
+			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
+			{
+				if (vx == 0) //nếu đứng yên
+				{
+					if (nx > 0) ani = MARIO_ANI_TAIL_IDLE_RIGHT;
+					else ani = MARIO_ANI_TAIL_IDLE_LEFT;
+
+					/*if (state == MARIO_STATE_JUMP)
+					{
+						ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
+						DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+					}*/
+
+				}
+				else if (vx > 0) //nếu di chuyển trái
+				{
+					ani = MARIO_ANI_TAIL_WALKING_RIGHT;
+				}
+				else if (vx < 0)
+				{
+					ani = MARIO_ANI_TAIL_WALKING_LEFT; // nếu di chuyển phải
+				}
+			}
+			else
+			{
+				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
+				if (nx > 0) ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
+				else ani = MARIO_ANI_TAIL_SITDOWN_LEFT;
+			}
+
+		}
+		else if (is_in_object == false)
+		{
+			if (nx > 0)
+				ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
+			else if (nx < 0)
+				ani = MARIO_ANI_TAIL_JUMP_DOWN_LEFT;
+
+
+			if (vy < 0.0f)
+			{
+				if (nx > 0)
+					ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT; // mới thêm zô
+				else
+					ani = MARIO_ANI_TAIL_JUMP_UP_LEFT;
+				//DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+			}
+		}
 	}
 
 	int alpha = 255;
@@ -385,8 +442,15 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 	else if (level == MARIO_LEVEL_BIG_TAIL)
 	{
-		right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+		if (is_sitdown == false) {
+			right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+		}
+		else
+		{
+			right = x + MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT;
+		}
 	}
 	else if(level==MARIO_LEVEL_SMALL)
 	{
