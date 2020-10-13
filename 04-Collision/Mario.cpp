@@ -308,12 +308,12 @@ void CMario::Render()
 					ani = MARIO_ANI_ORANGE_WALKING_LEFT; // nếu di chuyển phải
 				}
 			}
-		/*	else
+			else
 			{
 				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
-				if (nx > 0) ani = MARIO_ANI_BIG_SITDOWN_RIGT;
-				else ani = MARIO_ANI_BIG_SITDOWN_LEFT;
-			}*/
+				if (nx > 0) ani = MARIO_ANI_ORANGE_SITDOWN_RIGHT;
+				else ani = MARIO_ANI_ORANGE_SITDOWN_LEFT;
+			}
 
 		}
 		else if (is_in_object == false)

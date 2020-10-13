@@ -77,7 +77,8 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				
-
+				// biến bỏ qua viên đá đồng tiền đầu tiên là để bỏ qua viên đá mà con 
+				//nấm chui ra
 				if (boQuaVienDaDongTienDauTienAnNap == 1 && dynamic_cast<Brick_Coin*>(e->obj))
 				{
 					vx = -vx;

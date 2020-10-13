@@ -117,7 +117,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		mario->SetSpeed(0, 0);
 		break;
 	case DIK_DOWN:
-		if (mario->GetLevel() == MARIO_LEVEL_BIG)
+		if (mario->GetLevel() == MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 			mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT );
 		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 			mario->SetPosition(mario->x, mario->y + MARIO_BIG_TAIL_BBOX_HEIGHT - MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
@@ -136,7 +136,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
-		if(mario->GetLevel()== MARIO_LEVEL_BIG)
+		if(mario->GetLevel()== MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 			mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
 		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
@@ -276,6 +276,11 @@ void LoadResources()
 
 	sprites->Add(10056, 1357, 110, 1357 + 16, 110 + 26, texMarioPro);//jump up l
 	sprites->Add(10057, 1429, 110, 1429 + 16, 110 + 26, texMarioPro);//jump down l
+
+	sprites->Add(10058, 422, 118,422 + 14, 118 + 18, texMarioPro);//sit r
+	sprites->Add(10059, 1251, 118, 1251 + 14, 118 + 18, texMarioPro);//sit l
+
+
 
 
 
@@ -546,6 +551,18 @@ void LoadResources()
 	ani = new CAnimation(100);		// jumb down l
 	ani->Add(10057);
 	animations->Add(475, ani);
+
+	ani = new CAnimation(100);		// sit r
+	ani->Add(10058);
+	animations->Add(476, ani);
+
+	ani = new CAnimation(100);		// sit l
+	ani->Add(10059);
+	animations->Add(477, ani);
+
+
+
+
 	//====================================================================================================
 
 
@@ -749,6 +766,9 @@ void LoadResources()
 
 	mario->AddAnimation(474);		//jump  up l
 	mario->AddAnimation(475);		//jump down l
+
+	mario->AddAnimation(476);		//sit r
+	mario->AddAnimation(477);		//sit  l
 
 
 	
