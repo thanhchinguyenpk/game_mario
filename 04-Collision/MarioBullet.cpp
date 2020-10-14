@@ -88,13 +88,12 @@ void MarioBullet::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case GOOMBA_STATE_DIE:
-		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
-		vx = 0;
-		vy = 0;
-		break;
-	case GOOMBA_STATE_WALKING:
+	case BULLET_STATE_FLY_RIGHT:
 		vx = GOOMBA_WALKING_SPEED;
+		break;
+	case BULLET_STATE_FLY_LEFT:
+		vx = -GOOMBA_WALKING_SPEED;
+		break;
 		//vy = 0.07;
 	}
 }

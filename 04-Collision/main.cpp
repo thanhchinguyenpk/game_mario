@@ -108,13 +108,30 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			mario->SetIsInObject(false);
 		}
 		DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
-		
+
 		break;
 	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
+	{/*mario->SetState(MARIO_STATE_IDLE);
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		mario->SetPosition(50.0f,0.0f);
-		mario->SetSpeed(0, 0);
+		mario->SetSpeed(0, 0);*/
+		MarioBullet* temp = new MarioBullet();
+		temp->AddAnimation(14001);
+		
+		if (mario->GetNX() > 0)
+		{
+			temp->SetState(BULLET_STATE_FLY_RIGHT);
+			temp->SetPosition(mario->GetX() + 10 + 5, mario->GetY());
+		}
+		else
+		{
+			temp->SetState(BULLET_STATE_FLY_LEFT);
+			temp->SetPosition(mario->GetX() - 5, mario->GetY());
+		}
+			
+		objects.push_back(temp); 
+		mario->SetShoot(true);
+	}
 		break;
 	case DIK_DOWN:
 		if (mario->GetLevel() == MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
@@ -133,7 +150,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		mario->EndJumping();
 		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAABBBBBBBBBBBBBBBAAAAAAAAAAAAADown: %d\n", KeyCode);
 		break;
-	
+	case DIK_A:
+		mario->SetShoot(false);
+		break;
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
 		if(mario->GetLevel()== MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
@@ -279,6 +298,11 @@ void LoadResources()
 
 	sprites->Add(10058, 422, 118,422 + 14, 118 + 18, texMarioPro);//sit r
 	sprites->Add(10059, 1251, 118, 1251 + 14, 118 + 18, texMarioPro);//sit l
+
+	sprites->Add(10060,  280, 109,  280 + 14, 109 + 27, texMarioPro);// shoot bullet r
+	sprites->Add(10061,  297, 109,  297 + 14, 109 + 27, texMarioPro);//
+	sprites->Add(10062, 1393, 109, 1393 + 14, 109 + 27, texMarioPro);// shoot bullet l
+	sprites->Add(10063, 1376, 109, 1376 + 14, 109 + 27, texMarioPro);//
 
 
 
@@ -560,6 +584,17 @@ void LoadResources()
 	ani->Add(10059);
 	animations->Add(477, ani);
 
+	ani = new CAnimation(400);		// shoot bullet r
+	ani->Add(10060);
+	ani->Add(10061);
+	animations->Add(478, ani);
+
+	ani = new CAnimation(100);		// shoot bullet l
+	ani->Add(10062);
+	ani->Add(10063);
+	animations->Add(479, ani);
+
+
 
 
 
@@ -770,6 +805,8 @@ void LoadResources()
 	mario->AddAnimation(476);		//sit r
 	mario->AddAnimation(477);		//sit  l
 
+	mario->AddAnimation(478);		//shoot bullet r
+	mario->AddAnimation(479);		//shoot bullet l
 
 	
 

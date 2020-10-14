@@ -287,26 +287,35 @@ void CMario::Render()
 		{
 			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
-				if (vx == 0) //nếu đứng yên
+				if (is_shoot == true)
 				{
-					if (nx > 0) ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
-					else ani = MARIO_ANI_ORANGE_IDLE_LEFT;
-
-					/*if (state == MARIO_STATE_JUMP)
+					if (nx > 0) ani = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
+					else ani = MARIO_ANI_ORANGE_SHOOT_BULLET_LEFT;
+				}
+				else
+				{
+					if (vx == 0) //nếu đứng yên
 					{
-						ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
-						DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
-					}*/
+						if (nx > 0) ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
+						else ani = MARIO_ANI_ORANGE_IDLE_LEFT;
 
+						/*if (state == MARIO_STATE_JUMP)
+						{
+							ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
+							DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
+						}*/
+
+					}
+					else if (vx > 0) //nếu di chuyển trái
+					{
+						ani = MARIO_ANI_ORANGE_WALKING_RIGHT;
+					}
+					else if (vx < 0)
+					{
+						ani = MARIO_ANI_ORANGE_WALKING_LEFT; // nếu di chuyển phải
+					}
 				}
-				else if (vx > 0) //nếu di chuyển trái
-				{
-					ani = MARIO_ANI_ORANGE_WALKING_RIGHT;
-				}
-				else if (vx < 0)
-				{
-					ani = MARIO_ANI_ORANGE_WALKING_LEFT; // nếu di chuyển phải
-				}
+				
 			}
 			else
 			{
