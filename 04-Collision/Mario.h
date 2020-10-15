@@ -15,6 +15,7 @@
 #define MARIO_STATE_DIE				400
 #define MARIO_STATE_SITDOWN			500
 #define MARIO_STATE_SHOOT_BULLET			600
+#define MARIO_STATE_SPIN			700
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
@@ -68,6 +69,9 @@
 #define MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT			37
 #define MARIO_ANI_ORANGE_SHOOT_BULLET_LEFT			38
 
+#define MARIO_ANI_TAIL_SPIN_TAIL_RIGHT			39
+#define MARIO_ANI_TAIL_SPIN_TAIL_LEFT		40
+
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -105,11 +109,12 @@ class CMario : public CGameObject
 	bool is_in_object = false;
 	bool is_sitdown = false;
 	bool is_shoot = false;
+	bool is_spin = false;
 
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG_ORANGE;
+		level = MARIO_LEVEL_BIG_TAIL;
 		untouchable = 0;
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -119,6 +124,7 @@ public:
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void SetShoot(bool temp) { is_shoot = temp; };
+	void SetSpin(bool temp) { is_spin = temp; };
 
 	void StartJumping() { jumping_start = GetTickCount(); };
 	void EndJumping() { jumping_start = 0; };
@@ -126,6 +132,7 @@ public:
 	bool GetIsInObject() { return is_in_object; };
 	int GetLevel() { return level; };
 	bool GetIsShoot() { return is_shoot; };
+	bool GetIsSpin() { return is_spin; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

@@ -391,10 +391,12 @@ void CMario::Render()
 
 
 
-
-
-		if (is_in_object == true)
+		if (is_spin == true)
 		{
+			ani = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
+
+		} else if (is_in_object == true)
+		 {
 			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
 				if (vx == 0) //nếu đứng yên
@@ -447,8 +449,8 @@ void CMario::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
-	animations[ani]->Render(x, y, alpha);
+	DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
+	animations[MARIO_ANI_TAIL_SPIN_TAIL_RIGHT]->Render(x, y, alpha);
 
 	RenderBoundingBox();
 }
@@ -482,6 +484,9 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
+		break;
+	case MARIO_STATE_SPIN:
+		//is_spin == true;
 		break;
 	}
 }

@@ -64,6 +64,7 @@
 #define ID_TEX_PLANT	110
 #define ID_TEX_MARIOPRO	120
 #define ID_TEX_MARIO_BULLET	130
+#define ID_TEX_MARIO_TAIL_SPIN	140
 
 
 
@@ -111,27 +112,37 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 		break;
 	case DIK_A: // reset
-	{/*mario->SetState(MARIO_STATE_IDLE);
+	/*mario->SetState(MARIO_STATE_IDLE);
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		mario->SetPosition(50.0f,0.0f);
 		mario->SetSpeed(0, 0);*/
-		MarioBullet* temp = new MarioBullet();
-		temp->AddAnimation(14001);
-		
-		if (mario->GetNX() > 0)
+		if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 		{
-			temp->SetState(BULLET_STATE_FLY_RIGHT);
-			temp->SetPosition(mario->GetX() + 10 + 5, mario->GetY());
-		}
-		else
+			mario->SetSpin(true);
+			mario->SetState(MARIO_STATE_SPIN);
+
+		}else if(mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 		{
-			temp->SetState(BULLET_STATE_FLY_LEFT);
-			temp->SetPosition(mario->GetX() - 5, mario->GetY());
+			{
+				MarioBullet* temp = new MarioBullet();
+				temp->AddAnimation(14001);
+
+				if (mario->GetNX() > 0)
+				{
+					temp->SetState(BULLET_STATE_FLY_RIGHT);
+					temp->SetPosition(mario->GetX() + 10 + 5, mario->GetY());
+				}
+				else
+				{
+					temp->SetState(BULLET_STATE_FLY_LEFT);
+					temp->SetPosition(mario->GetX() - 5, mario->GetY());
+				}
+
+				objects.push_back(temp);
+				mario->SetShoot(true);
+			}
 		}
-			
-		objects.push_back(temp); 
-		mario->SetShoot(true);
-	}
+				
 		break;
 	case DIK_DOWN:
 		if (mario->GetLevel() == MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
@@ -152,6 +163,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		break;
 	case DIK_A:
 		mario->SetShoot(false);
+		mario->SetSpin(false);
 		break;
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
@@ -215,7 +227,7 @@ void LoadResources()
 	textures->Add(ID_TEX_PLANT, L"textures\\CONPHUNLUA.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_MARIOPRO, L"textures\\MARIOPRO.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MARIO_BULLET, L"textures\\MARIOPRO.png", D3DCOLOR_XRGB(255, 255, 255));
-
+	textures->Add(ID_TEX_MARIO_TAIL_SPIN, L"textures\\MARIO_TAIL_SPIN.png", D3DCOLOR_XRGB(255, 255, 255));
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -226,6 +238,7 @@ void LoadResources()
 	
 	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
 	LPDIRECT3DTEXTURE9 texMarioPro = textures->Get(ID_TEX_MARIOPRO);
+	LPDIRECT3DTEXTURE9 texMarioTailSpin = textures->Get(ID_TEX_MARIO_TAIL_SPIN);
 
 	// big
 	sprites->Add(10001, 246, 154, 260, 181, texMario);		// idle right
@@ -280,7 +293,7 @@ void LoadResources()
 	sprites->Add(10046, 522, 152, 522 + 22, 152 + 19, texMarioPro);	// tail sit r
 	sprites->Add(10047, 1143, 152,1143 + 22, 152+ 19, texMarioPro);// tail sit l
 
-	//organe
+	// lv organe
 	sprites->Add(10048, 206, 109, 206 + 14, 109 + 27, texMarioPro);// idle r
 	sprites->Add(10049, 1467, 109, 1467 + 14, 109 + 27, texMarioPro);// idle l
 
@@ -303,6 +316,23 @@ void LoadResources()
 	sprites->Add(10061,  297, 109,  297 + 14, 109 + 27, texMarioPro);//
 	sprites->Add(10062, 1393, 109, 1393 + 14, 109 + 27, texMarioPro);// shoot bullet l
 	sprites->Add(10063, 1376, 109, 1376 + 14, 109 + 27, texMarioPro);//
+
+	//lv tail spin tail
+	sprites->Add(10064,   12 - 2, 13,   12 + 21 + 7 + 12,  13 + 28, texMarioTailSpin);//spin tail right
+	sprites->Add(10065,       62, 13,        62 + 23 + 9,  13 + 28, texMarioTailSpin);//
+	sprites->Add(10066,   114 -8, 13,         114+ 16+ 8,  13 + 28, texMarioTailSpin);// 
+	sprites->Add(10067,  156 - 9, 12,           156 + 23,  13 + 29, texMarioTailSpin);//
+	sprites->Add(10068,  203 - 8, 13,       203 + 16 + 8,  13 + 28, texMarioTailSpin);//
+
+	sprites->Add(10069,  210 -7 -2, 61, 210+21+2, 61+28, texMarioTailSpin);//spin tail left
+	sprites->Add(10070,      158-9, 61,   158+23, 61+28, texMarioTailSpin);//
+	sprites->Add(10071,      113-8, 61, 113+16+8, 61+28, texMarioTailSpin);//
+	sprites->Add(10072,         64, 61,  64+23+9, 61+28, texMarioTailSpin);//
+	sprites->Add(10073,       24-8, 61,  24+16+8, 61+28, texMarioTailSpin);//
+
+
+
+
 
 
 
@@ -502,11 +532,13 @@ void LoadResources()
 	animations->Add(459, ani);
 
 	ani = new CAnimation(100);		// Mario tail walk r
+	ani->Add(10036);
 	ani->Add(10038);
 	ani->Add(10039);
 	animations->Add(460, ani);
 
 	ani = new CAnimation(100);		// l
+	ani->Add(10037);
 	ani->Add(10040);
 	ani->Add(10041);
 	animations->Add(461, ani);
@@ -593,6 +625,24 @@ void LoadResources()
 	ani->Add(10062);
 	ani->Add(10063);
 	animations->Add(479, ani);
+
+	//tail
+	ani = new CAnimation(100);		// spin tail right
+	ani->Add(10064);
+	ani->Add(10065);
+	ani->Add(10066);
+	ani->Add(10067);
+	ani->Add(10068);
+	animations->Add(480, ani);
+
+	//tail
+	ani = new CAnimation(100);		// spin tail left
+	ani->Add(10069);
+	ani->Add(10070);
+	ani->Add(10071);
+	ani->Add(10072);
+	ani->Add(10073);
+	animations->Add(481, ani);
 
 
 
@@ -807,6 +857,9 @@ void LoadResources()
 
 	mario->AddAnimation(478);		//shoot bullet r
 	mario->AddAnimation(479);		//shoot bullet l
+
+	mario->AddAnimation(480);		//tail spin r
+	mario->AddAnimation(481);		//tail spin l
 
 	
 
