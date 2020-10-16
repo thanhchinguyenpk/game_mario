@@ -72,6 +72,51 @@ void CAnimation::Render(float x, float y, int alpha)
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
+void CAnimation::StartTimeAnimation()
+{
+	int numberOfFrame= frames.size();
+	int timeOfEachFrame = frames[0]->GetTime();
+	int totolTimeOfAnimation = numberOfFrame * timeOfEachFrame;
+
+	timer = new TimerCustom(totolTimeOfAnimation);
+
+	DebugOut(L"litmit timeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee Error: %d\n", timer->limitTime);
+	timer->StartTime();
+
+	/*int timerLimitTime = 0;
+	if (limitTime == -1)
+	{
+		for (int i = 0; i < frames.size(); i++)
+		{
+			timerLimitTime += frames[i]->GetTime();
+		}
+	}
+	else
+	{
+		timerLimitTime = limitTime;
+	}
+
+	timer = new TimerCustom(timerLimitTime);
+	timer->StartTime();*/
+	
+
+
+}
+
+bool CAnimation::IsRenderDone()
+{
+
+	/*DebugOut(L"startime::::  %d\n", timer->startTime);
+	DebugOut(L"gettichcout  %lu\n", GetTickCount());
+	DebugOut(L"limit time  %lu\n", timer->limitTime);*/
+	bool b = timer->IsTimeUp();
+	if (b)
+	{
+		timer->Reset();
+	}
+	return b;
+}
+
 CAnimations * CAnimations::__instance = NULL;
 
 CAnimations * CAnimations::GetInstance()

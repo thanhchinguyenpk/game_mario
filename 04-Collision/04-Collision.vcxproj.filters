@@ -72,6 +72,9 @@
     <ClInclude Include="MarioBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TimerCustom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -129,6 +132,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MarioBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerCustom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,9 @@
 #pragma once
 #include <Windows.h>
 #include <d3dx9.h>
+
 #include <unordered_map>
+#include "TimerCustom.h"
 
 using namespace std;
 
@@ -58,6 +60,7 @@ typedef CAnimationFrame *LPANIMATION_FRAME;
 
 class CAnimation
 {
+	TimerCustom *timer;
 	DWORD lastFrameTime;
 	int defaultTime;
 	int currentFrame;
@@ -65,7 +68,12 @@ class CAnimation
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
-	void Render(float x, float y, int alpha=255);
+	void Render(float x, float y, int alpha = 255);
+	void ResetCurrentFrame() { currentFrame = -1; };
+	void StartTimeAnimation();
+	bool IsRenderDone();
+	
+
 };
 
 typedef CAnimation *LPANIMATION;

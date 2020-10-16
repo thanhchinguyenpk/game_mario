@@ -215,6 +215,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	
+	if (GetState() == MARIO_STATE_SPIN)
+	{
+		bool temp = animations[39]->IsRenderDone();
+		DebugOut(L"######################################## \n");
+	}
+
+	DebugOut(L"stateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: %d\n", GetState());
+
+	if (GetState() == MARIO_STATE_SPIN && animations[39]->IsRenderDone())
+	{
+		DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
+		SetState(MARIO_STATE_IDLE);
+		SetSpin(false);
+		
+	}
 
 	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
 }
@@ -449,8 +465,8 @@ void CMario::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
-	animations[MARIO_ANI_TAIL_SPIN_TAIL_RIGHT]->Render(x, y, alpha);
+	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
+	animations[ani]->Render(x, y, alpha);
 
 	RenderBoundingBox();
 }
@@ -487,6 +503,8 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_SPIN:
 		//is_spin == true;
+		animations[39]->ResetCurrentFrame();
+		animations[39]->StartTimeAnimation();
 		break;
 	}
 }

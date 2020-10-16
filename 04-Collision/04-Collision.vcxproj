@@ -141,6 +141,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="TimerCustom.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="TimerCustom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="04-Collision.rc" />

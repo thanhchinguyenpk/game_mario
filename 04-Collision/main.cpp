@@ -162,8 +162,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAABBBBBBBBBBBBBBBAAAAAAAAAAAAADown: %d\n", KeyCode);
 		break;
 	case DIK_A:
-		mario->SetShoot(false);
-		mario->SetSpin(false);
+		//mario->SetShoot(false);
+		//mario->SetSpin(false);
 		break;
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
@@ -175,7 +175,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	}
 }
 
-void CSampleKeyHander::KeyState(BYTE *states)
+void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
@@ -183,11 +183,16 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else if(game->IsKeyDown(DIK_DOWN))
+	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_SITDOWN);
 	else
-		mario->SetState(MARIO_STATE_IDLE);
+	{
+		if (mario->GetState() != MARIO_STATE_SPIN)
+			mario->SetState(MARIO_STATE_IDLE);
+
+	}
 }
+		
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
