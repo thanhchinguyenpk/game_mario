@@ -5,7 +5,7 @@ void CBrick::Render()
 	animations[0]->Render(x, y);
 	//RenderBoundingBox();
 }
-
+//hehe
 void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;

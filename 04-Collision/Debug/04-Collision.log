@@ -1,0 +1,66 @@
+﻿  Brick.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  BrickBlink.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Brick_Coin.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Coin.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  CoinFly.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  ConCo.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  debug.cpp
+  FirePlant.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Game.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(60,39): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(60,21): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(274,26): warning C4305: '=': truncation from '__int64' to 'float'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(275,24): warning C4305: '=': truncation from '__int64' to 'float'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(285,26): warning C4305: '=': truncation from '__int64' to 'float'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Game.cpp(286,24): warning C4305: '=': truncation from '__int64' to 'float'
+  GameObject.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Goomba.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  main.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\ConCo.h(25): message : see previous definition of 'CONCO_ANI_DIE'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\OngNuoc.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Brick.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\OngNuoc.h(5,1): warning C4005: 'BRICK_BBOX_HEIGHT': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Brick.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(67,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\CoinFly.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(75,1): warning C4005: 'GOOMBA_STATE_DIE': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Goomba.h(11): message : see previous definition of 'GOOMBA_STATE_DIE'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1012,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1017,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1067,21): warning C4018: '<': signed/unsigned mismatch
+  Mario.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\ConCo.h(25): message : see previous definition of 'CONCO_ANI_DIE'
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+  MarioBullet.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Mushroom.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mushroom.cpp(35,19): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  OngNuoc.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Plant.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Sprites.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Textures.cpp
+  TimerCustom.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
+  04-Collision.vcxproj -> C:\Users\admin\Desktop\GameMap\game_mario\Debug\04-Collision.exe
