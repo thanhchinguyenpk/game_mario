@@ -41,8 +41,10 @@ public:
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
-	float vx;
+	float vx=0.001;
 	float vy;
+
+	float acceleration =0.001;
 
 	int nx;	 
 

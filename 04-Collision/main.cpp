@@ -39,13 +39,13 @@
 #include "OngNuoc.h"
 #include "Plant.h"
 #include "MarioBullet.h"
+#include "Map.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH	 320
-#define SCREEN_HEIGHT	 240
+
 
 #define MAX_FRAME_RATE 120
 
@@ -82,6 +82,7 @@ BrickBlink* brickblink;
 OngNuoc* ongnuoc;
 Plant* plant;
 MarioBullet* mario_bullet;
+Map* map;
 
 
 
@@ -118,6 +119,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		mario->SetSpeed(0, 0);*/
 		if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 		{
+			DebugOut(L"[INFO] ssssssssssssssssssssssssssssssssssssssssssssss: %d\n", KeyCode);
 			mario->SetSpin(true);
 			mario->SetState(MARIO_STATE_SPIN);
 
@@ -180,17 +182,27 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else if (game->IsKeyDown(DIK_DOWN))
-		mario->SetState(MARIO_STATE_SITDOWN);
-	else
 	{
+		//mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		//mario->acceleration += 0.01f;
+
+		//DebugOut(L"[INFO] gai toccccc: %f\n", mario->acceleration);
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() +10, CGame::GetInstance()->GetCamY());
+	}
+	else if (game->IsKeyDown(DIK_LEFT))
+		//mario->SetState(MARIO_STATE_WALKING_LEFT);
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+	else if (game->IsKeyDown(DIK_DOWN))
+		//mario->SetState(MARIO_STATE_SITDOWN);
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
+	else if (game->IsKeyDown(DIK_UP))
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
+	/*{
 		if (mario->GetState() != MARIO_STATE_SPIN)
 			mario->SetState(MARIO_STATE_IDLE);
 
-	}
+	}*/
+
 }
 		
 
@@ -997,6 +1009,19 @@ void LoadResources()
 	//DebugOut(L"[ERROR------------------------------] day la sizeeeeeee:  %d\n", objects.size());
 
 
+	//map
+	/*void Map::LoadMap(int id,
+	LPCWSTR mapFilePath,
+	int RowMap,
+	int ColumnMap,
+	LPCWSTR mapFileTexture,
+	int RowTile,
+	int ColumnTile,
+	int TileFrameWidth,
+	int TileFrameHeight)*/
+	map = new Map();
+	map->LoadMap(0, L"textures\\map_thanh.txt", 41, 176, L"textures\\Final.png", 30, 29, 48, 48);
+
 }
 
 /*
@@ -1045,7 +1070,9 @@ void Update(DWORD dt)
 	//cho cái cam bằng nửa chiều cao, chiều rộng của mario
 	//xét cái chiều x của camera bằng chiều x của mario  như vậy nó sẽ đi theo thằng mario
 
-	CGame::GetInstance()->SetCamPos(cx+90, 0.0f /*cy*/);
+	//CGame::GetInstance()->SetCamPos(cx+90, 0 /*cy*/);
+
+	
 }
 
 /*
@@ -1063,15 +1090,16 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
+		//map->Draw();
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
-
+		
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
 
 	// Display back buffer content to the screen
+	
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
@@ -1175,8 +1203,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
-
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	
 	Run();
 
 	return 0;

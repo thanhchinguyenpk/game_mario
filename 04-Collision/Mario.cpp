@@ -41,6 +41,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += MARIO_GRAVITY*dt;
 
+	
+	
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -222,7 +225,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		DebugOut(L"######################################## \n");
 	}
 
-	DebugOut(L"stateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: %d\n", GetState());
+	
 
 	if (GetState() == MARIO_STATE_SPIN && animations[39]->IsRenderDone())
 	{
@@ -478,8 +481,10 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
+		//vx = MARIO_WALKING_SPEED;
 		nx = 1;
+		DebugOut(L"[INFO] vannnn toccccc~~~~~: %f\n", vx);
+		vx += acceleration * dt;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
 		vx = -MARIO_WALKING_SPEED;
