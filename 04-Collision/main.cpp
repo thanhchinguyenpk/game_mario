@@ -183,25 +183,25 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		//mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		//mario->acceleration += 0.01f;
 
 		//DebugOut(L"[INFO] gai toccccc: %f\n", mario->acceleration);
-		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() +10, CGame::GetInstance()->GetCamY());
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() +10, CGame::GetInstance()->GetCamY());
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
-		//mario->SetState(MARIO_STATE_WALKING_LEFT);
-		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+		mario->SetState(MARIO_STATE_WALKING_LEFT);
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
 	else if (game->IsKeyDown(DIK_DOWN))
-		//mario->SetState(MARIO_STATE_SITDOWN);
-		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
+		mario->SetState(MARIO_STATE_SITDOWN);
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
 	else if (game->IsKeyDown(DIK_UP))
-		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
-	/*{
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
+	{
 		if (mario->GetState() != MARIO_STATE_SPIN)
 			mario->SetState(MARIO_STATE_IDLE);
 
-	}*/
+	}
 
 }
 		
@@ -1070,7 +1070,7 @@ void Update(DWORD dt)
 	//cho cái cam bằng nửa chiều cao, chiều rộng của mario
 	//xét cái chiều x của camera bằng chiều x của mario  như vậy nó sẽ đi theo thằng mario
 
-	//CGame::GetInstance()->SetCamPos(cx+90, 0 /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx+90, 0 /*cy*/);
 
 	
 }
@@ -1203,7 +1203,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 	
 	Run();
 

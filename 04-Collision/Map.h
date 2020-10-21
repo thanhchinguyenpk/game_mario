@@ -1,8 +1,8 @@
 #pragma once
 #include "Textures.h"
 #include "Sprites.h"
-#define SCREEN_WIDTH	760
-#define SCREEN_HEIGHT	 730
+#define SCREEN_WIDTH	320//760
+#define SCREEN_HEIGHT	 340//730
 
 
 #define BLACKBOARDHEIGHT		72

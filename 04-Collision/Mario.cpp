@@ -236,6 +236,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
+
 }
 
 void CMario::Render()
@@ -481,10 +482,10 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		//vx = MARIO_WALKING_SPEED;
+		vx = MARIO_WALKING_SPEED;
 		nx = 1;
 		DebugOut(L"[INFO] vannnn toccccc~~~~~: %f\n", vx);
-		vx += acceleration * dt;
+		//vx += acceleration * dt;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
 		vx = -MARIO_WALKING_SPEED;
