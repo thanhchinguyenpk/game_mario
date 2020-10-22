@@ -1,0 +1,9 @@
+﻿  debug.cpp
+  Game.cpp
+  GameObject.cpp
+C:\Users\admin\Desktop\GameMap\game_mario\02-Sprite\GameObject.cpp(23,14): warning C4101: 'ani': unreferenced local variable
+  main.cpp
+  Sprites.cpp
+  Textures.cpp
+  Generating Code...
+  02-Sprite.vcxproj -> C:\Users\admin\Desktop\GameMap\game_mario\Debug\02-Sprite.exe

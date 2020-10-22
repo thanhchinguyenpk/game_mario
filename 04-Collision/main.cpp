@@ -912,7 +912,7 @@ void LoadResources()
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation(601);
-		brick->SetPosition(0 + i*16.0f, 150); // ủa  tại sao trừ  thì nó lại lúng xuống nhỉ? //honf ddas mas oi
+		brick->SetPosition(0 + i*48.0f, 550); //1 ủa  tại sao trừ  thì nó lại lúng xuống nhỉ? //honf ddas mas oi
 		objects.push_back(brick);
 	}
 
@@ -1020,7 +1020,7 @@ void LoadResources()
 	int TileFrameWidth,
 	int TileFrameHeight)*/
 	map = new Map();
-	map->LoadMap(0, L"textures\\map_thanh.txt", 41, 176, L"textures\\Final.png", 30, 29, 48, 48);
+	map->LoadMap(0, L"textures\\map_thanh.txt", 41, 176, L"textures\\Final1.png", 30, 29, 48, 48);
 
 }
 
@@ -1070,7 +1070,7 @@ void Update(DWORD dt)
 	//cho cái cam bằng nửa chiều cao, chiều rộng của mario
 	//xét cái chiều x của camera bằng chiều x của mario  như vậy nó sẽ đi theo thằng mario
 
-	CGame::GetInstance()->SetCamPos(cx+90, 0 /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx+90+200, 1 /*cy*/);
 
 	
 }
@@ -1090,7 +1090,7 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		//map->Draw();
+		map->Draw();
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
 		
@@ -1203,7 +1203,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 	
 	Run();
 

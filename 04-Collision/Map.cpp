@@ -47,8 +47,45 @@ void Map::LoadMap(int id,
 	Load();
 }
 
+void Map::InitMap(int row, int column)
+{
+	DebugOut(L"[INFO] Start init map.  \n");
+
+
+	int const row_const = row+100;
+	int const column_const = column+100;
+
+	 TileMapArray2D = new int* [row_const];
+
+	for (int i = 0; i < row_const; ++i)
+	{
+		TileMapArray2D[i] = new int[column_const];
+	}
+
+
+	DebugOut(L"[INFO] Finish init map. \n");
+}
+
+void Map::FreeMap(int row, int column)
+{
+	DebugOut(L"[INFO] Start delete map. \n");
+
+	//Free each sub-array
+	for (int i = 0; i < row; ++i) {
+		delete[] TileMapArray2D[i];
+	}
+
+	//Free the array of pointers
+	delete[] TileMapArray2D;
+
+
+	DebugOut(L"[INFO] Finish delete map. \n");
+}
+
 void Map::Load()
 {
+	InitMap(RowMap, ColumnMap);
+
 	DebugOut(L"[INFO] Start loading map resources from : %s \n", mapFilePath);
 
 	ifstream f(mapFilePath, ios::in);
@@ -57,7 +94,8 @@ void Map::Load()
 	{
 		for (int j = 0; j < ColumnMap; j++)
 		{
-			f >> TileMap[i][j];
+			f >> TileMapArray2D[i][j];
+			//DebugOut(L"vi tri do la$$$$$$$$$$$$$$$$$$$: %d\n", TileMapArray2D[i][j]);
 		}
 	}
 
@@ -66,17 +104,17 @@ void Map::Load()
 	DebugOut(L"[INFO] Done loading map resources %s\n", mapFilePath);
 	DebugOut(L"vi tri do la ^^^^^^^^^^^^^^^^^^: %d\n", RowMap);
 	DebugOut(L"vi tri do la ^^^^^^^^^^^^^^^^^^: %d\n", ColumnMap);
-	for (int j = 0; j < ColumnMap; j++)
-	{
-		DebugOut(L"vi tri do la $$$$$$$$$$$$: %d\n", TileMap[41 - 1][j]);
+	//for (int j = 0; j < ColumnMap; j++)
+	//{
+	//	DebugOut(L"vi tri do la $$$$$$$$$$$$: %d\n", TileMapArray2D[41 - 1][j]);
 		//f >> TileMap[Rowmap-1][j];
-	}
+	//}
 
-	for (int j = 0; j < ColumnMap; j++)
-	{
-		DebugOut(L"vi tri do la$$$$$$$$$$$$$$$$$$$: %d\n", TileMap[41 - 2][j]);
+	//for (int j = 0; j < ColumnMap; j++)
+	//{
+	//	DebugOut(L"vi tri do la$$$$$$$$$$$$$$$$$$$: %d\n", TileMapArray2D[41 - 2][j]);
 		//f >> TileMap[Rowmap-1][j];
-	}
+	//}
 	
 
 }
@@ -179,9 +217,11 @@ void Map::Draw()
 	//vector<LPSPRITE> tiles = CTiles::GetInstance()->GetTiles();
 	for (int i = 15; i < end_row + x; i++) {
 		for (int j = begin_column; j < end_column; j++) {
-			if (TileMap[i][j] != 0) {
+			if (TileMapArray2D[i][j] != 0) {
 				//tiles[tile_map[i][j] - 1]->Draw(j * w, (i - x) * (h), 255);
-				tileMapSprite->Get(TileMap[i][j])->Draw(j * w, (i - x) * (h), 255);
+				//DebugOut(L"[INFO] Start loading map resources from i : %d \n", i);
+				//DebugOut(L"[INFO] Start loading map resources from j: %d \n", j);
+				tileMapSprite->Get(TileMapArray2D[i][j])->Draw(j * w, (i - x) * (h), 255);
 			}
 		}
 	}

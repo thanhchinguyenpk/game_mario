@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
-#define BRICK_COIN_BBOX_WIDTH  16
-#define BRICK_COIN_BBOX_HEIGHT 16
+#define BRICK_COIN_BBOX_WIDTH  16*3
+#define BRICK_COIN_BBOX_HEIGHT 16*3
 
 #define BRICK_COIN_STATE_CHUA_DAP	100
 #define BRICK_COIN_STATE_DA_DAP 	200
