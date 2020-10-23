@@ -19,7 +19,7 @@ class Map
 
 	int idMap;
 	
-	int **TileMapArray2D; 
+	int TileMapArray2D[300][300]; 
 	//So cot va hang toi da phai lon hon Screen Resolution chia cho do cao/dai cua frame tile
 	//So cot va hang toi da cua Map (thay doi tuy y, game khong qua lon nen 100 is ok)
 public:

@@ -44,7 +44,7 @@ public:
 	float vx=0.001;
 	float vy;
 
-	float acceleration =0.001;
+	//float acceleration =0.001;
 
 	int nx;	 
 

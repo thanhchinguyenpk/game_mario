@@ -40,6 +40,7 @@
 #include "Plant.h"
 #include "MarioBullet.h"
 #include "Map.h"
+#include "Flatform.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -83,7 +84,7 @@ OngNuoc* ongnuoc;
 Plant* plant;
 MarioBullet* mario_bullet;
 Map* map;
-
+Flatform* flatform;
 
 
 
@@ -201,6 +202,10 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		if (mario->GetState() != MARIO_STATE_SPIN)
 			mario->SetState(MARIO_STATE_IDLE);
 
+	}
+	else
+	{
+		mario->SetState(MARIO_STATE_IDLE);
 	}
 
 }
@@ -908,13 +913,13 @@ void LoadResources()
 	objects.push_back(brick);
 
 
-	for (int i = 0; i < 90; i++)
+	/*for (int i = 0; i < 90; i++)
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation(601);
-		brick->SetPosition(0 + i*48.0f, 550); //1 ủa  tại sao trừ  thì nó lại lúng xuống nhỉ? //honf ddas mas oi
+		brick->SetPosition(0 + i*48.0f, 300); //1 ủa  tại sao trừ  thì nó lại lúng xuống nhỉ? //honf ddas mas oi
 		objects.push_back(brick);
-	}
+	}*/
 
 	// and Goombas 
 	/*for (int i = 0; i < 4; i++)
@@ -961,6 +966,44 @@ void LoadResources()
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 
+	//chùm gạch đầu tiên
+	brickcoin = new Brick_Coin();
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(530,340);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+
+	brickcoin = new Brick_Coin();
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(530+48-3, 340);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+
+	//chùm gạch thứ 2
+	brickcoin = new Brick_Coin();
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(677, 224);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+
+	brickcoin = new Brick_Coin();
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(677+48-3, 224);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+
+	brickcoin = new Brick_Coin();
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(530 , 340);
+	//set state đâu?
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+
 
 /*	ongnuoc = new OngNuoc();
 	ongnuoc->AddAnimation(12001);
@@ -999,13 +1042,18 @@ void LoadResources()
 
 	mario_bullet = new MarioBullet();
 	mario_bullet->AddAnimation(14001);
-	mario_bullet->SetPosition(50,50);
+	mario_bullet->SetPosition(100,50);
 	//set state đâu?
 	mario_bullet->SetState(100);
 	objects.push_back(mario_bullet);
 
 
+	flatform = new Flatform(8500, 20);
+	flatform->SetPosition(0, 532);
+	objects.push_back(flatform);
 
+
+	
 	//DebugOut(L"[ERROR------------------------------] day la sizeeeeeee:  %d\n", objects.size());
 
 

@@ -4,8 +4,8 @@
 #define CONCO_WALKING_SPEED			 0.03f;
 #define CONCO_MAI_RUA_CHAY_SPEED	 0.1f;
 
-#define COIN_BBOX_WIDTH		 14 //ok
-#define COIN_BBOX_HEIGHT		 16 //ok
+#define COIN_BBOX_WIDTH		 14*3 //ok
+#define COIN_BBOX_HEIGHT		 16*3 //ok
 #define CONCO_BBOX_HEIGHT_DIE	 9
 
 #define CONCO_STATE_WALKING_LEFT	100

@@ -52,10 +52,10 @@ void Map::InitMap(int row, int column)
 	DebugOut(L"[INFO] Start init map.  \n");
 
 
-	int const row_const = row+100;
-	int const column_const = column+100;
+	int const row_const = row;
+	int const column_const = column;
 
-	 TileMapArray2D = new int* [row_const];
+	 int **TileMapArray2D = new int* [row_const];
 
 	for (int i = 0; i < row_const; ++i)
 	{

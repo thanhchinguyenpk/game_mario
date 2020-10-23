@@ -35,6 +35,8 @@ extern vector<LPGAMEOBJECT> objects;
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
+	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -62,10 +64,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	if (GetTickCount() - jumping_start < 2000) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
+	if (GetTickCount() - jumping_start < 4000) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
 	{											// > ấn nhẹ nhảy cao , ấn mạnh nhảy thấp.
-		vy -= 0.02f;
-		DebugOut(L"[ERROR-----------get-------------------] DINPUT::GetDeviceData failed. Error: %lu\n", GetTickCount());
+		vy -= 0.02f*2;
+		//DebugOut(L"[ERROR-----------get-------------------] DINPUT::GetDeviceData failed. Error: %lu\n", GetTickCount());
 	}
 
 	// No collision occured, proceed normally
@@ -470,7 +472,7 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
-	animations[ani]->Render(x, y, alpha);
+	animations[ani]->Render(x, y,alpha);
 
 	RenderBoundingBox();
 }
