@@ -25,6 +25,7 @@
 #include "Coin.h"
 #include "CoinFly.h"
 #include "Mushroom.h"
+#include "Flatform.h"
 
 
 
@@ -35,6 +36,10 @@ extern vector<LPGAMEOBJECT> objects;
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	float x_flatform = 0;
+	float y_flatform = 0;
+
+	float vy_flatform = 0;
 
 	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
 	// Calculate dx, dy 
@@ -85,6 +90,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// filter đối tượng trên từng trục để xử lí va chạm
 
 		// block // đẩy lùi ra so với chiều của các hướng bị va chạm, 0.4f là tránh bị trùng mép
+	
+		x_flatform = min_tx * dx + nx * 0.4f;
+		y_flatform = min_ty * dy + ny * 0.4f;
+
+		vy_flatform = vy;
+		
 		x += min_tx*dx + nx*0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty*dy + ny*0.4f;
 		
@@ -211,7 +222,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 
-
+			if (dynamic_cast<Flatform*>(e->obj)) {
+				if (e->ny > 0) // hướng xuống
+				{
+					y +=( y_flatform + y_flatform);// double for safe
+					vy = vy_flatform;
+				}
+			}
 
 		}
 	}

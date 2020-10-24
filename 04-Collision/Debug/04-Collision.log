@@ -1,55 +1,9 @@
-﻿  main.cpp
+﻿  Mario.cpp
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\GameObject.h(44,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\ConCo.h(25): message : see previous definition of 'CONCO_ANI_DIE'
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
 C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\BrickBlink.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Brick.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\BrickBlink.h(5,1): warning C4005: 'BRICK_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Brick.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\OngNuoc.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\BrickBlink.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\OngNuoc.h(5,1): warning C4005: 'BRICK_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\BrickBlink.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(17,1): warning C4005: 'MARIO_WALKING_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(4): message : see previous definition of 'MARIO_WALKING_SPEED'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(19,1): warning C4005: 'MARIO_JUMP_SPEED_Y': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(6): message : see previous definition of 'MARIO_JUMP_SPEED_Y'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(20,1): warning C4005: 'MARIO_JUMP_DEFLECT_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(7): message : see previous definition of 'MARIO_JUMP_DEFLECT_SPEED'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(21,1): warning C4005: 'MARIO_GRAVITY': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(8): message : see previous definition of 'MARIO_GRAVITY'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(22,1): warning C4005: 'MARIO_DIE_DEFLECT_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(9): message : see previous definition of 'MARIO_DIE_DEFLECT_SPEED'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(50,1): warning C4005: 'MARIO_BIG_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(81): message : see previous definition of 'MARIO_BIG_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(51,1): warning C4005: 'MARIO_BIG_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(82): message : see previous definition of 'MARIO_BIG_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(53,1): warning C4005: 'MARIO_BIG_SITDOWN_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(84): message : see previous definition of 'MARIO_BIG_SITDOWN_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(54,1): warning C4005: 'MARIO_BIG_SITDOWN_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(85): message : see previous definition of 'MARIO_BIG_SITDOWN_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(56,1): warning C4005: 'MARIO_SMALL_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(87): message : see previous definition of 'MARIO_SMALL_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(57,1): warning C4005: 'MARIO_SMALL_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(88): message : see previous definition of 'MARIO_SMALL_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(59,1): warning C4005: 'MARIO_BIG_TAIL_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(90): message : see previous definition of 'MARIO_BIG_TAIL_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(60,1): warning C4005: 'MARIO_BIG_TAIL_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(91): message : see previous definition of 'MARIO_BIG_TAIL_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(62,1): warning C4005: 'MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(93): message : see previous definition of 'MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(63,1): warning C4005: 'MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.h(94): message : see previous definition of 'MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(67,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\CoinFly.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\MarioBullet.h(75,1): warning C4005: 'GOOMBA_STATE_DIE': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Goomba.h(11): message : see previous definition of 'GOOMBA_STATE_DIE'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1085,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1090,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\main.cpp(1142,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameMap\game_mario\04-Collision\Mario.cpp(49,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameMap\game_mario\Debug\04-Collision.exe

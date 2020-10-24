@@ -218,9 +218,6 @@ void Map::Draw()
 	for (int i = 15; i < end_row + x; i++) {
 		for (int j = begin_column; j < end_column; j++) {
 			if (TileMapArray2D[i][j] != 0) {
-				//tiles[tile_map[i][j] - 1]->Draw(j * w, (i - x) * (h), 255);
-				//DebugOut(L"[INFO] Start loading map resources from i : %d \n", i);
-				//DebugOut(L"[INFO] Start loading map resources from j: %d \n", j);
 				tileMapSprite->Get(TileMapArray2D[i][j])->Draw(j * w, (i - x) * (h), 255);
 			}
 		}

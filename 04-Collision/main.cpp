@@ -885,7 +885,7 @@ void LoadResources()
 
 	
 
-	mario->SetPosition(50.0f, 0);
+	mario->SetPosition(1300.0f, 0);
 	objects.push_back(mario);
 
 /*	for (int i = 0; i < 5; i++)
@@ -1047,9 +1047,51 @@ void LoadResources()
 	mario_bullet->SetState(100);
 	objects.push_back(mario_bullet);
 
-
-	flatform = new Flatform(8500, 20);
+	//nền
+	flatform = new Flatform(1872, 20);
 	flatform->SetPosition(0, 532);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(1392, 100);
+	flatform->SetPosition(1872, 532-50);
+	objects.push_back(flatform);
+
+
+	//chùm ô vuông đầu tiên:
+	flatform = new Flatform(144, 5);
+	flatform->SetPosition(722, 388-2);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(144, 5);
+	flatform->SetPosition(815,288);
+	objects.push_back(flatform);
+
+	//ống nước
+	flatform = new Flatform(91, 144);
+	flatform->SetPosition(1058, 388-2);
+	objects.push_back(flatform);
+
+	//group 4 cục: x-c-t-x
+
+	//x
+	flatform = new Flatform(243, 5);
+	flatform->SetPosition(1199, 388-2);
+	objects.push_back(flatform);
+
+	//c
+	flatform = new Flatform(183, 5);
+	flatform->SetPosition(1394, 288);
+	objects.push_back(flatform);
+
+	//t
+	flatform = new Flatform(188, 5);
+	flatform->SetPosition(1537, 193);
+	objects.push_back(flatform);
+
+
+	//x
+	flatform = new Flatform(286, 5);
+	flatform->SetPosition(1537, 432);
 	objects.push_back(flatform);
 
 

@@ -2,7 +2,7 @@
 
 void Flatform::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void Flatform::GetBoundingBox(float& l, float& t, float& r, float& b)
