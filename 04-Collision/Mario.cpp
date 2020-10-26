@@ -273,8 +273,9 @@ void CMario::Render()
 			{
 				if (vx == 0) //nếu đứng yên
 				{
-					if (nx > 0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-					else ani = MARIO_ANI_BIG_IDLE_LEFT;
+					//if (nx > 0)
+						ani = MARIO_ANI_BIG_IDLE_RIGHT;
+					//else ani = MARIO_ANI_BIG_IDLE_LEFT;
 
 					/*if (state == MARIO_STATE_JUMP)
 					{
@@ -440,8 +441,9 @@ void CMario::Render()
 			{
 				if (vx == 0) //nếu đứng yên
 				{
-					if (nx > 0) ani = MARIO_ANI_TAIL_IDLE_RIGHT;
-					else ani = MARIO_ANI_TAIL_IDLE_LEFT;
+					//if (nx > 0) 
+						ani = MARIO_ANI_TAIL_IDLE_RIGHT;
+					//else ani = MARIO_ANI_TAIL_IDLE_LEFT;
 
 					/*if (state == MARIO_STATE_JUMP)
 					{
@@ -462,7 +464,10 @@ void CMario::Render()
 			else
 			{
 				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
-				if (nx > 0) ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
+				
+				
+				if (nx > 0)
+					ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
 				else ani = MARIO_ANI_TAIL_SITDOWN_LEFT;
 			}
 
@@ -489,7 +494,15 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
-	animations[ani]->Render(x, y,alpha);
+	//void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
+
+	int offset_tail = 13;
+
+	//if (nx > 0)
+		//offset_tail = 0;
+	//else
+		//offset_tail = 21;
+	animations[ani]->Render(x, y, 0,255,nx);
 
 	RenderBoundingBox();
 }

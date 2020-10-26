@@ -59,9 +59,11 @@ void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
 	D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(p.x + offsetX, p.y), 0,
 		&D3DXVECTOR2(3.0f * nx, 3.0f), NULL, 0.0f, NULL);
 
+	D3DXVECTOR3 center = D3DXVECTOR3((float)(right - left) / 2,( float)(bottom - top) / 2, 0);
+
 	D3DXMATRIX newTransform = oldTransform * middleTransform;
 	spriteHandler->SetTransform(&newTransform);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldTransform);
 }
 
@@ -88,7 +90,9 @@ void CAnimation::Add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(float x, float y, int alpha)
+
+// Render(float x, float y,int offetX = 0 , int alpha = 255,int nx=1);
+void CAnimation::Render(float x, float y, int offetX, int alpha , int nx )
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1) 
@@ -108,7 +112,7 @@ void CAnimation::Render(float x, float y, int alpha)
 		
 	}
 
-	frames[currentFrame]->GetSprite()->DrawFlipX(x, y);
+	frames[currentFrame]->GetSprite()->DrawFlipX(x, y,offetX,alpha,nx);
 }
 
 void CAnimation::StartTimeAnimation()
