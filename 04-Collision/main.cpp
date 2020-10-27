@@ -99,7 +99,7 @@ CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_S:
@@ -109,22 +109,29 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		{
 			mario->SetState(MARIO_STATE_JUMP);
 			mario->SetIsInObject(false);
+
+
 		}
 		DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
 
 		break;
-	case DIK_A: // reset
+	case DIK_A:
+	case DIK_BACKSPACE:// reset
 	/*mario->SetState(MARIO_STATE_IDLE);
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		mario->SetPosition(50.0f,0.0f);
 		mario->SetSpeed(0, 0);*/
+
+		DebugOut(L"[INFO] ssssssssssssssssssssssssssssssssssssssssssssss: %d\n", KeyCode);
+
 		if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 		{
-			DebugOut(L"[INFO] ssssssssssssssssssssssssssssssssssssssssssssss: %d\n", KeyCode);
+
 			mario->SetSpin(true);
 			mario->SetState(MARIO_STATE_SPIN);
 
-		}else if(mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
+		}
+		else if (mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 		{
 			{
 				MarioBullet* temp = new MarioBullet();
@@ -145,6 +152,8 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 				mario->SetShoot(true);
 			}
 		}
+
+	
 				
 		break;
 	case DIK_DOWN:
@@ -165,7 +174,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAABBBBBBBBBBBBBBBAAAAAAAAAAAAADown: %d\n", KeyCode);
 		break;
 	case DIK_A:
-		//mario->SetShoot(false);
+	case DIK_BACKSPACE:
+		mario->SetShoot(false);
 		//mario->SetSpin(false);
 		break;
 	case DIK_DOWN:
@@ -196,16 +206,18 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_SITDOWN);
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
-	else if (game->IsKeyDown(DIK_UP))
+	//else if (game->IsKeyDown(DIK_UP))
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
+	//{
+		
+
+//	}
+	else
 	{
 		if (mario->GetState() != MARIO_STATE_SPIN)
 			mario->SetState(MARIO_STATE_IDLE);
-
-	}
-	else
-	{
-		mario->SetState(MARIO_STATE_IDLE);
+		//else
+		// mario->SetState(MARIO_STATE_IDLE);
 	}
 
 }

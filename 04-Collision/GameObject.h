@@ -41,7 +41,7 @@ public:
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
-	float vx=0.001;
+	float vx;
 	float vy;
 
 	//float acceleration =0.001;
