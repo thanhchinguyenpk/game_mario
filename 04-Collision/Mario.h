@@ -16,6 +16,7 @@
 #define MARIO_STATE_SITDOWN			500
 #define MARIO_STATE_SHOOT_BULLET			600
 #define MARIO_STATE_SPIN			700
+#define MARIO_STATE_FLY_SHOOT_BULLET			800
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
@@ -72,6 +73,8 @@
 #define MARIO_ANI_TAIL_SPIN_TAIL_RIGHT			39
 #define MARIO_ANI_TAIL_SPIN_TAIL_LEFT		40
 
+#define MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT			41
+
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -116,6 +119,7 @@ public:
 	{
 		level = MARIO_LEVEL_BIG_ORANGE;
 		untouchable = 0;
+		nx = 1;
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();

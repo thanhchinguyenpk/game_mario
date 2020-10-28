@@ -28,7 +28,7 @@ C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\MarioBullet.h(75,1): 
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Goomba.h(11): message : see previous definition of 'GOOMBA_STATE_DIE'
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1139,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1144,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1196,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1167,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1172,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1224,21): warning C4018: '<': signed/unsigned mismatch
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameConvert\game_mario\Debug\04-Collision.exe

@@ -247,7 +247,26 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		SetSpin(false);
 		
 	}
+	if (GetState() ==  MARIO_STATE_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->IsRenderDone())
+	{
+		DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
+		SetState(MARIO_STATE_IDLE);
+		//SetSpin(false);
 
+	}
+
+	//DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@toi day chua@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
+	if (GetState() ==  MARIO_STATE_FLY_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->IsRenderDone())
+	{
+		DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@toi day chua@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
+		//DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
+		SetState(MARIO_STATE_IDLE);
+		//SetSpin(false);
+
+	}
+
+
+	//DebugOut(L"stae cua mario la: %d\n", GetState());
 	//if (is_shoot == true)
 	//	is_shoot == false;
 
@@ -269,51 +288,18 @@ void CMario::Render()
 			if(is_sitdown==false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
 				if (vx == 0) //nếu đứng yên
-				{
-					//if (nx > 0)
 						ani = MARIO_ANI_BIG_IDLE_RIGHT;
-					//else ani = MARIO_ANI_BIG_IDLE_LEFT;
-
-					/*if (state == MARIO_STATE_JUMP)
-					{
-						ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
-						DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
-					}*/
-
-				}
-				else if (vx > 0) //nếu di chuyển trái
-				{
-					ani = MARIO_ANI_BIG_WALKING_RIGHT;
-				}
-				else if (vx < 0)
-				{
-					ani = MARIO_ANI_BIG_WALKING_LEFT; // nếu di chuyển phải
-				}
+				else  //nếu di chuyển trái
+				    	ani = MARIO_ANI_BIG_WALKING_RIGHT;
 			}
-			else
-			{
-				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
-				if (nx > 0) ani = MARIO_ANI_BIG_SITDOWN_RIGT;
-				else ani = MARIO_ANI_BIG_SITDOWN_LEFT;
-			}
-			
+			else 
+				ani = MARIO_ANI_BIG_SITDOWN_RIGT;	
 		}
 		else if (is_in_object == false)
 		{
-			if (nx > 0)
-				ani = MARIO_ANI_BIG_JUMP_DOWN_RIGHT;
-			else if (nx < 0)
-				ani = MARIO_ANI_BIG_JUMP_DOWN_LEFT;
-
-
-			if (vy < 0.0f)
-			{
-				if (nx > 0)
+			ani = MARIO_ANI_BIG_JUMP_DOWN_RIGHT;
+			if (vy < 0.0f) //fall down
 					ani = MARIO_ANI_BIG_JUMP_UP_LEFT; // mới thêm zô
-				else
-					ani = MARIO_ANI_BIG_JUMP_UP_RIGHT;
-				//DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
-			}
 		}
 	
 	
@@ -324,60 +310,31 @@ void CMario::Render()
 		{
 			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
-				if (is_shoot == true)
-				{
-					if (nx > 0) ani = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
-					else ani = MARIO_ANI_ORANGE_SHOOT_BULLET_LEFT;
-				}
+				if (state== MARIO_STATE_SHOOT_BULLET)
+						ani = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
 				else
 				{
 					if (vx == 0) //nếu đứng yên
-					{
-						if (nx > 0) ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
-						else ani = MARIO_ANI_ORANGE_IDLE_LEFT;
-
-						/*if (state == MARIO_STATE_JUMP)
-						{
-							ani = MARIO_ANI_BIG_JUMP_LEFT; // mới thêm zô
-							DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
-						}*/
-
-					}
-					else if (vx > 0) //nếu di chuyển trái
-					{
+							ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
+					else 
 						ani = MARIO_ANI_ORANGE_WALKING_RIGHT;
-					}
-					else if (vx < 0)
-					{
-						ani = MARIO_ANI_ORANGE_WALKING_LEFT; // nếu di chuyển phải
-					}
 				}
 				
 			}
 			else
-			{
-				//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii Error: %d\n", ani);
-				if (nx > 0) ani = MARIO_ANI_ORANGE_SITDOWN_RIGHT;
-				else ani = MARIO_ANI_ORANGE_SITDOWN_LEFT;
-			}
-
+					ani = MARIO_ANI_ORANGE_SITDOWN_RIGHT;
 		}
 		else if (is_in_object == false)
 		{
-			if (nx > 0)
+			if (state == MARIO_STATE_FLY_SHOOT_BULLET)
+				ani = MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT;
+			else
+			{ 
 				ani = MARIO_ANI_ORANGE_JUMP_DOWN_RIGHT;
-			else if (nx < 0)
-				ani = MARIO_ANI_ORANGE_JUMP_DOWN_LEFT;
-
-
-			if (vy < 0.0f)
-			{
-				if (nx > 0)
+				if (vy < 0.0f)
 					ani = MARIO_ANI_ORANGE_JUMP_UP_RIGHT;
-				else
-					ani = MARIO_ANI_ORANGE_JUMP_UP_LEFT; // mới thêm zô
-				//DebugOut(L"DA ZO JUMP LEFT. Error: %d\n", ani);
 			}
+				
 		}
 
 
@@ -388,72 +345,64 @@ void CMario::Render()
 		{
 			
 				if (vx == 0)
-				{
-					if (nx > 0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-					else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-				}
-				else if (vx > 0)
+				//{
+					//if (nx > 0)
+						ani = MARIO_ANI_SMALL_IDLE_RIGHT;
+					//else ani = MARIO_ANI_SMALL_IDLE_LEFT;
+				//}
+				else// if (vx > 0)
 					ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-				else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+				//else ani = MARIO_ANI_SMALL_WALKING_LEFT;
 			
 			
 
 		} else if (is_in_object == false)
-		{
-			if (nx > 0)
-			{
+	//	{
+			//if (nx > 0)
+			//{
 				ani = MARIO_ANI_SMALL_JUMP_RIGHT;
-			}
-			else if (nx < 0)
-			{
-				ani = MARIO_ANI_SMALL_JUMP_LEFT;
-			}
+			//}
+		//	else if (nx < 0)
+			//{
+			//	ani = MARIO_ANI_SMALL_JUMP_LEFT;
+			//}
 
 
-		}
+	//	}
 		
 	}
 	else if (level == MARIO_LEVEL_BIG_TAIL)
 	{
-		if (state == MARIO_STATE_SPIN)
-		{
+		 if (state == MARIO_STATE_SPIN)
 			ani = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
-
-		} else if (is_in_object == true)
+		 else if (is_in_object == true)
 		 {
-			if (is_sitdown == false) // trên object thì nó mới sitdown được, if bên ngoài
+			if (is_sitdown == true) // trên object thì nó mới sitdown được, if bên ngoài
+				ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
+			else
 			{
 				if (vx == 0) //nếu đứng yên
-						ani = MARIO_ANI_TAIL_IDLE_RIGHT;
+					ani = MARIO_ANI_TAIL_IDLE_RIGHT;
 				else
 					ani = MARIO_ANI_TAIL_WALKING_RIGHT;
 			}
-			else
-					ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
+					
 		}
 		else if (is_in_object == false)
 		{
 				ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
 
-			if (vy < 0.0f)
+				if (vy < 0.0f)
 					ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT;
-
 		}
 	}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	//DebugOut(L"DA ZO JUMP LEFT load?????. Error: %d\n", ani);
-	//void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
 
-	//int offset_tail = 13;
 
-	//if (nx > 0)
-		//offset_tail = 0;
-	//else
-		//offset_tail = 21;
-	//DebugOut(L"[INFO] phuong cua mariooooooooo: %d\n", nx);
-	animations[ani]->Render(x, y, 0,255,nx);
+	//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
+	animations[ani]->Render(x, y,0,alpha,nx);
 
 	RenderBoundingBox();
 }
@@ -494,6 +443,16 @@ void CMario::SetState(int state)
 		//is_spin == true;
 		animations[39]->ResetCurrentFrame();
 		animations[39]->StartTimeAnimation();
+		break;
+	case MARIO_STATE_SHOOT_BULLET:
+	//	DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
+		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
+		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
+		break;
+	case MARIO_STATE_FLY_SHOOT_BULLET:
+		DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
+		animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
+		animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
 		break;
 	}
 }
