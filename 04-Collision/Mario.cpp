@@ -46,7 +46,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY*dt;
+	
+	
+
+	if (is_fly==true)//còn render
+	{
+		if(!(GetState() == MARIO_STATE_FLY && animations[MARIO_ANI_FLY]->IsRenderDone()))
+		vy = 0.1;
+	}
+	else
+	{
+		vy += MARIO_GRAVITY * dt;
+	}
 
 	
 	
@@ -69,7 +80,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	if (GetTickCount() - jumping_start < 4000) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
+	if (GetTickCount() - jumping_start < 250) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
 	{											// > ấn nhẹ nhảy cao , ấn mạnh nhảy thấp.
 		vy -= 0.02f*2;
 		//DebugOut(L"[ERROR-----------get-------------------] DINPUT::GetDeviceData failed. Error: %lu\n", GetTickCount());
@@ -242,31 +253,32 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (GetState() == MARIO_STATE_SPIN && animations[39]->IsRenderDone())
 	{
-		//DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
 		SetState(MARIO_STATE_IDLE);
 		SetSpin(false);
-		
+		is_render_animation = false;
 	}
 	if (GetState() ==  MARIO_STATE_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->IsRenderDone())
 	{
-		DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
 		SetState(MARIO_STATE_IDLE);
-		//SetSpin(false);
-
+		is_render_animation = false;
 	}
 
-	//DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@toi day chua@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
-	if (GetState() ==  MARIO_STATE_FLY_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->IsRenderDone())
+
+	if (GetState() ==  MARIO_STATE_JUMP_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->IsRenderDone())
 	{
-		DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@toi day chua@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
-		//DebugOut(L"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
 		SetState(MARIO_STATE_IDLE);
-		//SetSpin(false);
-
+		is_render_animation = false;
+	}
+	if (GetState() == MARIO_STATE_FLY && animations[MARIO_ANI_FLY]->IsRenderDone())
+	{
+		SetState(MARIO_STATE_IDLE);
+		is_render_animation = false;
+		DebugOut(L"Hello , vo day khong???\n");
+		is_fly = false;
 	}
 
 
-	//DebugOut(L"stae cua mario la: %d\n", GetState());
+	DebugOut(L"stae cua mario la: %d\n", GetState());
 	//if (is_shoot == true)
 	//	is_shoot == false;
 
@@ -326,8 +338,8 @@ void CMario::Render()
 		}
 		else if (is_in_object == false)
 		{
-			if (state == MARIO_STATE_FLY_SHOOT_BULLET)
-				ani = MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT;
+			if (state == MARIO_STATE_JUMP_SHOOT_BULLET)
+				ani = MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT;
 			else
 			{ 
 				ani = MARIO_ANI_ORANGE_JUMP_DOWN_RIGHT;
@@ -375,6 +387,27 @@ void CMario::Render()
 	{
 		 if (state == MARIO_STATE_SPIN)
 			ani = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
+
+
+		 else if (is_in_object == false)
+		 {
+			 if (state == MARIO_STATE_FLY)
+				 ani = MARIO_ANI_FLY;
+			 else
+			 {
+
+
+				 ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
+
+				 if (vy < 0.0f)
+					 ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT;
+				// else if(vy==0.1)
+				//	 ani = MARIO_ANI_FLY;
+			 }
+
+
+
+		 }
 		 else if (is_in_object == true)
 		 {
 			if (is_sitdown == true) // trên object thì nó mới sitdown được, if bên ngoài
@@ -388,13 +421,7 @@ void CMario::Render()
 			}
 					
 		}
-		else if (is_in_object == false)
-		{
-				ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
-
-				if (vy < 0.0f)
-					ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT;
-		}
+		
 	}
 
 	int alpha = 255;
@@ -443,17 +470,26 @@ void CMario::SetState(int state)
 		//is_spin == true;
 		animations[39]->ResetCurrentFrame();
 		animations[39]->StartTimeAnimation();
+		is_render_animation = true;
 		break;
 	case MARIO_STATE_SHOOT_BULLET:
 	//	DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
 		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
 		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
+		is_render_animation = true;
 		break;
-	case MARIO_STATE_FLY_SHOOT_BULLET:
+	case MARIO_STATE_JUMP_SHOOT_BULLET:
 		DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
-		animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
-		animations[MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
+		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
+		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
+		is_render_animation = true;
 		break;
+	case MARIO_STATE_FLY:
+		animations[MARIO_ANI_FLY]->ResetCurrentFrame();
+		animations[MARIO_ANI_FLY]->StartTimeAnimation();
+		is_render_animation = true;
+		break;
+
 	}
 }
 

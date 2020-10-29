@@ -5,7 +5,7 @@
 //0.1f
 #define MARIO_JUMP_SPEED_Y		0.3f*3
 #define MARIO_JUMP_DEFLECT_SPEED 0.4f*3
-#define MARIO_GRAVITY			0.002f*2.1
+#define MARIO_GRAVITY			0.002f*1.5
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f*3
 
 #define MARIO_STATE_IDLE			0
@@ -16,7 +16,8 @@
 #define MARIO_STATE_SITDOWN			500
 #define MARIO_STATE_SHOOT_BULLET			600
 #define MARIO_STATE_SPIN			700
-#define MARIO_STATE_FLY_SHOOT_BULLET			800
+#define MARIO_STATE_JUMP_SHOOT_BULLET			800
+#define MARIO_STATE_FLY			900
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
@@ -73,7 +74,8 @@
 #define MARIO_ANI_TAIL_SPIN_TAIL_RIGHT			39
 #define MARIO_ANI_TAIL_SPIN_TAIL_LEFT		40
 
-#define MARIO_ANI_ORANGE_FLY_SHOOT_BULLET_RIGHT			41
+#define MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT			41
+#define MARIO_ANI_FLY			42
 
 
 #define	MARIO_LEVEL_SMALL	1
@@ -113,6 +115,8 @@ class CMario : public CGameObject
 	bool is_sitdown = false;
 	bool is_shoot = false;
 	bool is_spin = false;
+	bool is_render_animation = false;
+	bool is_fly = false;
 
 public: 
 	CMario() : CGameObject()
@@ -129,6 +133,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void SetShoot(bool temp) { is_shoot = temp; };
 	void SetSpin(bool temp) { is_spin = temp; };
+	void SetIsRenderAnimation(bool temp) { is_render_animation = temp; };
+	void SetIsFly(bool temp) { is_fly = temp; };
 
 	void StartJumping() { jumping_start = GetTickCount(); };
 	void EndJumping() { jumping_start = 0; };
@@ -137,6 +143,8 @@ public:
 	int GetLevel() { return level; };
 	bool GetIsShoot() { return is_shoot; };
 	bool GetIsSpin() { return is_spin; };
+	bool GetIsRenderAnimation() { return is_render_animation; };
+	bool GetIsFly() { return is_fly; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

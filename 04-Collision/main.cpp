@@ -104,6 +104,14 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_Q:
+		//mario->SetPosition(mario->GetX()+5, mario->GetY());
+		if (mario->GetIsInObject() == false)
+		{
+			mario->SetState(MARIO_STATE_FLY);
+			mario->SetIsFly(true);
+		}
+		break;
 	case DIK_S:
 	//case 14:
 		mario->StartJumping();
@@ -140,7 +148,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 				if(mario->GetIsInObject()==true)
 					mario->SetState(MARIO_STATE_SHOOT_BULLET);
 				else
-					mario->SetState(MARIO_STATE_FLY_SHOOT_BULLET);
+					mario->SetState(MARIO_STATE_JUMP_SHOOT_BULLET);
 
 				MarioBullet* temp = new MarioBullet();
 				temp->AddAnimation(14001);
@@ -202,6 +210,10 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		//if (game->IsKeyDown(DIK_Q))
+		//{
+		//	mario->SetState(MARIO_STATE_FLY);
+		//}
 		//mario->acceleration += 0.01f;
 
 		//DebugOut(L"[INFO] gai toccccc: %f\n", mario->acceleration);
@@ -219,20 +231,38 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		
 
 //	}
-	else
+	else //trạng thái đứng yên
 	{
 		// nên đặt biến is_shooting hay is_spin gì gì đó cho khỏi kẹp đk, nhiều đk vai lon
-		if (mario->GetState() != MARIO_STATE_SPIN && mario->GetLevel()==MARIO_LEVEL_BIG_TAIL)
-			mario->SetState(MARIO_STATE_IDLE);
+		/*if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+		{
+			if(mario->GetState() == MARIO_STATE_FLY)
 
-		if (mario->GetState() != MARIO_STATE_SHOOT_BULLET&&mario->GetIsInObject() == true)
-			mario->SetState(MARIO_STATE_IDLE);
+			else if(mario->GetState() == MARIO_STATE_)
+		}*/
+		if (mario->GetState() == MARIO_STATE_FLY)
+			return;
+		if (mario->GetState() == MARIO_STATE_SPIN)
+			return;
+		if (mario->GetState() == MARIO_STATE_SHOOT_BULLET)
+			return;
+		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
+			return;
 
-		if (mario->GetState() != MARIO_STATE_FLY_SHOOT_BULLET && mario->GetIsInObject()==false )
-			mario->SetState(MARIO_STATE_IDLE);
+
+		mario->SetState(MARIO_STATE_IDLE);
+		mario->SetIsFly(false);
+	//	{
 		
-		//else
-		// mario->SetState(MARIO_STATE_IDLE);
+	//	}
+
+	//	if (mario->GetState() != MARIO_STATE_SHOOT_BULLET&&mario->GetIsInObject() == true)
+	//		mario->SetState(MARIO_STATE_IDLE);
+
+	//	if (mario->GetState() != MARIO_STATE_FLY_SHOOT_BULLET && mario->GetIsInObject()==false )
+	//		mario->SetState(MARIO_STATE_IDLE);
+		
+		
 	}
 
 }
@@ -382,6 +412,10 @@ void LoadResources()
 	sprites->Add(10074, 642, 110, 642 + 19, 110 + 26, texMarioPro);// fly shoot bullet r
 	sprites->Add(10075, 621, 109, 621 + 18, 109 + 27, texMarioPro);
 	sprites->Add(10076, 599, 109, 599 + 16, 109 + 27, texMarioPro);
+
+	sprites->Add(10077, 283, 143, 283 + 23, 143 + 27, texMarioPro);//fly tail r
+	sprites->Add(10078, 335, 142, 335 + 22, 142 + 28, texMarioPro);
+	sprites->Add(10079, 309, 143, 309 + 23, 143 + 27, texMarioPro);
 	
 
 
@@ -706,6 +740,12 @@ void LoadResources()
 	ani->Add(10076);
 	animations->Add(482, ani);
 
+	ani = new CAnimation(70);		// fly tail r
+	ani->Add(10077);
+	ani->Add(10078);
+	ani->Add(10079);
+	animations->Add(483, ani);
+
 
 
 
@@ -925,8 +965,9 @@ void LoadResources()
 
 	mario->AddAnimation(482);		//fly shoot r
 	
+	mario->AddAnimation(483);		//fly tail r
 
-	mario->SetPosition(1300.0f, 0);
+	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
 /*	for (int i = 0; i < 5; i++)

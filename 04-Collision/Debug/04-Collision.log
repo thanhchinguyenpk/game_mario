@@ -1,4 +1,14 @@
-﻿  main.cpp
+﻿  Mario.cpp
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(25): message : see previous definition of 'CONCO_ANI_DIE'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(55,11): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(59,27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Plant.cpp
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
+  main.cpp
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(25): message : see previous definition of 'CONCO_ANI_DIE'
@@ -28,7 +38,8 @@ C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\MarioBullet.h(75,1): 
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Goomba.h(11): message : see previous definition of 'GOOMBA_STATE_DIE'
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1167,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1172,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1224,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1209,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1214,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1266,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameConvert\game_mario\Debug\04-Collision.exe
