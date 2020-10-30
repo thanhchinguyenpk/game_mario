@@ -31,8 +31,8 @@ public:
 		int RowMap,
 		int ColumnMap,
 		LPCWSTR mapFileTexture,
-		int RowTile,
-		int ColumnTile,
+		int RowTile=30,
+		int ColumnTile=29,
 		int TileFrameWidth = 48,
 		int TileFrameHeight = 48);
 

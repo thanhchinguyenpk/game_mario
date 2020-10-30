@@ -26,7 +26,7 @@ void CSprite::Draw(float x, float y, int alpha)
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
-void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
+void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx,int ny)
 {
 	LPD3DXSPRITE spriteHandler = CGame::GetInstance()->GetSpriteHandler();
 
@@ -57,7 +57,7 @@ void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
 	các thông số còn lại dùng cho việc xoay góc bao nhiêu độ,... ở đây vẽ tile không cần
 	*/
 	D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(p.x + offsetX, p.y), 0,
-		&D3DXVECTOR2(3.0f * nx, 3.0f), NULL, 0.0f, NULL);
+		&D3DXVECTOR2(3.0f * nx, 3.0f*ny), NULL, 0.0f, NULL);
 
 	D3DXVECTOR3 center = D3DXVECTOR3((float)(right - left) / 2,( float)(bottom - top) / 2, 0);
 
@@ -92,7 +92,7 @@ void CAnimation::Add(int spriteId, DWORD time)
 
 
 // Render(float x, float y,int offetX = 0 , int alpha = 255,int nx=1);
-void CAnimation::Render(float x, float y, int offetX, int alpha , int nx )
+void CAnimation::Render(float x, float y, int offetX, int alpha , int nx ,int ny)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1) 
@@ -112,7 +112,7 @@ void CAnimation::Render(float x, float y, int offetX, int alpha , int nx )
 		
 	}
 
-	frames[currentFrame]->GetSprite()->DrawFlipX(x, y,offetX,alpha,nx);
+	frames[currentFrame]->GetSprite()->DrawFlipX(x, y,offetX,alpha,nx, ny);
 }
 
 void CAnimation::StartTimeAnimation()

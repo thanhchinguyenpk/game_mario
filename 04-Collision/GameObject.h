@@ -46,7 +46,8 @@ public:
 
 	//float acceleration =0.001;
 
-	int nx;	 
+	int nx = 1;	
+	int ny = 1;
 
 	int state;
 

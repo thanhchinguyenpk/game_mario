@@ -1,5 +1,9 @@
 ﻿#include "MarioBullet.h"
+#include "TimerCustom.h"
+#include "debug.h"
 
+int is_delete = false;
+extern vector<LPGAMEOBJECT> objects;
 
 
 void MarioBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -26,7 +30,8 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIOBULLET_GRAVITY * dt;
+	if (state != MARIOBULLET_STATE_BUM)
+		 vy += MARIOBULLET_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -34,7 +39,7 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear(); // ủa tại sao ở dưới delete rồi mà ở đây lại clear nữa?
 
 	// turn off collision when die 
-	if (state != MARIO_STATE_DIE)
+	if (state != MARIOBULLET_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 	// tính ra danh sách các đối tượng có khả năng va chạm với mario
 
@@ -64,23 +69,45 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (nx != 0)
 		{
+			state = MARIOBULLET_STATE_BUM;
+			vy = 0;
+			vx = 0;
+			objects.pop_back();
+			delete this;
 		}; // tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
-		if (ny != 0) vy = -0.25;// sẽ bị chặn lại_ không đúng má ơi.
-
+	//	if (ny != 0) vy = -0.25*2;// tưng lên
 
 
 	}
+
+	
+
+	/*if (is_delete == false && state == MARIOBULLET_STATE_BUM && animations[MARIOBULLET_ANI_BUM]->IsRenderDone())
+		is_delete = true;
+
+	if (is_delete == true)
+	{
+		objects.pop_back();
+		delete this;
+		
+	}*/
+	//DebugOut(L"[ERROR-----------vx-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+	//DebugOut(L"[ERROR-----------vy-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vy);
+	//DebugOut(L"[ERROR-----------vy-------------------] DINPUT::GetDeviceData failed. Error: %d\n", state);
 }
 
 void MarioBullet::Render()
 {
-	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
+	int ani = MARIOBULLET_ANI_WALKING;
+	if (state == MARIOBULLET_STATE_DIE) {
+		ani = MARIOBULLET_ANI_DIE;
 	}
+	else if(state ==MARIOBULLET_STATE_BUM)
+		ani = MARIOBULLET_ANI_BUM;
+	
 
 	animations[ani]->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void MarioBullet::SetState(int state)
@@ -88,12 +115,16 @@ void MarioBullet::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case BULLET_STATE_FLY_RIGHT:
-		vx = GOOMBA_WALKING_SPEED;
+	case MARIOBULLET_STATE_WALKING_RIGHT:
+		vx = MARIOBULLET_WALKING_SPEED;
 		break;
-	case BULLET_STATE_FLY_LEFT:
-		vx = -GOOMBA_WALKING_SPEED;
+	case MARIOBULLET_STATE_WALKING_LEFT:
+		vx = -MARIOBULLET_WALKING_SPEED;
 		break;
+	case MARIOBULLET_STATE_BUM:
+			//animations[MARIOBULLET_ANI_BUM]->ResetCurrentFrame();
+			//animations[MARIOBULLET_ANI_BUM]->StartTimeAnimation();
+			break;
 		//vy = 0.07;
 	}
 }

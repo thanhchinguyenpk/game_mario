@@ -18,6 +18,7 @@
 #define MARIO_STATE_SPIN			700
 #define MARIO_STATE_JUMP_SHOOT_BULLET			800
 #define MARIO_STATE_FLY			900
+#define MARIO_STATE_BRING_KOOMPA 1000
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
@@ -117,11 +118,12 @@ class CMario : public CGameObject
 	bool is_spin = false;
 	bool is_render_animation = false;
 	bool is_fly = false;
+	bool is_bring = false;
 
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG_ORANGE;
+		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		nx = 1;
 	}
@@ -135,6 +137,7 @@ public:
 	void SetSpin(bool temp) { is_spin = temp; };
 	void SetIsRenderAnimation(bool temp) { is_render_animation = temp; };
 	void SetIsFly(bool temp) { is_fly = temp; };
+	void SetIsBring(bool temp) { is_bring = temp; };
 
 	void StartJumping() { jumping_start = GetTickCount(); };
 	void EndJumping() { jumping_start = 0; };
@@ -145,6 +148,7 @@ public:
 	bool GetIsSpin() { return is_spin; };
 	bool GetIsRenderAnimation() { return is_render_animation; };
 	bool GetIsFly() { return is_fly; };
+	bool GetIsBring() { return is_bring; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

@@ -66,6 +66,7 @@
 #define ID_TEX_MARIOPRO	120
 #define ID_TEX_MARIO_BULLET	130
 #define ID_TEX_MARIO_TAIL_SPIN	140
+#define ID_TEX_BULLET_EFFECT	150
 
 
 
@@ -104,26 +105,42 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_1:
+		mario->SetLevel(MARIO_LEVEL_SMALL);
+		goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+			break;
+	case DIK_2:
+		mario->SetLevel(MARIO_LEVEL_BIG);
+		break;
+	case DIK_3:
+		mario->SetLevel(MARIO_LEVEL_BIG_TAIL);
+		break;
+	case DIK_4:
+		mario->SetLevel(MARIO_LEVEL_BIG_ORANGE);
+		break;
 	case DIK_Q:
 		//mario->SetPosition(mario->GetX()+5, mario->GetY());
 		if (mario->GetIsInObject() == false)
 		{
-			mario->SetState(MARIO_STATE_FLY);
-			mario->SetIsFly(true);
+			return;
 		}
 		break;
 	case DIK_S:
 	//case 14:
-		mario->StartJumping();
+		
 
 		if (mario->GetIsInObject() == true)
 		{
+			mario->StartJumping();
 			mario->SetState(MARIO_STATE_JUMP);
 			mario->SetIsInObject(false);
-
-
 		}
-		DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
+		else
+		{	
+			mario->SetState(MARIO_STATE_FLY);
+			mario->SetIsFly(true);
+		}
+		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
 
 		break;
 	case DIK_A:
@@ -151,15 +168,18 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 					mario->SetState(MARIO_STATE_JUMP_SHOOT_BULLET);
 
 				MarioBullet* temp = new MarioBullet();
+
 				temp->AddAnimation(14001);
+				temp->AddAnimation(14002);
+
 				if (mario->GetNX() > 0)
 				{
-					temp->SetState(BULLET_STATE_FLY_RIGHT);
+					temp->SetState(MARIOBULLET_STATE_WALKING_RIGHT);
 					temp->SetPosition(mario->GetX() + 10 + 5, mario->GetY());
 				}
 				else
 				{
-					temp->SetState(BULLET_STATE_FLY_LEFT);
+					temp->SetState(MARIOBULLET_STATE_WALKING_LEFT);
 					temp->SetPosition(mario->GetX() - 5, mario->GetY());
 				}
 
@@ -188,7 +208,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		mario->EndJumping();
 		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAABBBBBBBBBBBBBBBAAAAAAAAAAAAADown: %d\n", KeyCode);
 		break;
-	//case DIK_A:
+	case DIK_Q:
+		mario->SetIsBring(false);
+		break;
 	//case DIK_BACKSPACE:
 		//mario->SetShoot(false);
 		//mario->SetSpin(false);
@@ -210,6 +232,13 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		if (game->IsKeyDown(DIK_Q))
+		{
+			mario->SetState(MARIO_STATE_BRING_KOOMPA);
+			DebugOut(L"vo nut Q phải này hem dạ%d\n");
+			mario->SetSpeed(0.9f, mario->vy);
+			//conco->SetPosition(x + 45.8f, y);
+		}
 		//if (game->IsKeyDown(DIK_Q))
 		//{
 		//	mario->SetState(MARIO_STATE_FLY);
@@ -220,8 +249,14 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() +10, CGame::GetInstance()->GetCamY());
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
+	{
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
-		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+		if (game->IsKeyDown(DIK_Q))
+		{
+			mario->SetState(MARIO_STATE_BRING_KOOMPA);
+			DebugOut(L"vo nut Q trái này hem dạ%d\n");
+		}
+	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_SITDOWN);
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
@@ -307,6 +342,7 @@ void LoadResources()
 	textures->Add(ID_TEX_MARIOPRO, L"textures\\MARIOPRO.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MARIO_BULLET, L"textures\\MARIOPRO.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MARIO_TAIL_SPIN, L"textures\\MARIO_TAIL_SPIN.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_BULLET_EFFECT, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -413,9 +449,9 @@ void LoadResources()
 	sprites->Add(10075, 621, 109, 621 + 18, 109 + 27, texMarioPro);
 	sprites->Add(10076, 599, 109, 599 + 16, 109 + 27, texMarioPro);
 
-	sprites->Add(10077, 283, 143, 283 + 23, 143 + 27, texMarioPro);//fly tail r
-	sprites->Add(10078, 335, 142, 335 + 22, 142 + 28, texMarioPro);
-	sprites->Add(10079, 309, 143, 309 + 23, 143 + 27, texMarioPro);
+	sprites->Add(10077, 283		, 143, 283 + 23, 143 + 27, texMarioPro);//fly tail r
+	sprites->Add(10078, 335-1	, 142, 335 + 22, 142 + 28, texMarioPro);
+	sprites->Add(10079, 309		, 143, 309 + 23, 143 + 27, texMarioPro);
 	
 
 
@@ -436,10 +472,12 @@ void LoadResources()
 	sprites->Add(20001, 408, 225, 424, 241, texMisc);
 
 	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
-	sprites->Add(30001, 5, 14, 21, 29, texEnemy);
+	sprites->Add(30001, 5, 14, 21, 29, texEnemy);//walk
 	sprites->Add(30002, 25, 14, 41, 29, texEnemy);
 
 	sprites->Add(30003, 45, 21, 61, 29, texEnemy); // die sprite
+
+	sprites->Add(30004, 5, 14, 21, 29, texEnemy);//was shooted
 
 
 
@@ -523,6 +561,13 @@ void LoadResources()
 	sprites->Add(140002, 173, 123, 173 + 8, 123 + 9, texMarioBullet);
 	sprites->Add(140003, 184, 124, 184 + 8, 124 + 8, texMarioBullet);
 	sprites->Add(140004, 195, 123, 195 + 8, 123 + 9, texMarioBullet);
+
+	LPDIRECT3DTEXTURE9 texMarioBulletEffect = textures->Get(ID_TEX_BULLET_EFFECT);
+	sprites->Add(140005, 526, 19, 526 + 19, 19 + 19, texMarioBulletEffect);
+	sprites->Add(140006, 544, 20, 544 + 16, 20 + 16, texMarioBulletEffect);
+	sprites->Add(140007, 599, 21, 599 + 16, 21 + 16, texMarioBulletEffect);
+	//	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
+	//sprites->Add(20001, 408, 225, 424, 241, texMisc);
 
 
 
@@ -769,6 +814,9 @@ void LoadResources()
 	ani->Add(30003);
 	animations->Add(702, ani);
 	
+	ani = new CAnimation(1000);		// Goomba was shoot
+	ani->Add(30004);
+	animations->Add(703, ani);
 
 
 
@@ -889,7 +937,12 @@ void LoadResources()
 	ani->Add(140004);
 	animations->Add(14001, ani);
 
-
+	//effects bullet
+	ani = new CAnimation(200);
+	ani->Add(140005);
+	ani->Add(140006);
+	ani->Add(140007);
+	animations->Add(14002, ani);
 
 
 
@@ -970,6 +1023,30 @@ void LoadResources()
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
+
+	for (int i = 0; i < 1; i++)
+	{
+		conco = new CConCo();
+		conco->AddAnimation(901);
+		conco->AddAnimation(902);
+		conco->AddAnimation(903);
+		conco->AddAnimation(904);
+		conco->AddAnimation(905);
+		conco->AddAnimation(906);
+		conco->SetPosition(2000.0f, 300.0f);
+		conco->SetState(CONCO_STATE_THUT_VAO);
+		objects.push_back(conco);
+	}
+
+
+	goomba = new CGoomba();
+	goomba->AddAnimation(701);
+	goomba->AddAnimation(702);
+	goomba->AddAnimation(703);
+	goomba->SetPosition(2100, 435);
+	goomba->SetState(GOOMBA_STATE_WALKING);
+	objects.push_back(goomba);
+
 /*	for (int i = 0; i < 5; i++)
 	{
 		CBrick *brick = new CBrick();
@@ -1015,19 +1092,6 @@ void LoadResources()
 	}*/
 
 	//add con co
-/*	for (int i = 0; i < 1; i++)
-	{
-		conco = new CConCo();
-		conco->AddAnimation(901);
-		conco->AddAnimation(902);
-		conco->AddAnimation(903);
-		conco->AddAnimation(904);
-		conco->AddAnimation(905);
-		conco->AddAnimation(906);
-		conco->SetPosition(200 + i*60, 135-12);
-		conco->SetState(CONCO_STATE_FLY_RIGHT);
-		objects.push_back(conco);
-	}*/
 
 
 	//hon da dong tien
@@ -1122,12 +1186,13 @@ void LoadResources()
 	objects.push_back(mr);*/
 
 
-	mario_bullet = new MarioBullet();
+	/*mario_bullet = new MarioBullet();
 	mario_bullet->AddAnimation(14001);
+	mario_bullet->AddAnimation(14002);
 	mario_bullet->SetPosition(100,50);
 	//set state đâu?
 	mario_bullet->SetState(100);
-	objects.push_back(mario_bullet);
+	objects.push_back(mario_bullet);*/
 
 	//nền
 	flatform = new Flatform(1872, 20);

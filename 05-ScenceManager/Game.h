@@ -16,6 +16,14 @@ using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
 
+#define SECTION_UNKNOWN -1
+#define SECTION_TEXTURES 2
+#define SECTION_SPRITES 3
+#define SECTION_ANIMATIONS 4
+#define SECTION_ANIMATION_SETS	5
+
+#define MAX_SCENE_LINE	1024
+
 class CGame
 {
 	static CGame * __instance;
@@ -47,6 +55,12 @@ class CGame
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
+
+	//moi them vo
+	void _ParseSection_SPRITES(string line);
+	void _ParseSection_ANIMATIONS(string line);
+	void _ParseSection_ANIMATION_SETS(string line);
+
 public:
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
@@ -56,6 +70,7 @@ public:
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
 
+	void LoadResources(LPCWSTR resourceFile);
 	void Load(LPCWSTR gameFile);
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void SwitchScene(int scene_id);

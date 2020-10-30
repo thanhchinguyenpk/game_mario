@@ -36,6 +36,8 @@ extern vector<LPGAMEOBJECT> objects;
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CGameObject* temp =NULL;
+
 	float x_flatform = 0;
 	float y_flatform = 0;
 
@@ -163,7 +165,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			if (dynamic_cast<CConCo*>(e->obj))
 			{
-				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
+				/*CConCo* conco = dynamic_cast<CConCo*>(e->obj);
 				if (e->ny < 0) // phương va chạm hướng lên (con cò)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)// nếu đang chạy sẽ thụt vào,else cuối
@@ -185,13 +187,29 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						conco->SetState(CONCO_STATE_THUT_VAO);
 						 // chữa cháy thôi, phải búng ra chứ nhỉ
 					}
-					vy = -MARIO_JUMP_DEFLECT_SPEED;
-					
-				
-					
+					vy = -MARIO_JUMP_DEFLECT_SPEED;			
+				}*/
+
+				if (state == MARIO_STATE_BRING_KOOMPA)
+				{
+					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
+
+					DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
+					if (this->nx > 0)
+					{
+						//conco->SetPosition(x + 45.8f, y);
+						conco->SetState(CONCO_STATE_WAS_BROUGHT);
+						DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+						
+						is_bring = true;
+						temp = conco;
+					}
+					else {
+
+						conco->SetPosition(x - 55.0f, y);
+						DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+					}
 				}
-
-
 			}
 
 
@@ -203,26 +221,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (brickcoin->GetState() == BRICK_COIN_STATE_CHUA_DAP)
 					{
 						brickcoin->SetState(BRICK_COIN_STATE_DA_DAP);
-						
-						
-						/*CoinFly* coinfly = new CoinFly();
-						
-
-						coinfly->StartFlyUp();
-
-						objects.push_back(coinfly);*/
-
 
 						Mushroom* mushroom = new Mushroom();
 						objects.insert(objects.begin()+2, mushroom);
-						//objects.push_back(mushroom);
 
-						
-
-
-
-
-						//DebugOut(L"[ERROR------------------------------] marioo vua doi dauuuuu \n", x);
 
 
 					}
@@ -232,6 +234,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 			}
+
+			
 
 			if (dynamic_cast<Flatform*>(e->obj)) {
 				if (e->ny > 0) // hướng xuống
@@ -273,16 +277,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		is_render_animation = false;
-		DebugOut(L"Hello , vo day khong???\n");
+		//DebugOut(L"Hello , vo day khong???\n");
 		is_fly = false;
 	}
 
 
-	DebugOut(L"stae cua mario la: %d\n", GetState());
+//	DebugOut(L"stae cua mario la: %d\n", GetState());
 	//if (is_shoot == true)
 	//	is_shoot == false;
 
 	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
+	if(is_bring==true)
+		temp->SetPosition(x+50, y);
 
 }
 
@@ -396,13 +402,15 @@ void CMario::Render()
 			 else
 			 {
 
-
+				 
 				 ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
 
 				 if (vy < 0.0f)
 					 ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT;
-				// else if(vy==0.1)
+				// if(vy==0.1)
 				//	 ani = MARIO_ANI_FLY;
+				 if(is_fly==true)
+					 ani = MARIO_ANI_FLY;
 			 }
 
 
@@ -479,7 +487,7 @@ void CMario::SetState(int state)
 		is_render_animation = true;
 		break;
 	case MARIO_STATE_JUMP_SHOOT_BULLET:
-		DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
+		//DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
 		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
 		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
 		is_render_animation = true;
@@ -489,7 +497,9 @@ void CMario::SetState(int state)
 		animations[MARIO_ANI_FLY]->StartTimeAnimation();
 		is_render_animation = true;
 		break;
-
+	case MARIO_STATE_BRING_KOOMPA:
+		//vx = 1.5f;
+		break;
 	}
 }
 

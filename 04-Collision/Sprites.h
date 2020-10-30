@@ -21,7 +21,7 @@ public:
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
 	void Draw(float x, float y, int alpha = 255);
-	void DrawFlipX(float x, float y, int offsetX = 0, int alpha = 255, int nx = 1);
+	void DrawFlipX(float x, float y, int offsetX = 0, int alpha = 255, int nx = 1,int ny=1);
 };
 
 typedef CSprite * LPSPRITE;
@@ -70,7 +70,7 @@ public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
 	//void CSprite::DrawFlipX(float x, float y, int offsetX, int alpha, int nx)
-	void Render(float x, float y,int offetX = 0 , int alpha = 255,int nx=1);
+	void Render(float x, float y,int offetX = 0 , int alpha = 255,int nx=1,int ny=1);
 	void ResetCurrentFrame() { currentFrame = -1; };
 	void StartTimeAnimation();
 	bool IsRenderDone();
