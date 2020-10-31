@@ -8,21 +8,23 @@
 #define MARIO_GRAVITY			0.002f*1.5
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f*3
 
-#define MARIO_STATE_IDLE			0
-#define MARIO_STATE_WALKING_RIGHT	100
-#define MARIO_STATE_WALKING_LEFT	200
-#define MARIO_STATE_JUMP			300
-#define MARIO_STATE_DIE				400
-#define MARIO_STATE_SITDOWN			500
-#define MARIO_STATE_SHOOT_BULLET			600
-#define MARIO_STATE_SPIN			700
+#define MARIO_STATE_IDLE						0
+#define MARIO_STATE_WALKING_RIGHT				100
+#define MARIO_STATE_WALKING_LEFT				200
+#define MARIO_STATE_JUMP						300
+#define MARIO_STATE_DIE							400
+#define MARIO_STATE_SITDOWN						500
+#define MARIO_STATE_SHOOT_BULLET				600
+#define MARIO_STATE_SPIN						700
 #define MARIO_STATE_JUMP_SHOOT_BULLET			800
-#define MARIO_STATE_FLY			900
-#define MARIO_STATE_BRING_KOOMPA 1000
+#define MARIO_STATE_FLY							900
+#define MARIO_STATE_FLY_HIGH					1000
+#define MARIO_STATE_BRING_KOOMPA_RIGHT			1100
+#define MARIO_STATE_BRING_KOOMPA_LEFT			1200
 
-#define MARIO_ANI_BIG_IDLE_RIGHT		0
-#define MARIO_ANI_BIG_IDLE_LEFT			1
-#define MARIO_ANI_SMALL_IDLE_RIGHT		2
+#define MARIO_ANI_BIG_IDLE_RIGHT			0
+#define MARIO_ANI_BIG_IDLE_LEFT				1
+#define MARIO_ANI_SMALL_IDLE_RIGHT			2
 #define MARIO_ANI_SMALL_IDLE_LEFT			3
 
 
@@ -43,40 +45,41 @@
 #define MARIO_ANI_SMALL_JUMP_LEFT		14
 
 #define MARIO_ANI_BIG_SITDOWN_RIGT		15
-#define MARIO_ANI_BIG_SITDOWN_LEFT	16
+#define MARIO_ANI_BIG_SITDOWN_LEFT		16
 
 
 
-#define MARIO_ANI_TAIL_IDLE_RIGHT			17
-#define MARIO_ANI_TAIL_IDLE_LEFT			18
-#define MARIO_ANI_TAIL_WALKING_RIGHT		19
-#define MARIO_ANI_TAIL_WALKING_LEFT			20
+#define MARIO_ANI_TAIL_IDLE_RIGHT				17
+#define MARIO_ANI_TAIL_IDLE_LEFT				18
+#define MARIO_ANI_TAIL_WALKING_RIGHT			19
+#define MARIO_ANI_TAIL_WALKING_LEFT				20
 #define MARIO_ANI_TAIL_JUMP_UP_RIGHT			21
 #define MARIO_ANI_TAIL_JUMP_DOWN_RIGHT			22
 #define MARIO_ANI_TAIL_JUMP_UP_LEFT				23
 #define MARIO_ANI_TAIL_JUMP_DOWN_LEFT			24
 #define MARIO_ANI_TAIL_SITDOWN_RIGHT			25
-#define MARIO_ANI_TAIL_SITDOWN_LEFT			26
+#define MARIO_ANI_TAIL_SITDOWN_LEFT				26
 
 
-#define MARIO_ANI_ORANGE_IDLE_RIGHT			27
-#define MARIO_ANI_ORANGE_IDLE_LEFT			28
-#define MARIO_ANI_ORANGE_WALKING_RIGHT		29
-#define MARIO_ANI_ORANGE_WALKING_LEFT			30
-#define MARIO_ANI_ORANGE_JUMP_UP_RIGHT			31
+#define MARIO_ANI_ORANGE_IDLE_RIGHT					27
+#define MARIO_ANI_ORANGE_IDLE_LEFT					28
+#define MARIO_ANI_ORANGE_WALKING_RIGHT				29
+#define MARIO_ANI_ORANGE_WALKING_LEFT				30
+#define MARIO_ANI_ORANGE_JUMP_UP_RIGHT				31
 #define MARIO_ANI_ORANGE_JUMP_DOWN_RIGHT			32
 #define MARIO_ANI_ORANGE_JUMP_UP_LEFT				33
-#define MARIO_ANI_ORANGE_JUMP_DOWN_LEFT			34
-#define MARIO_ANI_ORANGE_SITDOWN_RIGHT			35
-#define MARIO_ANI_ORANGE_SITDOWN_LEFT			36
+#define MARIO_ANI_ORANGE_JUMP_DOWN_LEFT				34
+#define MARIO_ANI_ORANGE_SITDOWN_RIGHT				35
+#define MARIO_ANI_ORANGE_SITDOWN_LEFT				36
 #define MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT			37
 #define MARIO_ANI_ORANGE_SHOOT_BULLET_LEFT			38
 
 #define MARIO_ANI_TAIL_SPIN_TAIL_RIGHT			39
-#define MARIO_ANI_TAIL_SPIN_TAIL_LEFT		40
+#define MARIO_ANI_TAIL_SPIN_TAIL_LEFT			40
 
 #define MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT			41
-#define MARIO_ANI_FLY			42
+#define MARIO_ANI_FLY										42
+#define MARIO_ANI_FLY_HIGH									43
 
 
 #define	MARIO_LEVEL_SMALL	1
@@ -116,7 +119,7 @@ class CMario : public CGameObject
 	bool is_sitdown = false;
 	bool is_shoot = false;
 	bool is_spin = false;
-	bool is_render_animation = false;
+	
 	bool is_fly = false;
 	bool is_bring = false;
 
@@ -135,7 +138,6 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void SetShoot(bool temp) { is_shoot = temp; };
 	void SetSpin(bool temp) { is_spin = temp; };
-	void SetIsRenderAnimation(bool temp) { is_render_animation = temp; };
 	void SetIsFly(bool temp) { is_fly = temp; };
 	void SetIsBring(bool temp) { is_bring = temp; };
 
@@ -146,7 +148,6 @@ public:
 	int GetLevel() { return level; };
 	bool GetIsShoot() { return is_shoot; };
 	bool GetIsSpin() { return is_spin; };
-	bool GetIsRenderAnimation() { return is_render_animation; };
 	bool GetIsFly() { return is_fly; };
 	bool GetIsBring() { return is_bring; };
 

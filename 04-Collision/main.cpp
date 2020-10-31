@@ -107,22 +107,27 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	{
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
+		mario->SetPosition(1300.0f, 80.0f);
 		goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 			break;
 	case DIK_2:
+		mario->SetPosition(1300.0f, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		break;
 	case DIK_3:
+		mario->SetPosition(1300.0f, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG_TAIL);
 		break;
 	case DIK_4:
+		mario->SetPosition(1300.0f, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG_ORANGE);
 		break;
 	case DIK_Q:
 		//mario->SetPosition(mario->GetX()+5, mario->GetY());
 		if (mario->GetIsInObject() == false)
 		{
-			return;
+			mario->SetState(MARIO_STATE_FLY_HIGH);
+			mario->SetIsFly(true);
 		}
 		break;
 	case DIK_S:
@@ -234,7 +239,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		if (game->IsKeyDown(DIK_Q))
 		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPA);
+			mario->SetState(MARIO_STATE_BRING_KOOMPA_RIGHT);
 			DebugOut(L"vo nut Q phải này hem dạ%d\n");
 			mario->SetSpeed(0.9f, mario->vy);
 			//conco->SetPosition(x + 45.8f, y);
@@ -253,8 +258,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 		if (game->IsKeyDown(DIK_Q))
 		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPA);
+			mario->SetState(MARIO_STATE_BRING_KOOMPA_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
 			DebugOut(L"vo nut Q trái này hem dạ%d\n");
+			mario->SetSpeed(-0.9f, mario->vy);
 		}
 	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
 	else if (game->IsKeyDown(DIK_DOWN))
@@ -276,6 +282,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			else if(mario->GetState() == MARIO_STATE_)
 		}*/
 		if (mario->GetState() == MARIO_STATE_FLY)
+			return;
+		if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 			return;
 		if (mario->GetState() == MARIO_STATE_SPIN)
 			return;
@@ -453,6 +461,9 @@ void LoadResources()
 	sprites->Add(10078, 335-1	, 142, 335 + 22, 142 + 28, texMarioPro);
 	sprites->Add(10079, 309		, 143, 309 + 23, 143 + 27, texMarioPro);
 	
+	sprites->Add(10080, 441, 143, 441 + 24, 143 + 27, texMarioPro);		//fly tail high r
+	sprites->Add(10081, 495, 142, 495 + 24, 142 + 28, texMarioPro);
+	sprites->Add(10082, 468, 143, 468 + 24, 143 + 27, texMarioPro);
 
 
 
@@ -791,6 +802,12 @@ void LoadResources()
 	ani->Add(10079);
 	animations->Add(483, ani);
 
+	ani = new CAnimation(70);		// fly tail high r
+	ani->Add(10080);
+	ani->Add(10081);
+	ani->Add(10082);
+	animations->Add(484, ani);
+
 
 
 
@@ -1020,6 +1037,8 @@ void LoadResources()
 	
 	mario->AddAnimation(483);		//fly tail r
 
+	mario->AddAnimation(484);		//fly tail high r
+
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
@@ -1199,7 +1218,7 @@ void LoadResources()
 	flatform->SetPosition(0, 532);
 	objects.push_back(flatform);
 
-	flatform = new Flatform(1392, 100);
+	flatform = new Flatform(3392, 5);//nền cao  Flatform(1392, 100)
 	flatform->SetPosition(1872, 532-50);
 	objects.push_back(flatform);
 

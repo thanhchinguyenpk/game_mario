@@ -53,8 +53,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (is_fly==true)//còn render
 	{
-		if(!(GetState() == MARIO_STATE_FLY && animations[MARIO_ANI_FLY]->IsRenderDone()))
-		vy = 0.1;
+		if (GetState() == MARIO_STATE_FLY)// nếu là con cáo bay và ani quẫy đuôi chưa xong
+		{
+			if (!animations[MARIO_ANI_FLY]->IsRenderDone())
+			{
+				vy = 0.1;
+				DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+			}
+		} else if(GetState() == MARIO_STATE_FLY_HIGH)
+			if (!animations[MARIO_ANI_FLY_HIGH]->IsRenderDone())
+			{
+				vy = -0.1;
+				DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+			}
+
+	/*	if (!(GetState() == MARIO_STATE_FLY_HIGH && animations[MARIO_ANI_FLY_HIGH]->IsRenderDone()))//nếu là con cáo bay cao và ani nằm quẫy  chưa xong
+		{
+			vy = -0.1;
+			DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+		}*/
 	}
 	else
 	{
@@ -190,7 +207,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					vy = -MARIO_JUMP_DEFLECT_SPEED;			
 				}*/
 
-				if (state == MARIO_STATE_BRING_KOOMPA)
+				if (state == MARIO_STATE_BRING_KOOMPA_RIGHT)
 				{
 					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
 
@@ -251,6 +268,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", y);
 
 	// clean up collision events
+
+#pragma region Animations Mario
+
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	
 	
@@ -259,29 +279,36 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		SetSpin(false);
-		is_render_animation = false;
+		//is_render_animation = false;
 	}
 	if (GetState() ==  MARIO_STATE_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->IsRenderDone())
 	{
 		SetState(MARIO_STATE_IDLE);
-		is_render_animation = false;
+		//is_render_animation = false;
 	}
 
 
 	if (GetState() ==  MARIO_STATE_JUMP_SHOOT_BULLET && animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->IsRenderDone())
 	{
 		SetState(MARIO_STATE_IDLE);
-		is_render_animation = false;
+		//is_render_animation = false;
 	}
 	if (GetState() == MARIO_STATE_FLY && animations[MARIO_ANI_FLY]->IsRenderDone())
 	{
 		SetState(MARIO_STATE_IDLE);
-		is_render_animation = false;
+		//is_render_animation = false;
+		//DebugOut(L"Hello , vo day khong???\n");
+		is_fly = false;
+	}
+	if (GetState() == MARIO_STATE_FLY_HIGH && animations[MARIO_ANI_FLY_HIGH]->IsRenderDone())
+	{
+		SetState(MARIO_STATE_IDLE);
+		//is_render_animation = false;
 		//DebugOut(L"Hello , vo day khong???\n");
 		is_fly = false;
 	}
 
-
+#pragma endregion
 //	DebugOut(L"stae cua mario la: %d\n", GetState());
 	//if (is_shoot == true)
 	//	is_shoot == false;
@@ -399,6 +426,8 @@ void CMario::Render()
 		 {
 			 if (state == MARIO_STATE_FLY)
 				 ani = MARIO_ANI_FLY;
+			 else if (state == MARIO_STATE_FLY_HIGH)
+				 ani = MARIO_ANI_FLY_HIGH;
 			 else
 			 {
 
@@ -478,26 +507,31 @@ void CMario::SetState(int state)
 		//is_spin == true;
 		animations[39]->ResetCurrentFrame();
 		animations[39]->StartTimeAnimation();
-		is_render_animation = true;
+		//is_render_animation = true;
 		break;
 	case MARIO_STATE_SHOOT_BULLET:
 	//	DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
 		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
 		animations[MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
-		is_render_animation = true;
+		//is_render_animation = true;
 		break;
 	case MARIO_STATE_JUMP_SHOOT_BULLET:
 		//DebugOut(L"da vo ban sungggggggggggggggggggggggggggggggggggggg: \n");
 		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->ResetCurrentFrame();
 		animations[MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT]->StartTimeAnimation();
-		is_render_animation = true;
+		//is_render_animation = true;
 		break;
 	case MARIO_STATE_FLY:
 		animations[MARIO_ANI_FLY]->ResetCurrentFrame();
 		animations[MARIO_ANI_FLY]->StartTimeAnimation();
-		is_render_animation = true;
+		//is_render_animation = true;
 		break;
-	case MARIO_STATE_BRING_KOOMPA:
+	case MARIO_STATE_FLY_HIGH:
+		animations[MARIO_ANI_FLY_HIGH]->ResetCurrentFrame();
+		animations[MARIO_ANI_FLY_HIGH]->StartTimeAnimation();
+		//is_render_animation = true;
+		break;
+	case MARIO_STATE_BRING_KOOMPA_RIGHT:
 		//vx = 1.5f;
 		break;
 	}

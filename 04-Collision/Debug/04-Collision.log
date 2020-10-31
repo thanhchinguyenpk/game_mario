@@ -1,4 +1,12 @@
-﻿  ConCo.cpp
+﻿  Mario.cpp
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.cpp(61,18): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(4): message : see previous definition of 'CONCO_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(26): message : see previous definition of 'CONCO_ANI_DIE'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(60,13): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(66,14): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(78,27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameConvert\game_mario\Debug\04-Collision.exe
