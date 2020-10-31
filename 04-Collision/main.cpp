@@ -142,8 +142,11 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		}
 		else
 		{	
-			mario->SetState(MARIO_STATE_FLY);
-			mario->SetIsFly(true);
+			if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+			{
+				mario->SetState(MARIO_STATE_FLY);
+				mario->SetIsFly(true);
+			}
 		}
 		//DebugOut(L"[INFO] KeyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADown: %d\n", KeyCode);
 
@@ -1053,7 +1056,7 @@ void LoadResources()
 		conco->AddAnimation(905);
 		conco->AddAnimation(906);
 		conco->SetPosition(2000.0f, 300.0f);
-		conco->SetState(CONCO_STATE_THUT_VAO);
+		conco->SetState(CONCO_STATE_WALKING_LEFT);
 		objects.push_back(conco);
 	}
 

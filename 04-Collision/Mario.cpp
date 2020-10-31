@@ -148,6 +148,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				is_in_object = true;
 			}
 
+#pragma region logic collision
 			if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba // nếu như là goomba
 			{
 				
@@ -252,7 +253,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 
-			
+#pragma endregion			
 
 			if (dynamic_cast<Flatform*>(e->obj)) {
 				if (e->ny > 0) // hướng xuống
@@ -430,8 +431,6 @@ void CMario::Render()
 				 ani = MARIO_ANI_FLY_HIGH;
 			 else
 			 {
-
-				 
 				 ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
 
 				 if (vy < 0.0f)
@@ -441,8 +440,6 @@ void CMario::Render()
 				 if(is_fly==true)
 					 ani = MARIO_ANI_FLY;
 			 }
-
-
 
 		 }
 		 else if (is_in_object == true)

@@ -1,6 +1,8 @@
 ﻿#include "MarioBullet.h"
 #include "TimerCustom.h"
 #include "debug.h"
+#include "Goomba.h"
+#include "ConCo.h"
 
 int is_delete = false;
 extern vector<LPGAMEOBJECT> objects;
@@ -64,17 +66,39 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// filter đối tượng trên từng trục để xử lí va chạm
 
 		// block // đẩy lùi ra so với chiều của các hướng bị va chạm, 0.4f là tránh bị trùng mép
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-
+		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+	
+			x += min_tx * dx + nx * 0.4f;
+			y += min_ty * dy + ny * 0.4f;
+		
 		if (nx != 0)
 		{
-			state = MARIOBULLET_STATE_BUM;
+			//state = MARIOBULLET_STATE_BUM;
 			vy = 0;
 			vx = 0;
-			objects.pop_back();
-			delete this;
+			is_disapear = true;
+			
 		}; // tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			////	if (dynamic_cast<Flatform*>(e->obj) && state == GOOMBA_STATE_WAS_SHOOTED)
+				//	state = GOOMBA_STATE_DIE;
+
+			if (dynamic_cast<CGoomba*>(e->obj))
+			{
+				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+				goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+				//SetPosition(x, y - 20);
+				DebugOut(L"[ERROR~~~~~~~~~~~~~~~~CO BAO GIO NHAY VO DAY k: \n");
+			}
+
+
+
+		}
 	//	if (ny != 0) vy = -0.25*2;// tưng lên
 
 
@@ -82,6 +106,12 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	
 
+
+	if (is_disapear == true)
+	{
+		objects.pop_back();
+		delete this;
+	}
 	/*if (is_delete == false && state == MARIOBULLET_STATE_BUM && animations[MARIOBULLET_ANI_BUM]->IsRenderDone())
 		is_delete = true;
 

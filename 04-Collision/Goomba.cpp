@@ -48,13 +48,15 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// filter đối tượng trên từng trục để xử lí va chạm
 
 		// block // đẩy lùi ra so với chiều của các hướng bị va chạm, 0.4f là tránh bị trùng mép
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
+		
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy + ny * 0.4f;
+		
 
 		if (nx != 0)
 		{
 			vx = 0;
-			DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] co nhay vo phuong ngang. Error: \n");
+		//	DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] co nhay vo phuong ngang. Error: \n");
 			//delete this;
 		}// tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
 		if (ny != 0)
@@ -76,16 +78,22 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			
 
-				////	if (dynamic_cast<Flatform*>(e->obj) && state == GOOMBA_STATE_WAS_SHOOTED)
-					//	state = GOOMBA_STATE_DIE;
+			//delete nó đi nè :D
+			if (dynamic_cast<Flatform*>(e->obj) && state == GOOMBA_STATE_WAS_SHOOTED)
+			{
+				
+
+			}
 	
-					if (dynamic_cast<MarioBullet*>(e->obj))
+				/*	if (dynamic_cast<MarioBullet*>(e->obj))
 					{
 						SetState(GOOMBA_STATE_WAS_SHOOTED);
 						//SetPosition(x, y - 20);
 						DebugOut(L"[ERROR~~~~~~~~~~~~~~~~CO BAO GIO NHAY VO DAY k: \n");
 					}
+					*/
 
 			
 
@@ -94,6 +102,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	
+	/*	if (state == GOOMBA_STATE_WAS_SHOOTED)
+	{
+		y += 20;
+	}
+	*/
 }
 
 void CGoomba::Render()
