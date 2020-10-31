@@ -86,8 +86,8 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0)
 		{
 			//vx = 0;
-			
-			if (state == CONCO_STATE_WALKING_LEFT)
+			vy = 0;
+		/*	if (state == CONCO_STATE_WALKING_LEFT)
 			{
 				SetState(CONCO_STATE_WALKING_RIGHT);
 				//DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] cham dau quay qua phải. Error: \n");
@@ -96,7 +96,7 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				SetState(CONCO_STATE_WALKING_LEFT);
 				//DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] cham dau quay qua trái. Error: \n");
-			}
+			}*/
 		}// tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
 		if (ny != 0)
 		{
@@ -179,8 +179,10 @@ void CConCo::Render()
 	int ani = CONCO_ANI_WALKING_RIGHT;
 	if (state == CONCO_STATE_WALKING_RIGHT)
 		ani = CONCO_ANI_WALKING_RIGHT;
-	else if (state == CONCO_STATE_THUT_VAO)
+	else if (state == CONCO_STATE_THUT_VAO||state==CONCO_STATE_WAS_SHOOTED)
 		ani = CONCO_ANI_THUT_VAO;
+	else if (state == CONCO_STATE_MAI_RUA_CHAY)
+		ani = CONCO_ANI_MAI_RUA_CHAY;
 	//int ani = CONCO_ANI_THUT_VAO;
 	DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", nx);
 	animations[ani]->Render(x, y,0,255,nx,ny);
@@ -212,7 +214,7 @@ void CConCo::SetState(int state)
 		//y = 135;
 		break;
 	case CONCO_STATE_MAI_RUA_CHAY:
-		vx = CONCO_MAI_RUA_CHAY_SPEED;
+		vx = -CONCO_MAI_RUA_CHAY_SPEED;
 		break;
 	case CONCO_STATE_FLY_LEFT:
 		vx = -CONCO_WALKING_SPEED;
@@ -229,7 +231,12 @@ void CConCo::SetState(int state)
 		vy = 0;
 		//nx = 1;
 		break;
-
+	case CONCO_STATE_WAS_SHOOTED:
+		vx = 0;// 0.1f * 1.5;
+		vy = -0.25*3;
+		ny = -1;
+		//nx = 1;
+		break;
 	}
 }
 

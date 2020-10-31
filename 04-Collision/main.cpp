@@ -107,19 +107,19 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	{
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
-		mario->SetPosition(1300.0f, 80.0f);
+		mario->SetPosition(mario->x, 80.0f);
 		goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 			break;
 	case DIK_2:
-		mario->SetPosition(1300.0f, 80.0f);
+		mario->SetPosition(mario->x, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		break;
 	case DIK_3:
-		mario->SetPosition(1300.0f, 80.0f);
+		mario->SetPosition(mario->x, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG_TAIL);
 		break;
 	case DIK_4:
-		mario->SetPosition(1300.0f, 80.0f);
+		mario->SetPosition(mario->x, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG_ORANGE);
 		break;
 	case DIK_Q:
@@ -242,9 +242,10 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		if (game->IsKeyDown(DIK_Q))
 		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPA_RIGHT);
-			DebugOut(L"vo nut Q phải này hem dạ%d\n");
-			mario->SetSpeed(0.9f, mario->vy);
+			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);
+			mario->SetIsBring(true);
+			//DebugOut(L"vo nut Q phải này hem dạ%d\n");
+			//mario->SetSpeed(1.5f, mario->vy);
 			//conco->SetPosition(x + 45.8f, y);
 		}
 		//if (game->IsKeyDown(DIK_Q))
@@ -261,9 +262,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 		if (game->IsKeyDown(DIK_Q))
 		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPA_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
-			DebugOut(L"vo nut Q trái này hem dạ%d\n");
-			mario->SetSpeed(-0.9f, mario->vy);
+			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
+			//DebugOut(L"vo nut Q trái này hem dạ%d\n");
+			//mario->SetSpeed(-1.5f, mario->vy);
 		}
 	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
 	else if (game->IsKeyDown(DIK_DOWN))
@@ -469,6 +470,11 @@ void LoadResources()
 	sprites->Add(10082, 468, 143, 468 + 24, 143 + 27, texMarioPro);
 
 
+	sprites->Add(10083, 434,	  48, 434 + 14, 48 + 27, texMarioPro);		//big bring koompa
+	sprites->Add(10084, 451,	  48, 451 + 15, 48 + 27, texMarioPro);
+	sprites->Add(10085, 469,  	 49, 469 + 16, 49 + 27, texMarioPro);
+
+	sprites->Add(10086, 488, 48, 488 + 21, 48 + 27, texMarioPro);// big rouse koompa shell
 
 
 
@@ -811,7 +817,15 @@ void LoadResources()
 	ani->Add(10082);
 	animations->Add(484, ani);
 
+	ani = new CAnimation(60);		// big bring coompa r
+	ani->Add(10083);
+	ani->Add(10084);
+	ani->Add(10085);
+	animations->Add(485, ani);
 
+	ani = new CAnimation(100);		// big brouse coompa r
+	ani->Add(10086);
+	animations->Add(486, ani);
 
 
 
@@ -1042,6 +1056,9 @@ void LoadResources()
 
 	mario->AddAnimation(484);		//fly tail high r
 
+	mario->AddAnimation(485);		//big bring koompashell;
+	mario->AddAnimation(486);		//big rouse koompashell;
+
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
@@ -1056,7 +1073,7 @@ void LoadResources()
 		conco->AddAnimation(905);
 		conco->AddAnimation(906);
 		conco->SetPosition(2000.0f, 300.0f);
-		conco->SetState(CONCO_STATE_WALKING_LEFT);
+		conco->SetState(CONCO_STATE_WALKING_RIGHT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
 	}
 
@@ -1065,7 +1082,7 @@ void LoadResources()
 	goomba->AddAnimation(701);
 	goomba->AddAnimation(702);
 	goomba->AddAnimation(703);
-	goomba->SetPosition(2100, 435);
+	goomba->SetPosition(1600, 100);
 	goomba->SetState(GOOMBA_STATE_WALKING);
 	objects.push_back(goomba);
 
@@ -1088,10 +1105,10 @@ void LoadResources()
 
 		
 	}*/
-	CBrick* brick = new CBrick();
+	/*CBrick* brick = new CBrick();
 	brick->AddAnimation(601);
 	brick->SetPosition(84.0f +3 * 60.0f, 90.0f);
-	objects.push_back(brick);
+	objects.push_back(brick);*/
 
 
 	/*for (int i = 0; i < 90; i++)
@@ -1117,22 +1134,22 @@ void LoadResources()
 
 
 	//hon da dong tien
-	brickcoin = new Brick_Coin();
+/*	brickcoin = new Brick_Coin();
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
 	brickcoin->SetPosition(100.0f, 90.0f);
 	//set state đâu?
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
-	objects.push_back(brickcoin);
+	objects.push_back(brickcoin);*/
 
 
-	brickcoin = new Brick_Coin();
+/*	brickcoin = new Brick_Coin();
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
 	brickcoin->SetPosition(170, 134);
 	//set state đâu?
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
-	objects.push_back(brickcoin);
+	objects.push_back(brickcoin);*/
 
 	//chùm gạch đầu tiên
 	brickcoin = new Brick_Coin();

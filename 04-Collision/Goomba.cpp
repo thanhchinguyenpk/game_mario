@@ -140,13 +140,13 @@ void CGoomba::SetState(int state)
 			vy = 0;
 			break;
 		case GOOMBA_STATE_WALKING: 
-			vx = GOOMBA_WALKING_SPEED;
+			vx = -0.1;//GOOMBA_WALKING_SPEED;
 			//vx = 0;
 			//vy = 0;
 			break;
 		case GOOMBA_STATE_WAS_SHOOTED:
 			vy = -0.25 * 3;
-			//vx = vx;
+			vx = 0;
 			ny = -1;
 			break;
 	}

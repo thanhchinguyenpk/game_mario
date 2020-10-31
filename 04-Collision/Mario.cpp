@@ -164,9 +164,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
 					}
 				}
-				else if (e->nx != 0) // vec tơ pháp tuyến từ bên trái qua, từ bên phải xuống
-				{		// thì làm mario rớt level, bất tử hoặc chết
-					if (untouchable==0)
+
+				//SÀI NHA
+			//	else if (e->nx != 0) // vec tơ pháp tuyến từ bên trái qua, từ bên phải xuống
+			//	{		// thì làm mario rớt level, bất tử hoặc chết
+					/*if (untouchable==0)
 					{
 						if (goomba->GetState()!=GOOMBA_STATE_DIE)
 						{
@@ -178,13 +180,29 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							else 
 								SetState(MARIO_STATE_DIE);
 						}
-					}
+					}*/
+				//}
+
+				if (state == MARIO_STATE_SPIN)
+				{
+					if (goomba->x - this->x < 80);
+						goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 				}
 			}
 			if (dynamic_cast<CConCo*>(e->obj))
 			{
-				/*CConCo* conco = dynamic_cast<CConCo*>(e->obj);
-				if (e->ny < 0) // phương va chạm hướng lên (con cò)
+				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
+				if (e->ny < 0)
+				{
+					if (conco->GetState() == CONCO_STATE_THUT_VAO)
+						conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+					if (conco->GetState() == CONCO_STATE_WALKING_LEFT || conco->GetState() == CONCO_STATE_WALKING_RIGHT)
+					{
+						conco->SetState(CONCO_STATE_THUT_VAO);
+					}
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				/*if (e->ny < 0) // phương va chạm hướng lên (con cò)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)// nếu đang chạy sẽ thụt vào,else cuối
 					{
@@ -208,24 +226,29 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					vy = -MARIO_JUMP_DEFLECT_SPEED;			
 				}*/
 
-				if (state == MARIO_STATE_BRING_KOOMPA_RIGHT)
+				if (state == MARIO_STATE_BRING_KOOMPASHELL_RIGHT)
 				{
 					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
 
-					DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
+					//DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
 					if (this->nx > 0)
 					{
-						//conco->SetPosition(x + 45.8f, y);
+						conco->SetPosition(x + 60.0f, y);
 						conco->SetState(CONCO_STATE_WAS_BROUGHT);
-						DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
 						
-						is_bring = true;
+						//is_bring = true;
 						temp = conco;
 					}
 					else {
+						conco->SetPosition(x - 60.0f, y);
+						conco->SetState(CONCO_STATE_WAS_BROUGHT);
+						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
 
-						conco->SetPosition(x - 55.0f, y);
-						DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+						//is_bring = true;
+						temp = conco;
+						//conco->SetPosition(x - 55.0f, y);
+						//DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
 					}
 				}
 			}
@@ -315,9 +338,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//	is_shoot == false;
 
 	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
-	if(is_bring==true)
-		temp->SetPosition(x+50, y);
-
+	//if(is_bring==true)
+	//	temp->SetPosition(x+70, y);
+	DebugOut(L"[ERROR----state cua nó la %d\n", state);
 }
 
 void CMario::Render()
@@ -333,10 +356,18 @@ void CMario::Render()
 		{
 			if(is_sitdown==false) // trên object thì nó mới sitdown được, if bên ngoài
 			{
-				if (vx == 0) //nếu đứng yên
+					//tại vì khi cầm mai con rùa, có lúc va chạm nên vx bằng 0, nó chui vô nên sẽ xẩy
+					//ra hiện tượng là cầm mai rùa nhưng vẫn ở rạng thái idle
+				if (is_bring == true)
+					ani = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
+				else {
+
+					if (vx == 0)
 						ani = MARIO_ANI_BIG_IDLE_RIGHT;
-				else  //nếu di chuyển trái
-				    	ani = MARIO_ANI_BIG_WALKING_RIGHT;
+					else
+						ani = MARIO_ANI_BIG_WALKING_RIGHT;
+				}
+			
 			}
 			else 
 				ani = MARIO_ANI_BIG_SITDOWN_RIGT;	
@@ -461,7 +492,7 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-
+	DebugOut(L"[ERROR--------------------------------------ani cua nó la %d\n", ani);
 	//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
 	animations[ani]->Render(x, y,0,alpha,nx);
 
@@ -528,8 +559,8 @@ void CMario::SetState(int state)
 		animations[MARIO_ANI_FLY_HIGH]->StartTimeAnimation();
 		//is_render_animation = true;
 		break;
-	case MARIO_STATE_BRING_KOOMPA_RIGHT:
-		//vx = 1.5f;
+	case MARIO_STATE_BRING_KOOMPASHELL_RIGHT:
+		vx = 1.5 * nx;
 		break;
 	}
 }
@@ -555,8 +586,15 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	else if (level == MARIO_LEVEL_BIG_TAIL)
 	{
 		if (is_sitdown == false) {
+
 			right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
 			bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+
+			if (state == MARIO_STATE_SPIN)
+			{
+				right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
+				bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+			}
 		}
 		else
 		{

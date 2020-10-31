@@ -96,6 +96,15 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				DebugOut(L"[ERROR~~~~~~~~~~~~~~~~CO BAO GIO NHAY VO DAY k: \n");
 			}
 
+			if (dynamic_cast<CConCo*>(e->obj))
+			{
+				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
+
+				conco->SetState(CONCO_STATE_WAS_SHOOTED);
+				//SetPosition(x, y - 20);
+				DebugOut(L"[ERROR~~~~~~~~~~~~~~~~CO BAO GIO NHAY VO DAY k: \n");
+			}
+
 
 
 		}
