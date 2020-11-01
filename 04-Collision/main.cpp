@@ -222,13 +222,17 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	//case DIK_BACKSPACE:
 		//mario->SetShoot(false);
 		//mario->SetSpin(false);
-		break;
+		
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
 		if(mario->GetLevel()== MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 			mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
 		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
+		break;
+
+	case DIK_Z:
+		mario->SetIsIncreaseSpeed(false);
 		break;
 	}
 }
@@ -257,7 +261,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		//DebugOut(L"[INFO] gai toccccc: %f\n", mario->acceleration);
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() +10, CGame::GetInstance()->GetCamY());
 	}
-	else if (game->IsKeyDown(DIK_LEFT))
+	/*else if (game->IsKeyDown(DIK_LEFT))
 	{
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 		if (game->IsKeyDown(DIK_Q))
@@ -266,7 +270,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			//DebugOut(L"vo nut Q trái này hem dạ%d\n");
 			//mario->SetSpeed(-1.5f, mario->vy);
 		}
-	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+	}*/	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_SITDOWN);
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
@@ -276,6 +280,16 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		
 
 //	}
+	else if (game->IsKeyDown(DIK_Z))
+	{
+		mario->SetIsIncreaseSpeed(true);
+		if (game->IsKeyDown(DIK_LEFT))
+		{
+			mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
+			mario->is_low = true;
+			//mario->nx = -1;
+		}
+	}
 	else //trạng thái đứng yên
 	{
 		// nên đặt biến is_shooting hay is_spin gì gì đó cho khỏi kẹp đk, nhiều đk vai lon
@@ -1063,7 +1077,7 @@ void LoadResources()
 	objects.push_back(mario);
 
 
-	for (int i = 0; i < 1; i++)
+/*	for (int i = 0; i < 1; i++)
 	{
 		conco = new CConCo();
 		conco->AddAnimation(901);
@@ -1085,6 +1099,8 @@ void LoadResources()
 	goomba->SetPosition(1600, 100);
 	goomba->SetState(GOOMBA_STATE_WALKING);
 	objects.push_back(goomba);
+
+	*/
 
 /*	for (int i = 0; i < 5; i++)
 	{

@@ -7,6 +7,7 @@
 #define MARIO_JUMP_DEFLECT_SPEED 0.4f*3
 #define MARIO_GRAVITY			0.002f*1.5
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f*3
+#define MARIO_ACCELERATION 0.001f
 
 #define MARIO_STATE_IDLE						0
 #define MARIO_STATE_WALKING_RIGHT				100
@@ -113,17 +114,22 @@
 
 class CMario : public CGameObject
 {
+public:
 	int level;
 	int untouchable;
+	float acceleration= MARIO_ACCELERATION;
+
 	DWORD untouchable_start;
 	DWORD jumping_start;
 	bool is_in_object = false;
 	bool is_sitdown = false;
 	bool is_shoot = false;
 	bool is_spin = false;
+	bool is_low = false;
 	
 	bool is_fly = false;
 	bool is_bring = false;
+	bool is_increase_speed = false;
 
 public: 
 	CMario() : CGameObject()
@@ -135,13 +141,15 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);
-	void SetIsInObject(bool temp) { is_in_object = temp; };
+	void SetIsInObject(bool temp) { is_in_object = temp; }
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void SetShoot(bool temp) { is_shoot = temp; };
-	void SetSpin(bool temp) { is_spin = temp; };
-	void SetIsFly(bool temp) { is_fly = temp; };
-	void SetIsBring(bool temp) { is_bring = temp; };
+	void SetShoot(bool temp) { is_shoot = temp; }
+	void SetSpin(bool temp) { is_spin = temp; }
+	void SetIsFly(bool temp) { is_fly = temp; }
+	void SetIsBring(bool temp) { is_bring = temp; }
+	void SetIsIncreaseSpeed(bool temp) { is_increase_speed = temp; }
+	void SetAcceleration(float temp) { acceleration = temp; }
 
 	void StartJumping() { jumping_start = GetTickCount(); };
 	void EndJumping() { jumping_start = 0; };
@@ -152,6 +160,8 @@ public:
 	bool GetIsSpin() { return is_spin; };
 	bool GetIsFly() { return is_fly; };
 	bool GetIsBring() { return is_bring; };
+	bool GetIsIncreaseSpeed() { return is_increase_speed; }
+	float GetAcceleration() { return acceleration; }
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

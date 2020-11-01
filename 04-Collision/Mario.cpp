@@ -43,6 +43,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	float vy_flatform = 0;
 
+	if (vx <= 1.203 && is_increase_speed==true||is_low==true)
+	{
+		vx = (vx + acceleration * dt);// nx;
+		DebugOut(L"co vo doan acceleration maaaaaaaaaaaaaaaaa\n");
+	}
+
 	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
@@ -340,7 +346,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
 	//if(is_bring==true)
 	//	temp->SetPosition(x+70, y);
-	DebugOut(L"[ERROR----state cua nó la %d\n", state);
+
+
+
+
+	DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
+
+	DebugOut(L"state cua no la: %d\n", state);
 }
 
 void CMario::Render()
@@ -362,7 +374,7 @@ void CMario::Render()
 					ani = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
 				else {
 
-					if (vx == 0)
+					if (state==MARIO_STATE_IDLE)
 						ani = MARIO_ANI_BIG_IDLE_RIGHT;
 					else
 						ani = MARIO_ANI_BIG_WALKING_RIGHT;
@@ -492,7 +504,7 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	DebugOut(L"[ERROR--------------------------------------ani cua nó la %d\n", ani);
+	//DebugOut(L"[ERROR--------------------------------------ani cua nó la %d\n", ani);
 	//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
 	animations[ani]->Render(x, y,0,alpha,nx);
 
@@ -506,14 +518,15 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
+		//vx = vx;// MARIO_WALKING_SPEED;
 		nx = 1;
 		//DebugOut(L"[INFO] vannnn toccccc~~~~~: %f\n", vx);
 		//vx += acceleration * dt;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
-		vx = -MARIO_WALKING_SPEED;
-		nx = -1;
+		//vx = -acceleration*2;// -MARIO_WALKING_SPEED;
+		acceleration = -MARIO_ACCELERATION * 2;
+		//nx = -1;
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;
