@@ -43,15 +43,42 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	float vy_flatform = 0;
 
-	if (vx <= 1.203 && is_increase_speed==true||is_low==true)
-	{
-		vx = (vx + acceleration * dt);// nx;
-		DebugOut(L"co vo doan acceleration maaaaaaaaaaaaaaaaa\n");
-	}
 
-	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
+
+	float speed_vx = abs(vx);
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
+
+	//is_increase_speed==true, liên quan ở vòng if
+	if (is_walking == false)
+	{
+
+		DebugOut(L"coooooooooo vooooooo khi an 2 nut cungggggggg songgggg songgggggg\n");
+		if (speed_vx <= 1.203 || is_slightly_lower_limit == true)
+		{
+			vx = (vx + acceleration * dt);// nx;
+			//DebugOut(L"co vo doan acceleration maaaaaaaaaaaaaaaaa\n");
+			is_max_speed = false;
+		}
+		else
+			is_max_speed = true;
+
+
+
+		if (vx > 0)nx = 1;
+		else  nx = -1;//if(vx<0)
+
+	}
+
+
+
+	
+
+
+
+	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
+	
 
 	// Simple fall down
 	
@@ -64,13 +91,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (!animations[MARIO_ANI_FLY]->IsRenderDone())
 			{
 				vy = 0.1;
-				DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+				//DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
 			}
 		} else if(GetState() == MARIO_STATE_FLY_HIGH)
 			if (!animations[MARIO_ANI_FLY_HIGH]->IsRenderDone())
 			{
 				vy = -0.1;
-				DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+				//DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
 			}
 
 	/*	if (!(GetState() == MARIO_STATE_FLY_HIGH && animations[MARIO_ANI_FLY_HIGH]->IsRenderDone()))//nếu là con cáo bay cao và ani nằm quẫy  chưa xong
@@ -350,9 +377,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 
-	DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
+	//DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
 
-	DebugOut(L"state cua no la: %d\n", state);
+	//DebugOut(L"state cua no la: %d\n", state);
 }
 
 void CMario::Render()
@@ -374,7 +401,11 @@ void CMario::Render()
 					ani = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
 				else {
 
-					if (state==MARIO_STATE_IDLE)
+					if (is_max_speed == true)
+						ani = MARIO_ANI_BIG_RUN;
+					else if (is_skid == true)
+						ani = MARIO_ANI_BIG_SKID;
+					else if (state==MARIO_STATE_IDLE)
 						ani = MARIO_ANI_BIG_IDLE_RIGHT;
 					else
 						ani = MARIO_ANI_BIG_WALKING_RIGHT;
@@ -504,7 +535,7 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	//DebugOut(L"[ERROR--------------------------------------ani cua nó la %d\n", ani);
+	//DebugOut(L"[ERROR---------------nxx--------------------ani cua nó la %d\n", nx);
 	//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
 	animations[ani]->Render(x, y,0,alpha,nx);
 
@@ -518,15 +549,31 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		//vx = vx;// MARIO_WALKING_SPEED;
-		nx = 1;
-		//DebugOut(L"[INFO] vannnn toccccc~~~~~: %f\n", vx);
+		if (is_press_z == true)
+		{
+			is_walking = false;
+			DebugOut(L"press s %f\n");
+		}
+		else
+		{
+			is_walking = true;
+			vx = MARIO_WALKING_SPEED;
+			nx = 1;
+			DebugOut(L"walking right %f\n");
+		}
+		
 		//vx += acceleration * dt;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
-		//vx = -acceleration*2;// -MARIO_WALKING_SPEED;
-		acceleration = -MARIO_ACCELERATION * 2;
-		//nx = -1;
+		/*if (is_press_z == true)
+		{
+			is_walking = false;
+			return;
+		}*/
+		is_walking = true;
+		vx = -MARIO_WALKING_SPEED;
+		//acceleration = -MARIO_ACCELERATION * 2;
+		nx = -1;
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;
@@ -537,7 +584,7 @@ void CMario::SetState(int state)
 		is_sitdown = true;
 		vx = 0;
 		break;
-	case MARIO_STATE_IDLE: 
+	case MARIO_STATE_IDLE:
 		is_sitdown = false;
 		vx = 0;
 		break;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #define MARIO_WALKING_SPEED		0.1f*3 
@@ -84,6 +84,9 @@
 #define MARIO_ANI_BRING_KOOMPASHELL_RIGHT			44
 #define MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT			45
 
+#define MARIO_ANI_BIG_SKID	46
+#define MARIO_ANI_BIG_RUN 47
+
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -125,8 +128,14 @@ public:
 	bool is_sitdown = false;
 	bool is_shoot = false;
 	bool is_spin = false;
-	bool is_low = false;
-	
+	bool is_slightly_lower_limit = false; // đã đến lúc giảm tốc
+	bool is_right = false;
+	bool is_left = false;
+	bool is_skid = false;
+	bool is_max_speed = false;
+	bool is_walking = false;
+	bool is_press_z = false;;
+
 	bool is_fly = false;
 	bool is_bring = false;
 	bool is_increase_speed = false;
