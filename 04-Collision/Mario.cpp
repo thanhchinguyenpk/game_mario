@@ -50,11 +50,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
+
+	if (is_slightly_lower_than_zero == true)
+		false;
 	//is_increase_speed==true, liên quan ở vòng if
 	if (is_walking == false)
 	{
 
-		DebugOut(L"coooooooooo vooooooo khi an 2 nut cungggggggg songgggg songgggggg\n");
+		//DebugOut(L"coooooooooo vooooooo khi an 2 nut cungggggggg songgggg songgggggg\n");
 		if (speed_vx <= 1.203 || is_slightly_lower_limit == true)
 		{
 			vx = (vx + acceleration * dt);// nx;
@@ -65,9 +68,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			is_max_speed = true;
 
 
-
-		if (vx > 0)nx = 1;
-		else  nx = -1;//if(vx<0)
+//
+		//if (vx >= 0)nx = 1;
+	//	else  nx = -1;//if(vx<0)
 
 	}
 
@@ -535,7 +538,9 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	//DebugOut(L"[ERROR---------------nxx--------------------ani cua nó la %d\n", nx);
+	DebugOut(L"[ERROR---------------ani--------------------ani cua nó la %d\n", ani);
+	DebugOut(L"[ERROR---------------nx--------------------ani cua nó la %d\n", nx);
+	DebugOut(L"[ERROR---------------nx--------------------ani cua nó la %f\n", vx);
 	//DebugOut(L"DA ZO NGOIIIIIIIIIIIiii swith case: \n");
 	animations[ani]->Render(x, y,0,alpha,nx);
 
@@ -565,15 +570,23 @@ void CMario::SetState(int state)
 		//vx += acceleration * dt;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
-		/*if (is_press_z == true)
+		if (is_press_z == true)
 		{
 			is_walking = false;
+			DebugOut(L"co vo l \n");
 			return;
-		}*/
-		is_walking = true;
-		vx = -MARIO_WALKING_SPEED;
+		}
+		else
+		{
+			is_walking = true;
+			vx = -MARIO_WALKING_SPEED;
+			nx = -1;
+		}
+	
+
+	
 		//acceleration = -MARIO_ACCELERATION * 2;
-		nx = -1;
+		//nx = -1;
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;

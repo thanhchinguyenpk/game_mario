@@ -134,7 +134,8 @@ public:
 	bool is_skid = false;
 	bool is_max_speed = false;
 	bool is_walking = false;
-	bool is_press_z = false;;
+	bool is_press_z = false;
+	bool is_slightly_lower_than_zero = false;
 
 	bool is_fly = false;
 	bool is_bring = false;

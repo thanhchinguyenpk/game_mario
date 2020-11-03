@@ -256,9 +256,169 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			mario->SetIsBring(true);
 	
 		}*/
-
-
+		mario->nx = 1;
 		if (game->IsKeyDown(DIK_Z))
+		{
+			mario->is_press_z = true;
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			DebugOut(L"dang vo Z\n");
+			//mario->SetIsIncreaseSpeed(true);
+			if (game->IsKeyDown(DIK_LEFT))
+			{
+				mario->is_left = true;
+				if (mario->is_right == false)
+				{
+					mario->SetAcceleration(-MARIO_ACCELERATION);
+				}
+				else// if  (game->IsKeyDown(DIK_RIGHT))
+				{
+					mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
+					mario->is_slightly_lower_limit = true;
+					mario->is_skid = true;
+					//mario->nx = -1;
+
+					if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
+					{
+						mario->is_slightly_lower_limit = false;
+						mario->is_skid = false;
+					}
+
+				}
+
+			}
+
+
+
+			if (game->IsKeyDown(DIK_RIGHT))
+			{
+				mario->is_right = true;
+				if (mario->is_left == false)
+				{
+					mario->SetAcceleration(MARIO_ACCELERATION);
+				}
+				else
+				{
+					mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
+					mario->is_slightly_lower_limit = true;
+					mario->is_skid = true;
+					//mario->nx = 1;
+
+
+					//vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
+					if (mario->vx > 0)
+					{
+						mario->is_slightly_lower_limit = false;
+						mario->is_skid = false;
+					}
+				}
+			}
+
+
+		}
+		else 
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+	}
+	else if (game->IsKeyDown(DIK_LEFT))
+	{
+		/*mario->SetState(MARIO_STATE_WALKING_LEFT);
+		if (game->IsKeyDown(DIK_Q))
+		{
+			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
+			//DebugOut(L"vo nut Q trái này hem dạ%d\n");
+			//mario->SetSpeed(-1.5f, mario->vy);
+		}*/ // sẽ sd sau
+		mario->nx = -1;
+		if (game->IsKeyDown(DIK_Z))
+		{
+			mario->is_press_z = true;
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			//DebugOut(L"dang vo Z\n");
+			//mario->SetIsIncreaseSpeed(true);
+			if (game->IsKeyDown(DIK_LEFT))
+			{
+				mario->is_left = true;
+				if (mario->is_right == false)
+				{
+					mario->SetAcceleration(-MARIO_ACCELERATION);
+				}
+				else// if  (game->IsKeyDown(DIK_RIGHT))
+				{
+
+
+
+					mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
+					mario->is_slightly_lower_limit = true;
+					mario->is_skid = true;
+					//mario->nx = -1;
+
+					if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
+					{
+						mario->is_slightly_lower_limit = false;
+						mario->is_skid = false;
+					}
+
+				}
+
+			}
+
+
+
+			if (game->IsKeyDown(DIK_RIGHT))
+			{
+				mario->is_right = true;
+				if (mario->is_left == false)
+				{
+					mario->SetAcceleration(MARIO_ACCELERATION);
+				}
+				else
+				{
+					mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
+					mario->is_slightly_lower_limit = true;
+					mario->is_skid = true;
+					//mario->nx = 1;
+
+
+					//vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
+					if (mario->vx > 0)
+					{
+						mario->is_slightly_lower_limit = false;
+						mario->is_skid = false;
+					}
+				}
+			}
+
+
+		}
+		else
+			mario->SetState(MARIO_STATE_WALKING_LEFT);
+	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+	else if (game->IsKeyDown(DIK_DOWN))
+		mario->SetState(MARIO_STATE_SITDOWN);
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
+	//else if (game->IsKeyDown(DIK_UP))
+		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
+	//{
+		
+
+//	}
+	
+	else //trạng thái đứng yên
+	{
+		// nên đặt biến is_shooting hay is_spin gì gì đó cho khỏi kẹp đk, nhiều đk vai lon
+		/*if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+		{
+			if(mario->GetState() == MARIO_STATE_FLY)
+
+			else if(mario->GetState() == MARIO_STATE_)
+		}*/
+		if (mario->GetState() == MARIO_STATE_FLY)
+			return;
+		if (mario->GetState() == MARIO_STATE_FLY_HIGH)	
+
+			return;
+
+
+		/*	if (game->IsKeyDown(DIK_Z))
 		{
 			mario->is_press_z = true;
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
@@ -319,45 +479,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 
 
 		}
-		else 
+		else
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-
-
-	
-	}
-	else if (game->IsKeyDown(DIK_LEFT))
-	{
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-		if (game->IsKeyDown(DIK_Q))
-		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
-			//DebugOut(L"vo nut Q trái này hem dạ%d\n");
-			//mario->SetSpeed(-1.5f, mario->vy);
-		}
-	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
-	else if (game->IsKeyDown(DIK_DOWN))
-		mario->SetState(MARIO_STATE_SITDOWN);
-		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
-	//else if (game->IsKeyDown(DIK_UP))
-		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 10);
-	//{
-		
-
-//	}
-	
-	else //trạng thái đứng yên
-	{
-		// nên đặt biến is_shooting hay is_spin gì gì đó cho khỏi kẹp đk, nhiều đk vai lon
-		/*if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
-		{
-			if(mario->GetState() == MARIO_STATE_FLY)
-
-			else if(mario->GetState() == MARIO_STATE_)
-		}*/
-		if (mario->GetState() == MARIO_STATE_FLY)
-			return;
-		if (mario->GetState() == MARIO_STATE_FLY_HIGH)
-			return;
+*/
 		if (mario->GetState() == MARIO_STATE_SPIN)
 			return;
 		if (mario->GetState() == MARIO_STATE_SHOOT_BULLET)
@@ -369,6 +493,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_IDLE);
 		mario->is_skid = false;
 		mario->is_max_speed = false;
+		mario->is_left = false;
+		mario->is_right = false;
 		//mario->is_walking = false;
 
 	//	DebugOut(L"helooo , zo idle hemmmmmmmmmmm: \n");
@@ -550,7 +676,7 @@ void LoadResources()
 
 	sprites->Add(10086, 488, 48, 488 + 21, 48 + 27, texMarioPro);// big rouse koompa shell
 
-	sprites->Add(10087, 252, 47, 252 + 16, 47+ 28, texMarioPro);// big skid r
+	sprites->Add(10087, 1419, 47, 1419 + 16, 47+ 28, texMarioPro);// big skid l
 
 	sprites->Add(10088, 290, 48, 290 + 19, 48 + 27, texMarioPro);//big run r
 	sprites->Add(10089, 312, 48, 312 + 19, 48 + 27, texMarioPro);
