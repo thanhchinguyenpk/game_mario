@@ -214,7 +214,7 @@ void CConCo::SetState(int state)
 		//y = 135;
 		break;
 	case CONCO_STATE_MAI_RUA_CHAY:
-		vx = -CONCO_MAI_RUA_CHAY_SPEED;
+		vx = 8*CONCO_MAI_RUA_CHAY_SPEED;
 		break;
 	case CONCO_STATE_FLY_LEFT:
 		vx = -CONCO_WALKING_SPEED;

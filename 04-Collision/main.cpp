@@ -108,7 +108,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		mario->SetPosition(mario->x, 80.0f);
-		goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+		//goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 			break;
 	case DIK_2:
 		mario->SetPosition(mario->x, 80.0f);
@@ -121,6 +121,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_4:
 		mario->SetPosition(mario->x, 80.0f);
 		mario->SetLevel(MARIO_LEVEL_BIG_ORANGE);
+		break;
+	case DIK_R:
+		mario->SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
 		break;
 	case DIK_Q:
 		//mario->SetPosition(mario->GetX()+5, mario->GetY());
@@ -432,6 +435,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			return;
 		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
 			return;
+		if (mario->GetState() == MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT)
+			return;
 
 		float speed_x = abs(mario->vx);
 		//DebugOut(L"co vo diz z? \n");
@@ -658,8 +663,27 @@ void LoadResources()
 	sprites->Add(10089, 312, 48, 312 + 19, 48 + 27, texMarioPro);
 	sprites->Add(10090, 335, 48, 335 + 19, 49 + 26, texMarioPro);
 
+	//=======
+	sprites->Add(10091, 323, 8, 323 + 16, 8 + 16, texMarioPro);//small run r
+	sprites->Add(10092, 341, 8, 341 + 16, 8 + 16, texMarioPro);
+	sprites->Add(10093, 1386, 8, 1386 + 14, 8 + 16, texMarioPro);// small skid l
+
+	sprites->Add(10094, 360, 142, 360 + 24, 142 + 28, texMarioPro);//tail run r
+	sprites->Add(10095, 387, 142, 387 + 24, 142 + 28, texMarioPro);
+	sprites->Add(10096, 414, 143, 414 + 24, 143 + 27, texMarioPro);
+	sprites->Add(10097, 1516, 140, 1516 + 16, 140 + 30, texMarioPro);// tail skid l
 
 
+	/*sprites->Add(10098, 360, 142, 360 + 24, 142 + 28, texMarioPro);//tail run r
+	sprites->Add(10200, 347, 142, 347 + 24, 142 + 28, texMarioPro);
+	sprites->Add(10201, 414, 143, 414 + 24, 143 + 27, texMarioPro);                          //chú ý 10099 đã có
+	sprites->Add(10202, 1516, 140, 1516 + 16, 140 + 30, texMarioPro);// tail skid l*/
+
+
+	sprites->Add(10098, 333, 109, 333 + 19, 109 + 27, texMarioPro);//orange run r
+	sprites->Add(10200, 355, 109, 355 + 19, 109 + 27, texMarioPro);
+	sprites->Add(10201, 378, 110, 378 + 19, 110 + 26, texMarioPro);
+	sprites->Add(10202, 1410, 107, 1410 + 16, 107 + 29, texMarioPro);//orange skid l
 
 
 
@@ -1005,11 +1029,11 @@ void LoadResources()
 	ani->Add(10085);
 	animations->Add(485, ani);
 
-	ani = new CAnimation(100);		// big brouse coompa r
+	ani = new CAnimation(400);		// big brouse coompa r
 	ani->Add(10086);
 	animations->Add(486, ani);
 
-	ani = new CAnimation(100);		// big skid r
+	ani = new CAnimation(100);		// big skid l
 	ani->Add(10087);
 	animations->Add(487, ani);
 
@@ -1018,7 +1042,46 @@ void LoadResources()
 	ani->Add(10089);
 	ani->Add(10090);
 	animations->Add(488, ani);
+	//=====================
+	ani = new CAnimation(5);		// small run r
+	ani->Add(10091);
+	ani->Add(10092);
+	animations->Add(489, ani);
 
+	ani = new CAnimation(100);		// small skid l
+	ani->Add(10093);
+	animations->Add(490, ani);
+
+
+	ani = new CAnimation(5);		// big tail run r
+	ani->Add(10094);
+	ani->Add(10095);
+	ani->Add(10096);
+	animations->Add(491, ani);
+
+	ani = new CAnimation(100);		// big tail skid r
+	ani->Add(10097);
+	animations->Add(492, ani);
+
+	/*ani = new CAnimation(5);		// big tail run r
+	ani->Add(10094);
+	ani->Add(10095);
+	ani->Add(10096);
+	animations->Add(493, ani);
+
+	ani = new CAnimation(100);		// big tail skid r
+	ani->Add(10097);
+	animations->Add(494, ani);*/
+
+	ani = new CAnimation(5);		// big orange run r
+	ani->Add(10098);
+	ani->Add(10200);
+	ani->Add(10201);
+	animations->Add(493, ani);
+
+	ani = new CAnimation(100);		// big orange skid r
+	ani->Add(10202);
+	animations->Add(494, ani);
 
 	//====================================================================================================
 
@@ -1251,13 +1314,22 @@ void LoadResources()
 	mario->AddAnimation(486);		//big rouse koompashell;
 
 	mario->AddAnimation(487);		//big skid r
-	mario->AddAnimation(488);		//big run r
+	mario->AddAnimation(488);		//big run l
+
+	mario->AddAnimation(489);		//small run r
+	mario->AddAnimation(490);		//small skid l
+
+	mario->AddAnimation(491);		//big tail run r
+	mario->AddAnimation(492);		//big tail skid l
+
+	mario->AddAnimation(493);		//orange run r
+	mario->AddAnimation(494);		//orange skid l
 
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
 
-/*	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		conco = new CConCo();
 		conco->AddAnimation(901);
@@ -1271,7 +1343,7 @@ void LoadResources()
 		objects.push_back(conco);
 	}
 
-
+/*
 	goomba = new CGoomba();
 	goomba->AddAnimation(701);
 	goomba->AddAnimation(702);

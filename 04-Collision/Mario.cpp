@@ -73,7 +73,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//	else  nx = -1;//if(vx<0)
 
 	}
-	else if(state!=MARIO_STATE_IDLE&&state!=MARIO_STATE_SPIN&&state!= MARIO_STATE_FLY&& state != MARIO_STATE_FLY_HIGH)
+	else if(state!=MARIO_STATE_IDLE&&state!=MARIO_STATE_SPIN&&state!= MARIO_STATE_FLY&& state != MARIO_STATE_FLY_HIGH
+		&&state!= MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT)// ủa tại sao mình lại dùng && ta :v
 	{
 		if (speed_vx <= 0.4 || is_slightly_lower_limit == true)
 		{
@@ -224,8 +225,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			if (dynamic_cast<CConCo*>(e->obj))
 			{
+				DebugOut(L"chạm mấy lần? %d\n");
 				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
-				if (e->ny < 0)
+
+				if (conco->GetState() == CONCO_STATE_THUT_VAO)
+				{
+					conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+					SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
+				}
+				else if (e->ny < 0)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)
 						conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
@@ -235,6 +243,33 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
+				 else if (state == MARIO_STATE_BRING_KOOMPASHELL_RIGHT)
+				{
+					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
+
+					//DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
+					if (this->nx > 0)
+					{
+						conco->SetPosition(x + 60.0f, y);
+						conco->SetState(CONCO_STATE_WAS_BROUGHT);
+						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+
+						//is_bring = true;
+						temp = conco;
+					}
+					else {
+						conco->SetPosition(x - 60.0f, y);
+						conco->SetState(CONCO_STATE_WAS_BROUGHT);
+						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+
+						//is_bring = true;
+						temp = conco;
+						//conco->SetPosition(x - 55.0f, y);
+						//DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
+					}
+				}
+
+			
 				/*if (e->ny < 0) // phương va chạm hướng lên (con cò)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)// nếu đang chạy sẽ thụt vào,else cuối
@@ -259,31 +294,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					vy = -MARIO_JUMP_DEFLECT_SPEED;			
 				}*/
 
-				if (state == MARIO_STATE_BRING_KOOMPASHELL_RIGHT)
-				{
-					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
-
-					//DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
-					if (this->nx > 0)
-					{
-						conco->SetPosition(x + 60.0f, y);
-						conco->SetState(CONCO_STATE_WAS_BROUGHT);
-						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-						
-						//is_bring = true;
-						temp = conco;
-					}
-					else {
-						conco->SetPosition(x - 60.0f, y);
-						conco->SetState(CONCO_STATE_WAS_BROUGHT);
-						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-
-						//is_bring = true;
-						temp = conco;
-						//conco->SetPosition(x - 55.0f, y);
-						//DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-					}
-				}
+				
 			}
 
 
@@ -365,6 +376,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		is_fly = false;
 	}
 
+	if (is_brouse==true && animations[MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT]->IsRenderDone())
+	{
+		SetState(MARIO_STATE_IDLE);
+		is_brouse = false;
+		DebugOut(L"Hello vo 700s khong, vo day khong???\n");
+		is_fly = false;
+	}
+
 #pragma endregion
 
 
@@ -392,7 +411,9 @@ void CMario::Render()
 					ani = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
 				else {
 
-					if (is_max_speed == true&&is_press_z==true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+					if (is_brouse==true)
+						ani = MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT;
+					else if (is_max_speed == true&&is_press_z==true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
 						ani = MARIO_ANI_BIG_RUN;
 					else if (is_skid == true && is_press_z == true)
 						ani = MARIO_ANI_BIG_SKID;
@@ -427,9 +448,15 @@ void CMario::Render()
 						ani = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
 				else
 				{
-					if (vx == 0) //nếu đứng yên
-							ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
-					else 
+					if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+						ani = MARIO_ANI_ORANGE_RUN_RIGHT;
+					else if (is_skid == true && is_press_z == true)
+						ani = MARIO_ANI_ORANGE_SKID_LEFT;
+					else if (is_skid == true)
+						ani = MARIO_ANI_ORANGE_SKID_LEFT;
+					else if (state == MARIO_STATE_IDLE)
+						ani = MARIO_ANI_ORANGE_IDLE_RIGHT;
+					else
 						ani = MARIO_ANI_ORANGE_WALKING_RIGHT;
 				}
 				
@@ -457,15 +484,16 @@ void CMario::Render()
 		if (is_in_object == true)
 		{
 			
-				if (vx == 0)
-				//{
-					//if (nx > 0)
-						ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-					//else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-				//}
-				else// if (vx > 0)
-					ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-				//else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+			if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+				ani = MARIO_ANI_SMALL_RUN_RIGHT;
+			else if (is_skid == true && is_press_z == true)
+				ani = MARIO_ANI_SMALL_SKID_LEFT;
+			else if (is_skid == true)
+				ani = MARIO_ANI_SMALL_SKID_LEFT;
+			else if (state == MARIO_STATE_IDLE)
+				ani = MARIO_ANI_SMALL_IDLE_RIGHT;
+			else
+				ani = MARIO_ANI_SMALL_WALKING_RIGHT;
 			
 			
 
@@ -500,10 +528,16 @@ void CMario::Render()
 			 {
 				 ani = MARIO_ANI_TAIL_JUMP_DOWN_RIGHT;
 
+
+
 				 if (vy < 0.0f)
 					 ani = MARIO_ANI_TAIL_JUMP_UP_RIGHT;
 				// if(vy==0.1)
 				//	 ani = MARIO_ANI_FLY;
+
+
+
+
 				 if(is_fly==true)
 					 ani = MARIO_ANI_FLY;
 			 }
@@ -515,7 +549,13 @@ void CMario::Render()
 				ani = MARIO_ANI_TAIL_SITDOWN_RIGHT;
 			else
 			{
-				if (vx == 0) //nếu đứng yên
+				if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+					ani = MARIO_ANI_TAIL_RUN_RIGHT;
+				else if (is_skid == true && is_press_z == true)
+					ani = MARIO_ANI_TAIL_SKID_LEFT;
+				else if (is_skid == true)
+					ani = MARIO_ANI_TAIL_SKID_LEFT;
+				else if (state == MARIO_STATE_IDLE)
 					ani = MARIO_ANI_TAIL_IDLE_RIGHT;
 				else
 					ani = MARIO_ANI_TAIL_WALKING_RIGHT;
@@ -636,6 +676,11 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_BRING_KOOMPASHELL_RIGHT:
 		vx = 1.5 * nx;
+		break;
+	case MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT:
+		animations[MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT]->ResetCurrentFrame();
+		animations[MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT]->StartTimeAnimation();
+		is_brouse = true;
 		break;
 	}
 }

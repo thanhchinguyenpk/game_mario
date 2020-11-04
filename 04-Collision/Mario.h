@@ -87,6 +87,15 @@
 #define MARIO_ANI_BIG_SKID	46
 #define MARIO_ANI_BIG_RUN 47
 
+#define MARIO_ANI_SMALL_RUN_RIGHT	48
+#define MARIO_ANI_SMALL_SKID_LEFT 49
+
+#define MARIO_ANI_TAIL_RUN_RIGHT	50
+#define MARIO_ANI_TAIL_SKID_LEFT 51
+
+#define MARIO_ANI_ORANGE_RUN_RIGHT	52
+#define MARIO_ANI_ORANGE_SKID_LEFT 53
+
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -137,6 +146,7 @@ public:
 	bool is_press_z = false;
 	bool is_slightly_lower_than_zero = false;
 	bool is_press_left = false;
+	bool is_brouse = false;
 
 	bool is_fly = false;
 	bool is_bring = false;
@@ -145,7 +155,7 @@ public:
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_BIG_ORANGE;
 		untouchable = 0;
 		nx = 1;
 	}
