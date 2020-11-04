@@ -130,6 +130,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			mario->SetIsFly(true);
 		}
 		break;
+	case DIK_LEFT:
+		mario->is_press_left = true;
+		break;
 	case DIK_S:
 	//case 14:
 		
@@ -222,6 +225,12 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	//case DIK_BACKSPACE:
 		//mario->SetShoot(false);
 		//mario->SetSpin(false);
+	case DIK_RIGHT:
+		
+		break;
+	case DIK_LEFT:
+		mario->is_press_left = false;
+		break;
 		
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
@@ -243,54 +252,37 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 
-
-
-	
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (game->IsKeyDown(DIK_Z) && (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT)))
 	{
-		DebugOut(L"dang vo RIGHT\n");
-		/*mario->SetState(MARIO_STATE_WALKING_RIGHT);
-		if (game->IsKeyDown(DIK_Q))
-		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);
-			mario->SetIsBring(true);
-	
-		}*/
-		mario->nx = 1;
 		if (game->IsKeyDown(DIK_Z))
 		{
 			mario->is_press_z = true;
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-			DebugOut(L"dang vo Z\n");
-			//mario->SetIsIncreaseSpeed(true);
+		
 			if (game->IsKeyDown(DIK_LEFT))
 			{
+				mario->nx = -1;
 				mario->is_left = true;
 				if (mario->is_right == false)
 				{
 					mario->SetAcceleration(-MARIO_ACCELERATION);
 				}
-				else// if  (game->IsKeyDown(DIK_RIGHT))
+				else
 				{
-					mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
+					mario->SetAcceleration(-1.8 * MARIO_ACCELERATION);
 					mario->is_slightly_lower_limit = true;
 					mario->is_skid = true;
-					//mario->nx = -1;
-
 					if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
 					{
 						mario->is_slightly_lower_limit = false;
 						mario->is_skid = false;
 					}
-
 				}
-
 			}
-
-
 
 			if (game->IsKeyDown(DIK_RIGHT))
 			{
+				mario->nx = 1;
 				mario->is_right = true;
 				if (mario->is_left == false)
 				{
@@ -298,11 +290,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 				}
 				else
 				{
-					mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
+					mario->SetAcceleration(1.8 * MARIO_ACCELERATION);
 					mario->is_slightly_lower_limit = true;
 					mario->is_skid = true;
-					//mario->nx = 1;
-
 
 					//vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
 					if (mario->vx > 0)
@@ -314,84 +304,105 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			}
 
 
-		}
-		else 
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		}// huhu hai dòng dưới quan trọng
+		//else
+		//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		return;
 	}
-	else if (game->IsKeyDown(DIK_LEFT))
+	else if (game->IsKeyDown(DIK_Z))
 	{
-		/*mario->SetState(MARIO_STATE_WALKING_LEFT);
-		if (game->IsKeyDown(DIK_Q))
+		float speed_x = abs(mario->vx);
+		DebugOut(L"co vo diz z? \n");
+		mario->is_press_z = true;
+		if(speed_x > 0.4)
 		{
-			mario->SetState(MARIO_STATE_BRING_KOOMPASHELL_RIGHT);//ở dưới đang thêm dấu trừ á, để vậy thôi chứ chưa xét dấu
-			//DebugOut(L"vo nut Q trái này hem dạ%d\n");
-			//mario->SetSpeed(-1.5f, mario->vy);
-		}*/ // sẽ sd sau
-		mario->nx = -1;
-		if (game->IsKeyDown(DIK_Z))
-		{
-			mario->is_press_z = true;
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-			//DebugOut(L"dang vo Z\n");
-			//mario->SetIsIncreaseSpeed(true);
-			if (game->IsKeyDown(DIK_LEFT))
+			
+			if (mario->nx > 0)
 			{
-				mario->is_left = true;
-				if (mario->is_right == false)
-				{
-					mario->SetAcceleration(-MARIO_ACCELERATION);
-				}
-				else// if  (game->IsKeyDown(DIK_RIGHT))
-				{
-
-
-
-					mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
-					mario->is_slightly_lower_limit = true;
-					mario->is_skid = true;
-					//mario->nx = -1;
-
-					if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
-					{
-						mario->is_slightly_lower_limit = false;
-						mario->is_skid = false;
-					}
-
-				}
-
+				DebugOut(L"vo peed_x > 0.4 khong mario->nx > 0 \n");
+				mario->is_slightly_lower_limit = true;
+				mario->SetAcceleration(-1.8 * MARIO_ACCELERATION);
+				
 			}
-
-
-
-			if (game->IsKeyDown(DIK_RIGHT))
+			else if (mario->nx < 0)
 			{
-				mario->is_right = true;
-				if (mario->is_left == false)
-				{
-					mario->SetAcceleration(MARIO_ACCELERATION);
-				}
-				else
-				{
-					mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
-					mario->is_slightly_lower_limit = true;
-					mario->is_skid = true;
-					//mario->nx = 1;
-
-
-					//vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
-					if (mario->vx > 0)
-					{
-						mario->is_slightly_lower_limit = false;
-						mario->is_skid = false;
-					}
-				}
+				mario->is_slightly_lower_limit = true;
+				mario->SetAcceleration(1.8 * MARIO_ACCELERATION);
+				DebugOut(L"vo tru bu luon moi ge \n");
 			}
-
-
+			
 		}
 		else
-			mario->SetState(MARIO_STATE_WALKING_LEFT);
-	}	//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX()-10, CGame::GetInstance()->GetCamY() );
+		{
+			mario->SetState(MARIO_STATE_IDLE);
+			mario->is_slightly_lower_limit = false;
+		}
+		return;
+	}
+
+
+
+	 if (game->IsKeyDown(DIK_RIGHT))
+	{
+		//mario->vx = MARIO_WALKING_SPEED;
+		//mario->nx = 1;
+
+
+		/*mario->SetAcceleration(MARIO_ACCELERATION);
+		mario->SetState(MARIO_STATE_WALKING_RIGHT);*/
+		//return;
+		 mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		 if (game->IsKeyDown(DIK_RIGHT))
+		 {
+			 mario->nx = 1;
+			 mario->is_right = true;
+			 if (mario->is_left == false)
+			 {
+				 mario->SetAcceleration(MARIO_ACCELERATION);
+			 }
+			 else
+			 {
+				 mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
+				 mario->is_slightly_lower_limit = true;
+				 mario->is_skid = true;
+
+				 //vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
+				 if (mario->vx > 0)
+				 {
+					 mario->is_slightly_lower_limit = false;
+					 mario->is_skid = false;
+				 }
+			 }
+		 }
+	}
+	else if (game->IsKeyDown(DIK_LEFT)) {
+		//mario->vx = -MARIO_WALKING_SPEED;
+		//mario->nx = -1;
+		/*mario->SetAcceleration(-MARIO_ACCELERATION);
+		mario->SetState(MARIO_STATE_WALKING_LEFT);*/
+		//return;
+		 mario->SetState(MARIO_STATE_WALKING_LEFT);
+		 if (game->IsKeyDown(DIK_LEFT))
+		 {
+			 mario->nx = -1;
+			 mario->is_left = true;
+			 if (mario->is_right == false)
+			 {
+				 mario->SetAcceleration(-MARIO_ACCELERATION);
+			 }
+			 else
+			 {
+				 mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
+				 mario->is_slightly_lower_limit = true;
+				 mario->is_skid = true;
+				 if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
+				 {
+					 mario->is_slightly_lower_limit = false;
+					 mario->is_skid = false;
+				 }
+			 }
+		 }
+	}
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_SITDOWN);
 		//CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() + 10);
@@ -414,74 +425,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		if (mario->GetState() == MARIO_STATE_FLY)
 			return;
 		if (mario->GetState() == MARIO_STATE_FLY_HIGH)	
-
 			return;
-
-
-		/*	if (game->IsKeyDown(DIK_Z))
-		{
-			mario->is_press_z = true;
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-			DebugOut(L"dang vo Z\n");
-			//mario->SetIsIncreaseSpeed(true);
-			if (game->IsKeyDown(DIK_LEFT))
-			{
-				mario->is_left = true;
-				if (mario->is_right == false)
-				{
-					mario->SetAcceleration(-MARIO_ACCELERATION);
-				}
-				else// if  (game->IsKeyDown(DIK_RIGHT))
-				{
-
-
-
-					mario->SetAcceleration(-1.2 * MARIO_ACCELERATION);
-					mario->is_slightly_lower_limit = true;
-					mario->is_skid = true;
-					//mario->nx = -1;
-
-					if (mario->vx < 0) //tắt điều điện bên phải if dể sang chiều âm không vị vượt limit
-					{
-						mario->is_slightly_lower_limit = false;
-						mario->is_skid = false;
-					}
-
-				}
-
-			}
-
-
-
-			if (game->IsKeyDown(DIK_RIGHT))
-			{
-				mario->is_right = true;
-				if (mario->is_left == false)
-				{
-					mario->SetAcceleration(MARIO_ACCELERATION);
-				}
-				else
-				{
-					mario->SetAcceleration(1.2 * MARIO_ACCELERATION);
-					mario->is_slightly_lower_limit = true;
-					mario->is_skid = true;
-					//mario->nx = 1;
-
-
-					//vận tốc lúc này đang là dương chuyển về âm rồi chuyển về dương
-					if (mario->vx > 0)
-					{
-						mario->is_slightly_lower_limit = false;
-						mario->is_skid = false;
-					}
-				}
-			}
-
-
-		}
-		else
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-*/
 		if (mario->GetState() == MARIO_STATE_SPIN)
 			return;
 		if (mario->GetState() == MARIO_STATE_SHOOT_BULLET)
@@ -489,16 +433,48 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
 			return;
 
+		float speed_x = abs(mario->vx);
+		//DebugOut(L"co vo diz z? \n");
+		//mario->is_press_z = true;
 
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->is_skid = false;
-		mario->is_max_speed = false;
-		mario->is_left = false;
-		mario->is_right = false;
-		//mario->is_walking = false;
+		if (speed_x > 0.2)
+		{
 
-	//	DebugOut(L"helooo , zo idle hemmmmmmmmmmm: \n");
-		mario->SetIsFly(false);
+			if (mario->nx > 0)
+			{
+				DebugOut(L"vo peed_x > 0.4 khong mario->nx > 0 \n");
+				mario->is_slightly_lower_limit = true;
+				mario->SetAcceleration(-1.8 * MARIO_ACCELERATION);
+
+			}
+			else if (mario->nx < 0)
+			{
+				mario->is_slightly_lower_limit = true;
+				mario->SetAcceleration(1.8 * MARIO_ACCELERATION);
+				DebugOut(L"vo tru bu luon moi ge \n");
+			}
+
+		}
+		else
+		{
+			mario->SetState(MARIO_STATE_IDLE);
+			mario->is_slightly_lower_limit = false;
+			//mario->SetState(MARIO_STATE_IDLE);
+			mario->is_skid = false;
+			mario->is_max_speed = false;
+			mario->is_left = false;
+			mario->is_right = false;
+			//mario->is_walking = false;
+
+			DebugOut(L"helooo , zo idle hemmmmmmmmmmm: \n");
+			mario->SetIsFly(false);
+
+			
+
+		}
+		return;
+
+	
 	//	{
 		
 	//	}

@@ -136,6 +136,7 @@ public:
 	bool is_walking = false;
 	bool is_press_z = false;
 	bool is_slightly_lower_than_zero = false;
+	bool is_press_left = false;
 
 	bool is_fly = false;
 	bool is_bring = false;

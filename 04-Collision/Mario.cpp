@@ -51,10 +51,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 
-	if (is_slightly_lower_than_zero == true)
-		false;
+	//if (is_slightly_lower_than_zero == true)
+		//false;
 	//is_increase_speed==true, liên quan ở vòng if
-	if (is_walking == false)
+	if (is_press_z == true)
 	{
 
 		//DebugOut(L"coooooooooo vooooooo khi an 2 nut cungggggggg songgggg songgggggg\n");
@@ -73,19 +73,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//	else  nx = -1;//if(vx<0)
 
 	}
-
-
-
-	
-
+	else if(state!=MARIO_STATE_IDLE&&state!=MARIO_STATE_SPIN&&state!= MARIO_STATE_FLY&& state != MARIO_STATE_FLY_HIGH)
+	{
+		if (speed_vx <= 0.4 || is_slightly_lower_limit == true)
+		{
+			vx = (vx + acceleration * dt);// nx;
+			//DebugOut(L"co vo doan acceleration maaaaaaaaaaaaaaaaa\n");
+			is_max_speed = false;
+		}
+		else
+			is_max_speed = true;
+	}
 
 
 	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
-	
-
-	// Simple fall down
-	
-	
 
 	if (is_fly==true)//còn render
 	{
@@ -114,8 +115,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		vy += MARIO_GRAVITY * dt;
 	}
 
-	
-	
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -167,8 +166,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		
 		if (nx!=0) vx = 0; // tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
 		if (ny!=0) vy = 0; // sẽ bị chặn lại_ không đúng má ơi.
-
-	
 
 		// Collision logic with Goombas
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -369,15 +366,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 #pragma endregion
-//	DebugOut(L"stae cua mario la: %d\n", GetState());
-	//if (is_shoot == true)
-	//	is_shoot == false;
-
-	//DebugOutTitle(L"vi tri cua con marioooooooooooooooo %0.001f, %0.001f", this->vx, this->vy);
-	//if(is_bring==true)
-	//	temp->SetPosition(x+70, y);
-
-
 
 
 	//DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
@@ -404,9 +392,11 @@ void CMario::Render()
 					ani = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
 				else {
 
-					if (is_max_speed == true)
+					if (is_max_speed == true&&is_press_z==true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
 						ani = MARIO_ANI_BIG_RUN;
-					else if (is_skid == true)
+					else if (is_skid == true && is_press_z == true)
+						ani = MARIO_ANI_BIG_SKID;
+					else if(is_skid==true)
 						ani = MARIO_ANI_BIG_SKID;
 					else if (state==MARIO_STATE_IDLE)
 						ani = MARIO_ANI_BIG_IDLE_RIGHT;
@@ -553,8 +543,8 @@ void CMario::SetState(int state)
 	
 	switch (state)
 	{
-	case MARIO_STATE_WALKING_RIGHT:
-		if (is_press_z == true)
+	case MARIO_STATE_WALKING_RIGHT://================================================================================
+	/*	if (is_press_z == true)
 		{
 			is_walking = false;
 			DebugOut(L"press s %f\n");
@@ -565,12 +555,18 @@ void CMario::SetState(int state)
 			vx = MARIO_WALKING_SPEED;
 			nx = 1;
 			DebugOut(L"walking right %f\n");
-		}
-		
+		}*/
+		if (is_press_z == true)
+			return;
+
+		//is_walking = true;
+		//vx = MARIO_WALKING_SPEED;
+		nx = 1;
+		//DebugOut(L"walking right %f\n");
 		//vx += acceleration * dt;
 		break;
-	case MARIO_STATE_WALKING_LEFT: 
-		if (is_press_z == true)
+	case MARIO_STATE_WALKING_LEFT://================================================================================ 
+		/*if (is_press_z == true)
 		{
 			is_walking = false;
 			DebugOut(L"co vo l \n");
@@ -581,9 +577,14 @@ void CMario::SetState(int state)
 			is_walking = true;
 			vx = -MARIO_WALKING_SPEED;
 			nx = -1;
-		}
-	
+		}*/
+		if (is_press_z == true)
+			return;
 
+		
+		//is_walking = true;
+		//vx = -MARIO_WALKING_SPEED;
+		nx = -1;
 	
 		//acceleration = -MARIO_ACCELERATION * 2;
 		//nx = -1;
@@ -608,6 +609,7 @@ void CMario::SetState(int state)
 		//is_spin == true;
 		animations[39]->ResetCurrentFrame();
 		animations[39]->StartTimeAnimation();
+		//nx = 0;
 		//is_render_animation = true;
 		break;
 	case MARIO_STATE_SHOOT_BULLET:
