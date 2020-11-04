@@ -1,5 +1,5 @@
 
-# **GAME SUPER MARIO **
+#    		 GAME SUPER MARIO 
 
 ## Giới thiệu
 Đồ án môn "Nhập môn phát triển Game"
