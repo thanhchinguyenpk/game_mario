@@ -125,6 +125,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_R:
 		mario->SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
 		break;
+	case DIK_H:
+		mario->is_press_h=true;
+		break;
 	case DIK_Q:
 		//mario->SetPosition(mario->GetX()+5, mario->GetY());
 		if (mario->GetIsInObject() == false)
@@ -228,6 +231,19 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	//case DIK_BACKSPACE:
 		//mario->SetShoot(false);
 		//mario->SetSpin(false);
+	case DIK_H:
+
+		{		
+			mario->is_press_h = false;
+			CConCo* conco = dynamic_cast<CConCo*>(mario->hold_somthing);
+			conco->is_brought = false;
+			conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+			mario->hold_somthing = NULL;
+			mario->is_bring = false;
+			mario->SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
+		}
+
+	break;
 	case DIK_RIGHT:
 		
 		break;

@@ -228,11 +228,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				DebugOut(L"chạm mấy lần? %d\n");
 				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
 
-				if (conco->GetState() == CONCO_STATE_THUT_VAO)
+
+				if (conco->GetState() == CONCO_STATE_THUT_VAO && is_press_h == true)
+				{
+					this->hold_somthing = conco;
+				}
+				else if (conco->GetState() == CONCO_STATE_THUT_VAO&&(GetState()== MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT))
 				{
 					conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
 					SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
 				}
+				
 				else if (e->ny < 0)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)
@@ -390,6 +396,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
 
 	//DebugOut(L"state cua no la: %d\n", state);
+	if (this->hold_somthing != NULL)
+	{
+		
+		this->hold_somthing->SetPosition(this->x+40, this->y);
+		if (this->nx <0)
+		this->hold_somthing->SetPosition(this->x - 40, this->y);
+
+		CConCo* conco = dynamic_cast<CConCo*>(this->hold_somthing);
+		conco->is_brought = true;
+		this->is_bring = true;
+	}
 }
 
 void CMario::Render()

@@ -18,7 +18,14 @@ void CConCo::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	
+
+	if (is_brought == false)
+	{
+		CGameObject::Update(dt, coObjects);
+	}
+
+	vy += 0.002 * dt;
 
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
@@ -58,7 +65,7 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-	vy += 0.002 * dt;
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 	coEvents.clear();

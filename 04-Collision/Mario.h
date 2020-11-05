@@ -147,10 +147,11 @@ public:
 	bool is_slightly_lower_than_zero = false;
 	bool is_press_left = false;
 	bool is_brouse = false;
-
+	bool is_press_h = false;
 	bool is_fly = false;
 	bool is_bring = false;
 	bool is_increase_speed = false;
+	CGameObject* hold_somthing = NULL;
 
 public: 
 	CMario() : CGameObject()
