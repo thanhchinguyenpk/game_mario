@@ -79,8 +79,8 @@
 #define MARIO_ANI_TAIL_SPIN_TAIL_LEFT			40
 
 #define MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT			41
-#define MARIO_ANI_FLY										42
-#define MARIO_ANI_FLY_HIGH									43
+#define MARIO_ANI_TAIL_FLY										42
+#define MARIO_ANI_TAIL_FLY_HIGH									43
 #define MARIO_ANI_BRING_KOOMPASHELL_RIGHT			44
 #define MARIO_ANI_ROUSE_KOOMPASHELL_RIGHT			45
 
@@ -96,6 +96,8 @@
 #define MARIO_ANI_ORANGE_RUN_RIGHT	52
 #define MARIO_ANI_ORANGE_SKID_LEFT 53
 
+#define MARIO_ANI_TAIL_ROUSE_KOOMPASHELL_RIGHT			54
+#define MARIO_ANI_TAIL_BRING_KOOMPASHELL_RIGHT			55
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -149,6 +151,8 @@ public:
 	bool is_brouse = false;
 	bool is_press_h = false;
 	bool is_fly = false;
+	bool is_fly_short = false;
+	bool is_fly_high = false;
 	bool is_bring = false;
 	bool is_increase_speed = false;
 	CGameObject* hold_somthing = NULL;

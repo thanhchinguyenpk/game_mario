@@ -32,4 +32,5 @@ class MarioBullet : public CGameObject
 
 public:
 	virtual void SetState(int state);
+	 ~MarioBullet() {};
 };

@@ -130,11 +130,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		break;
 	case DIK_Q:
 		//mario->SetPosition(mario->GetX()+5, mario->GetY());
-		if (mario->GetIsInObject() == false)
-		{
+		//mario->SetState(MARIO_STATE_JUMP);
+	//	if (mario->GetIsInObject() == false)
+	//	{
+			mario->SetIsInObject(false);
 			mario->SetState(MARIO_STATE_FLY_HIGH);
 			mario->SetIsFly(true);
-		}
+	//	}
 		break;
 	case DIK_LEFT:
 		mario->is_press_left = true;
@@ -259,7 +261,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
 		break;
 
-	case DIK_Z:
+	case DIK_A:
 		mario->SetIsIncreaseSpeed(false);
 		mario->is_press_z = false;
 		break;
@@ -271,9 +273,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 
-	if (game->IsKeyDown(DIK_Z) && (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT)))
+	if (game->IsKeyDown(DIK_A) && (game->IsKeyDown(DIK_RIGHT) || game->IsKeyDown(DIK_LEFT)))
 	{
-		if (game->IsKeyDown(DIK_Z))
+		if (game->IsKeyDown(DIK_A))
 		{
 			mario->is_press_z = true;
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
@@ -328,7 +330,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		return;
 	}
-	else if (game->IsKeyDown(DIK_Z))
+	else if (game->IsKeyDown(DIK_A))
 	{
 		float speed_x = abs(mario->vx);
 		DebugOut(L"co vo diz z? \n");
@@ -353,7 +355,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		}
 		else
 		{
-			mario->SetState(MARIO_STATE_IDLE);
+			//mario->SetState(MARIO_STATE_IDLE); // co bug thi xem lai cho nay
+			//mario->vx = 0;
 			mario->is_slightly_lower_limit = false;
 		}
 		return;
@@ -447,8 +450,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			return;
 		if (mario->GetState() == MARIO_STATE_SPIN)
 			return;
-		if (mario->GetState() == MARIO_STATE_SHOOT_BULLET)
-			return;
+		
 		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
 			return;
 		if (mario->GetState() == MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT)
@@ -478,7 +480,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		}
 		else
 		{
-			mario->SetState(MARIO_STATE_IDLE);
+			
 			mario->is_slightly_lower_limit = false;
 			//mario->SetState(MARIO_STATE_IDLE);
 			mario->is_skid = false;
@@ -492,9 +494,15 @@ void CSampleKeyHander::KeyState(BYTE* states)
 
 			
 
-		}
-		return;
+			if (mario->GetState() == MARIO_STATE_SHOOT_BULLET)
+				return;
 
+			mario->SetState(MARIO_STATE_IDLE);
+
+		}
+		
+		mario->is_fly_high = false;
+		mario->is_fly_short = false;
 	
 	//	{
 		
@@ -671,7 +679,7 @@ void LoadResources()
 	sprites->Add(10084, 451,	  48, 451 + 15, 48 + 27, texMarioPro);
 	sprites->Add(10085, 469,  	 49, 469 + 16, 49 + 27, texMarioPro);
 
-	sprites->Add(10086, 488, 48, 488 + 21, 48 + 27, texMarioPro);// big rouse koompa shell
+	sprites->Add(10086, 488, 48, 488 + 21, 48 + 27, texMarioPro);// big rouse koompa shell r
 
 	sprites->Add(10087, 1419, 47, 1419 + 16, 47+ 28, texMarioPro);// big skid l
 
@@ -702,8 +710,10 @@ void LoadResources()
 	sprites->Add(10202, 1410, 107, 1410 + 16, 107 + 29, texMarioPro);//orange skid l
 
 
-
-
+	sprites->Add(10203, 641, 142, 641 + 22, 142+ 28, texMarioPro);// tail rouse koompa shell r
+	sprites->Add(10204, 566, 142, 566 + 21, 142 + 28, texMarioPro);		//tail bring koompa
+	sprites->Add(10205, 590, 142, 590 + 22, 142 + 28, texMarioPro);
+	sprites->Add(10206, 615, 143, 615 + 23, 143 + 27, texMarioPro);
 
 
 	
@@ -1053,13 +1063,13 @@ void LoadResources()
 	ani->Add(10087);
 	animations->Add(487, ani);
 
-	ani = new CAnimation(5);		// big run r
+	ani = new CAnimation(15);		// big run r
 	ani->Add(10088);
 	ani->Add(10089);
 	ani->Add(10090);
 	animations->Add(488, ani);
 	//=====================
-	ani = new CAnimation(5);		// small run r
+	ani = new CAnimation(15);		// small run r
 	ani->Add(10091);
 	ani->Add(10092);
 	animations->Add(489, ani);
@@ -1069,7 +1079,7 @@ void LoadResources()
 	animations->Add(490, ani);
 
 
-	ani = new CAnimation(5);		// big tail run r
+	ani = new CAnimation(15);		// big tail run r
 	ani->Add(10094);
 	ani->Add(10095);
 	ani->Add(10096);
@@ -1089,7 +1099,7 @@ void LoadResources()
 	ani->Add(10097);
 	animations->Add(494, ani);*/
 
-	ani = new CAnimation(5);		// big orange run r
+	ani = new CAnimation(15);		// big orange run r
 	ani->Add(10098);
 	ani->Add(10200);
 	ani->Add(10201);
@@ -1099,6 +1109,15 @@ void LoadResources()
 	ani->Add(10202);
 	animations->Add(494, ani);
 
+	ani = new CAnimation(400);		 // tail brouse coompa r
+	ani->Add(10203);
+	animations->Add(495, ani);
+
+	ani = new CAnimation(60);		// tail bring coompa r
+	ani->Add(10204);
+	ani->Add(10205);
+	ani->Add(10206);
+	animations->Add(496, ani);
 	//====================================================================================================
 
 
@@ -1340,6 +1359,9 @@ void LoadResources()
 
 	mario->AddAnimation(493);		//orange run r
 	mario->AddAnimation(494);		//orange skid l
+
+	mario->AddAnimation(495);		//tail rouse r
+	mario->AddAnimation(496);		//tail bring r
 
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);

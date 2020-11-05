@@ -1,4 +1,4 @@
-﻿  main.cpp
+﻿  Mario.cpp
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(4): message : see previous definition of 'CONCO_WALKING_SPEED'
@@ -6,17 +6,9 @@ C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Coin.h(21,1): warning
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\ConCo.h(27): message : see previous definition of 'CONCO_ANI_DIE'
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\BrickBlink.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Brick.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\BrickBlink.h(5,1): warning C4005: 'BRICK_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Brick.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\BrickBlink.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(5,1): warning C4005: 'BRICK_BBOX_HEIGHT': macro redefinition
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\BrickBlink.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1597,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1602,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1654,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(101,13): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(107,14): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(119,27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(225,35): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Mario.cpp(661,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameConvert\game_mario\Debug\04-Collision.exe
