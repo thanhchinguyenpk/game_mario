@@ -16,7 +16,7 @@ C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(5,1): warni
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\BrickBlink.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
 C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1656,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1661,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1713,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1707,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1712,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert\game_mario\04-Collision\main.cpp(1764,21): warning C4018: '<': signed/unsigned mismatch
   04-Collision.vcxproj -> C:\Users\admin\Desktop\GameConvert\game_mario\Debug\04-Collision.exe

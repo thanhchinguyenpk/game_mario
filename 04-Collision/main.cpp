@@ -179,6 +179,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		mario->SetLevel(MARIO_LEVEL_BIG);
 		mario->SetPosition(50.0f,0.0f);
 		mario->SetSpeed(0, 0);*/
+		mario->is_press_h = true; // cho trạng thái cấm mai rùa
 
 		DebugOut(L"[INFO] ssssssssssssssssssssssssssssssssssssssssssssss: %d\n", KeyCode);
 
@@ -245,7 +246,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		//mario->SetSpin(false);
 	case DIK_H:
 
-		{		
+		if (mario->hold_somthing != NULL) 
+		{
 			mario->is_press_h = false;
 			CConCo* conco = dynamic_cast<CConCo*>(mario->hold_somthing);
 			conco->is_brought = false;
@@ -276,6 +278,20 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		mario->SetIsIncreaseSpeed(false);
 		mario->is_press_z = false;
 		mario->is_run_for_fly_high = false;
+
+
+
+		if(mario->hold_somthing!=NULL){
+			mario->is_press_h = false;
+			CConCo* conco = dynamic_cast<CConCo*>(mario->hold_somthing);
+			conco->is_brought = false;
+			conco->is_brought = false;
+			conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+			mario->hold_somthing = NULL;
+			mario->is_bring = false;
+			mario->SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
+		}
+
 		break;
 	}
 }
@@ -735,6 +751,15 @@ void LoadResources()
 	sprites->Add(10205, 590, 142, 590 + 22, 142 + 28, texMarioPro);
 	sprites->Add(10206, 615, 143, 615 + 23, 143 + 27, texMarioPro);
 
+	sprites->Add(10207, 470, 8, 470 + 16, 8 + 16, texMarioPro);// small rouse koompa shell r
+	sprites->Add(10208, 435, 8, 435 + 14, 8 + 16, texMarioPro);		//small bring koompa
+	sprites->Add(10209, 452, 8, 452 + 15, 8 + 16, texMarioPro);
+
+	sprites->Add(10210, 531, 109, 531 + 21, 109 + 27, texMarioPro);// orange rouse koompa shell r
+	sprites->Add(10211, 477, 109, 477 + 14, 109 + 27, texMarioPro);//orange bring koompa
+	sprites->Add(10212, 494, 109, 494 + 15, 109 + 27, texMarioPro);		
+	sprites->Add(10213, 512, 110, 512 + 16, 110 + 26, texMarioPro);
+	
 
 	
 		
@@ -1139,6 +1164,26 @@ void LoadResources()
 	ani->Add(10205);
 	ani->Add(10206);
 	animations->Add(496, ani);
+
+	ani = new CAnimation(400);		// small brouse coompa r
+	ani->Add(10207);
+	animations->Add(497, ani);
+
+	ani = new CAnimation(60);		// small bring coompa r
+	ani->Add(10208);
+	ani->Add(10209);
+	animations->Add(498, ani);
+
+	ani = new CAnimation(400);		// orange brouse coompa r
+	ani->Add(10210);
+	animations->Add(499, ani);
+
+	ani = new CAnimation(60);		// orange bring coompa r
+	ani->Add(10211);
+	ani->Add(10212);
+	animations->Add(600, ani);// 500 bị trùng lên 600 nhe
+
+	
 	//====================================================================================================
 
 
@@ -1384,10 +1429,16 @@ void LoadResources()
 	mario->AddAnimation(495);		//tail rouse r
 	mario->AddAnimation(496);		//tail bring r
 
+	mario->AddAnimation(497);		//small rouse r
+	mario->AddAnimation(498);		//small bring r
+
+	mario->AddAnimation(499);		//orange rouse r
+	mario->AddAnimation(600);		//orange bring r
+
 	mario->SetPosition(1300.0f, 80.0f);
 	objects.push_back(mario);
 
-
+	//=======================================================================================================================================
 	for (int i = 0; i < 1; i++)
 	{
 		conco = new CConCo();

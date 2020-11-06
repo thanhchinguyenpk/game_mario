@@ -389,9 +389,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 #pragma endregion
 
 
-	//DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
-
-	//DebugOut(L"state cua no la: %d\n", state);
+	
 	if (this->hold_somthing != NULL)
 	{
 		
@@ -399,10 +397,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (this->nx <0)
 		this->hold_somthing->SetPosition(this->x - 40, this->y);
 
+		if (level == MARIO_LEVEL_SMALL)
+		{
+			this->hold_somthing->SetPosition(this->x + 40, this->y-50);
+			if (this->nx < 0)
+				this->hold_somthing->SetPosition(this->x - 40, this->y-50);
+		}
+
+
 		CConCo* conco = dynamic_cast<CConCo*>(this->hold_somthing);
 		conco->is_brought = true;
 		this->is_bring = true;
 	}
+
+	//DebugOut(L"[ERROR----vx cua nó la %f\n", vx);
+
+	//DebugOut(L"state cua no la: %d\n", state);
 }
 
 void CMario::Render()
@@ -459,9 +469,13 @@ void CMario::Render()
 			{
 				if (state== MARIO_STATE_SHOOT_BULLET)
 						ani = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
+				else if (is_bring == true)
+					ani = MARIO_ANI_ORANGE_BRING_KOOMPASHELL_RIGHT;
 				else
 				{
-					if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+					if (is_brouse == true)
+						ani = MARIO_ANI_ORANGE_ROUSE_KOOMPASHELL_RIGHT;
+					else if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
 						ani = MARIO_ANI_ORANGE_RUN_RIGHT;
 					else if (is_skid == true && is_press_z == true)
 						ani = MARIO_ANI_ORANGE_SKID_LEFT;
@@ -496,17 +510,23 @@ void CMario::Render()
 	{
 		if (is_in_object == true)
 		{
-			
-			if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
-				ani = MARIO_ANI_SMALL_RUN_RIGHT;
-			else if (is_skid == true && is_press_z == true)
-				ani = MARIO_ANI_SMALL_SKID_LEFT;
-			else if (is_skid == true)
-				ani = MARIO_ANI_SMALL_SKID_LEFT;
-			else if (state == MARIO_STATE_IDLE)
-				ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-			else
-				ani = MARIO_ANI_SMALL_WALKING_RIGHT;
+			if (is_bring == true)
+				ani = MARIO_ANI_SMALL_BRING_KOOMPASHELL_RIGHT;
+			else {
+
+				if (is_brouse == true)
+					ani = MARIO_ANI_SMALL_ROUSE_KOOMPASHELL_RIGHT;
+				else if (is_max_speed == true && is_press_z == true) //sẽ có trường hợp đang chạy chạy cái thả nút z ra cái nó vẫn chạy, nên thêm is_press vô để xử lí bug đó
+					ani = MARIO_ANI_SMALL_RUN_RIGHT;
+				else if (is_skid == true && is_press_z == true)
+					ani = MARIO_ANI_SMALL_SKID_LEFT;
+				else if (is_skid == true)
+					ani = MARIO_ANI_SMALL_SKID_LEFT;
+				else if (state == MARIO_STATE_IDLE)
+					ani = MARIO_ANI_SMALL_IDLE_RIGHT;
+				else
+					ani = MARIO_ANI_SMALL_WALKING_RIGHT;
+			}
 			
 			
 
