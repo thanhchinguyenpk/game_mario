@@ -133,9 +133,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		//mario->SetState(MARIO_STATE_JUMP);
 	//	if (mario->GetIsInObject() == false)
 	//	{
+		if (mario->is_run_for_fly_high)
+		{
 			mario->SetIsInObject(false);
 			mario->SetState(MARIO_STATE_FLY_HIGH);
 			mario->SetIsFly(true);
+		}
+
 	//	}
 		break;
 	case DIK_LEFT:
@@ -145,7 +149,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	//case 14:
 		
 
-		if (mario->GetIsInObject() == true)
+		if (mario->GetIsInObject() == true&& mario->is_run_for_fly_high==false)
 		{
 			mario->StartJumping();
 			mario->SetState(MARIO_STATE_JUMP);
@@ -153,7 +157,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		}
 		else
 		{	
-			if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
+			if (mario->is_run_for_fly_high==true)
+			{
+				mario->SetIsInObject(false);
+				mario->SetState(MARIO_STATE_FLY_HIGH);
+				mario->SetIsFly(true);
+			}
+			else if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 			{
 				mario->SetState(MARIO_STATE_FLY);
 				mario->SetIsFly(true);
@@ -239,6 +249,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 			mario->is_press_h = false;
 			CConCo* conco = dynamic_cast<CConCo*>(mario->hold_somthing);
 			conco->is_brought = false;
+			conco->is_brought = false;
 			conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
 			mario->hold_somthing = NULL;
 			mario->is_bring = false;
@@ -264,6 +275,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_A:
 		mario->SetIsIncreaseSpeed(false);
 		mario->is_press_z = false;
+		mario->is_run_for_fly_high = false;
 		break;
 	}
 }
@@ -330,7 +342,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		//	mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		return;
 	}
-	else if (game->IsKeyDown(DIK_A))
+	/*else if (game->IsKeyDown(DIK_A))
 	{
 		float speed_x = abs(mario->vx);
 		DebugOut(L"co vo diz z? \n");
@@ -360,7 +372,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			mario->is_slightly_lower_limit = false;
 		}
 		return;
-	}
+	}*/
 
 
 
@@ -650,13 +662,21 @@ void LoadResources()
 	sprites->Add(10063, 1376, 109, 1376 + 14, 109 + 27, texMarioPro);//
 
 	//lv tail spin tail
-	sprites->Add(10064,   12 - 2, 13,   12 + 21 + 7 + 12,  13 + 28, texMarioTailSpin);//spin tail right
+	/*sprites->Add(10064,   12 - 2, 13,   12 + 21 + 7 + 12,  13 + 28, texMarioTailSpin);//spin tail right
 	sprites->Add(10065,       62, 13,        62 + 23 + 9,  13 + 28, texMarioTailSpin);//
 	sprites->Add(10066,   114 -8, 13,         114+ 16+ 8,  13 + 28, texMarioTailSpin);// 
 	sprites->Add(10067,  156 - 9, 12,           156 + 23,  13 + 29, texMarioTailSpin);//
 	sprites->Add(10068,  203 - 8, 13,       203 + 16 + 8,  13 + 28, texMarioTailSpin);//
+	sprites->Add(10069, 12 - 2, 13, 12 + 21 + 7 + 12, 13 + 28, texMarioTailSpin);*/
 
-	sprites->Add(10069,  210 -7 -2, 61, 210+21+2, 61+28, texMarioTailSpin);//spin tail left
+	sprites->Add(10064, 12 , 13, 12 + 21 , 13 + 28, texMarioTailSpin);//spin tail right
+	sprites->Add(10065, 62-7, 13, 62 + 23 + 9, 13 + 28, texMarioTailSpin);//
+	sprites->Add(10066, 114 - 8-3, 13, 114 + 16 + 8, 13 + 28, texMarioTailSpin);// 
+	sprites->Add(10067, 156 - 9, 12, 156 + 23, 13 + 29, texMarioTailSpin);//
+	sprites->Add(10068, 203 - 8-3, 13, 203 + 16 + 8, 13 + 28, texMarioTailSpin);//
+	sprites->Add(10069, 12 , 13, 12 + 21 , 13 + 28, texMarioTailSpin);
+
+	//sprites->Add(10069,  210 -7 -2, 61, 210+21+2, 61+28, texMarioTailSpin);//spin tail left
 	sprites->Add(10070,      158-9, 61,   158+23, 61+28, texMarioTailSpin);//
 	sprites->Add(10071,      113-8, 61, 113+16+8, 61+28, texMarioTailSpin);//
 	sprites->Add(10072,         64, 61,  64+23+9, 61+28, texMarioTailSpin);//
@@ -1014,12 +1034,13 @@ void LoadResources()
 	animations->Add(479, ani);
 
 	//tail
-	ani = new CAnimation(100);		// spin tail right
+	ani = new CAnimation(50);		// tail spin right
 	ani->Add(10064);
 	ani->Add(10065);
 	ani->Add(10066);
 	ani->Add(10067);
 	ani->Add(10068);
+	ani->Add(10069);
 	animations->Add(480, ani);
 
 	//tail
@@ -1063,13 +1084,13 @@ void LoadResources()
 	ani->Add(10087);
 	animations->Add(487, ani);
 
-	ani = new CAnimation(15);		// big run r
+	ani = new CAnimation(40);		// big run r
 	ani->Add(10088);
 	ani->Add(10089);
 	ani->Add(10090);
 	animations->Add(488, ani);
 	//=====================
-	ani = new CAnimation(15);		// small run r
+	ani = new CAnimation(40);		// small run r
 	ani->Add(10091);
 	ani->Add(10092);
 	animations->Add(489, ani);
@@ -1079,7 +1100,7 @@ void LoadResources()
 	animations->Add(490, ani);
 
 
-	ani = new CAnimation(15);		// big tail run r
+	ani = new CAnimation(40);		// big tail run r
 	ani->Add(10094);
 	ani->Add(10095);
 	ani->Add(10096);
@@ -1099,7 +1120,7 @@ void LoadResources()
 	ani->Add(10097);
 	animations->Add(494, ani);*/
 
-	ani = new CAnimation(15);		// big orange run r
+	ani = new CAnimation(40);		// big orange run r
 	ani->Add(10098);
 	ani->Add(10200);
 	ani->Add(10201);
@@ -1376,12 +1397,12 @@ void LoadResources()
 		conco->AddAnimation(904);
 		conco->AddAnimation(905);
 		conco->AddAnimation(906);
-		conco->SetPosition(2000.0f, 300.0f);
-		conco->SetState(CONCO_STATE_WALKING_RIGHT);//CONCO_STATE_WALKING_LEFT
+		conco->SetPosition(2400.0f, 200.0f);
+		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
 	}
 
-/*
+
 	goomba = new CGoomba();
 	goomba->AddAnimation(701);
 	goomba->AddAnimation(702);
@@ -1390,7 +1411,7 @@ void LoadResources()
 	goomba->SetState(GOOMBA_STATE_WALKING);
 	objects.push_back(goomba);
 
-	*/
+	
 
 /*	for (int i = 0; i < 5; i++)
 	{
@@ -1540,14 +1561,30 @@ void LoadResources()
 	objects.push_back(mario_bullet);*/
 
 	//nền
-	flatform = new Flatform(1872, 20);
+	//1
+	flatform = new Flatform(1872, 5);
 	flatform->SetPosition(0, 532);
 	objects.push_back(flatform);
 
-	flatform = new Flatform(3392, 5);//nền cao  Flatform(1392, 100)
+
+	//2
+	flatform = new Flatform(1390, 5);//nền cao  Flatform(1392, 100)onkeyup//1390
 	flatform->SetPosition(1872, 532-50);
 	objects.push_back(flatform);
 
+	flatform = new Flatform(6049, 5);
+	flatform->SetPosition(3262, 532 );
+	objects.push_back(flatform);
+
+
+	/*//4
+	flatform = new Flatform(233, 5);
+	flatform->SetPosition(4610, 532);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(3500, 5);
+	flatform->SetPosition(4993, 532);
+	objects.push_back(flatform);*/
 
 	//chùm ô vuông đầu tiên:
 	flatform = new Flatform(144, 5);

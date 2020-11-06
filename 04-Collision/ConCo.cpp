@@ -74,7 +74,7 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//if đã nha nếu mà nấm khác với nấm biến mất thì
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	if (coEvents.size() == 0)
+	if (coEvents.size() == 0|| state==CONCO_STATE_WAS_SHOOTED)
 	{
 		x += dx; // quãng đường di chuyển thực sự trong frame , nếu như k có va chạm
 		y += dy;
@@ -93,7 +93,7 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0)
 		{
 			//vx = 0;
-			vy = 0;
+			vx = 0;
 		/*	if (state == CONCO_STATE_WALKING_LEFT)
 			{
 				SetState(CONCO_STATE_WALKING_RIGHT);
@@ -239,7 +239,7 @@ void CConCo::SetState(int state)
 		//nx = 1;
 		break;
 	case CONCO_STATE_WAS_SHOOTED:
-		vx = 0;// 0.1f * 1.5;
+		vx = -vx;// 0.1f * 1.5;
 		vy = -0.25*3;
 		ny = -1;
 		//nx = 1;

@@ -35,7 +35,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//if đã nha nếu mà nấm khác với nấm biến mất thì
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	if (coEvents.size() == 0)
+	if (coEvents.size() == 0|| state == GOOMBA_STATE_WAS_SHOOTED)
 	{
 		x += dx; // quãng đường di chuyển thực sự trong frame , nếu như k có va chạm
 		y += dy;
@@ -55,7 +55,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0)
 		{
-			vx = 0;
+			//vx = -vx;
 		//	DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] co nhay vo phuong ngang. Error: \n");
 			//delete this;
 		}// tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
@@ -146,7 +146,8 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WAS_SHOOTED:
 			vy = -0.25 * 3;
-			vx = 0;
+			//vx = 0;
+			vx = -vx;
 			ny = -1;
 			break;
 	}

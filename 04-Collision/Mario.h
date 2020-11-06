@@ -132,6 +132,7 @@ public:
 	int level;
 	int untouchable;
 	float acceleration= MARIO_ACCELERATION;
+	CGameObject* hold_somthing = NULL;
 
 	DWORD untouchable_start;
 	DWORD jumping_start;
@@ -155,7 +156,7 @@ public:
 	bool is_fly_high = false;
 	bool is_bring = false;
 	bool is_increase_speed = false;
-	CGameObject* hold_somthing = NULL;
+	bool is_run_for_fly_high = false;
 
 public: 
 	CMario() : CGameObject()

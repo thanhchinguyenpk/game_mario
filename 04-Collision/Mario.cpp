@@ -50,11 +50,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
+	if(this->y<50)
+		is_run_for_fly_high = false;
 
 	//if (is_slightly_lower_than_zero == true)
 		//false;
 	//is_increase_speed==true, liên quan ở vòng if
-	if (is_press_z == true&& is_fly==false&&state!= MARIO_STATE_SPIN) //không phải là bay, nếu bay là nó bay có gia tốc ớ,và 
+	if (is_press_z == true&& is_fly==false&&state!= MARIO_STATE_SPIN&&state!=MARIO_STATE_SHOOT_BULLET) //không phải là bay, nếu bay là nó bay có gia tốc ớ,và 
 	{//và khác mấy trạng thái có animation
 
 		//DebugOut(L"coooooooooo vooooooo khi an 2 nut cungggggggg songgggg songgggggg\n");
@@ -67,14 +69,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		else
 			is_max_speed = true;
 
-
+		if (is_max_speed == true)
+			is_run_for_fly_high = true;
 //
 		//if (vx >= 0)nx = 1;
 	//	else  nx = -1;//if(vx<0)
 
 	}
 	else if(state!=MARIO_STATE_IDLE&&state!=MARIO_STATE_SPIN&&state!= MARIO_STATE_FLY&& state != MARIO_STATE_FLY_HIGH
-		&&state!= MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT && state != MARIO_STATE_SPIN)// ủa tại sao mình lại dùng && ta :v
+		&&state!= MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT && state != MARIO_STATE_SPIN && state != MARIO_STATE_SHOOT_BULLET)// ủa tại sao mình lại dùng && ta :v
 	{
 		if (speed_vx <= 0.32 || is_slightly_lower_limit == true)
 		{
@@ -86,7 +89,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			is_max_speed = true;
 	}
 	
-
+	//chạy nhanh để cất cánh bay
+	
 
 	DebugOutTitle(L"04 - collision %0.1f, %0.1f", this->x, this->y);
 
@@ -101,12 +105,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				vy = 0.1;
 				//DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
 			}
-		} else if(GetState() == MARIO_STATE_FLY_HIGH)
+		}
+		else if (GetState() == MARIO_STATE_FLY_HIGH)
+		{
 			if (!animations[MARIO_ANI_TAIL_FLY_HIGH]->IsRenderDone())
-			{
 				vy = -0.3;
-				//DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
-			}
+			//DebugOut(L"Heloo có vô cái bayyyyyy bayyyyy đây hem dạ, vy lúc này là 0.1\n");
+		}
+		
+			
 
 	/*	if (!(GetState() == MARIO_STATE_FLY_HIGH && animations[MARIO_ANI_TAIL_FLY_HIGH]->IsRenderDone()))//nếu là con cáo bay cao và ani nằm quẫy  chưa xong
 		{
@@ -117,6 +124,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else
 	{
 		vy += MARIO_GRAVITY * dt;
+	//	if(is_run_for_fly_high==true)
+		//	is_run_for_fly_high = false;//đang bay cao lên mà rớt xuống rồi thì hông bay lên cao được được, chỉ rơi xuống hoặc rơi xuống nhẹ.
 	}
 
 
@@ -222,7 +231,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 				if (state == MARIO_STATE_SPIN)
 				{
-					if (goomba->x - this->x < 80);
+					//if (goomba->x - this->x < 80);
 						goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 				}
 			}
@@ -252,32 +261,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
-				 else if (state == MARIO_STATE_BRING_KOOMPASHELL_RIGHT)
+				
+
+
+				if (state == MARIO_STATE_SPIN)
 				{
-					CConCo* conco = dynamic_cast<CConCo*>(e->obj);
-
-					//DebugOut(L"[ERROR-------------cua con co là---------------] DINPUT::GetDeviceData failed. Error: %d\n", conco->GetState());
-					if (this->nx > 0)
-					{
-						conco->SetPosition(x + 60.0f, y);
-						conco->SetState(CONCO_STATE_WAS_BROUGHT);
-						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-
-						//is_bring = true;
-						temp = conco;
-					}
-					else {
-						conco->SetPosition(x - 60.0f, y);
-						conco->SetState(CONCO_STATE_WAS_BROUGHT);
-						//DebugOut(L"[ERROR-------------nx>0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-
-						//is_bring = true;
-						temp = conco;
-						//conco->SetPosition(x - 55.0f, y);
-						//DebugOut(L"[ERROR-------------nx<0---------------] DINPUT::GetDeviceData failed. Error: %d\n");
-					}
+					//if (goomba->x - this->x < 80);
+					conco->SetState(CONCO_STATE_WAS_SHOOTED);
 				}
-
 			
 				/*if (e->ny < 0) // phương va chạm hướng lên (con cò)
 				{
