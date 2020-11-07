@@ -87,6 +87,27 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_5:
+		goomba = new CGoomba();
+		goomba->AddAnimation(701);
+		goomba->AddAnimation(702);
+		goomba->AddAnimation(703);
+		goomba->SetPosition(mario->x+500, 100);
+		goomba->SetState(GOOMBA_STATE_WALKING);
+		objects.push_back(goomba);
+		break;
+	case DIK_6:
+		conco = new CConCo();
+		conco->AddAnimation(901);
+		conco->AddAnimation(902);
+		conco->AddAnimation(903);
+		conco->AddAnimation(904);
+		conco->AddAnimation(905);
+		conco->AddAnimation(906);
+		conco->SetPosition(mario->x + 500, 100.0f);
+		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
+		objects.push_back(conco);
+			break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		mario->SetPosition(mario->x, 80.0f);
@@ -205,9 +226,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		break;
 	case DIK_DOWN:
 		if (mario->GetLevel() == MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
-			mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITDOWN_BBOX_HEIGHT );
+			mario->SetPosition(mario->x,mario->y+ MARIO_BIG_BBOX_HEIGHT/2 - MARIO_BIG_SITDOWN_BBOX_HEIGHT/2 );
 		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
-			mario->SetPosition(mario->x, mario->y + MARIO_BIG_TAIL_BBOX_HEIGHT - MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
+			mario->SetPosition(mario->x, mario->y + MARIO_BIG_TAIL_BBOX_HEIGHT/2 - MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT/2);
 		break;
 	}
 }
@@ -251,9 +272,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_DOWN:
 		//DebugOut(L"UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp\n", KeyCode);
 		if(mario->GetLevel()== MARIO_LEVEL_BIG|| mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
-			mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT + MARIO_BIG_SITDOWN_BBOX_HEIGHT  );
+			mario->SetPosition(mario->x, mario->y - MARIO_BIG_BBOX_HEIGHT/2 + MARIO_BIG_SITDOWN_BBOX_HEIGHT/2  );
 		else if(mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
-			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT);
+			mario->SetPosition(mario->x, mario->y - MARIO_BIG_TAIL_BBOX_HEIGHT/2 + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT/2);
 		break;
 
 	case DIK_A:
@@ -1417,11 +1438,11 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(1300.0f, 80.0f);
+	mario->SetPosition(100, 80.0f);
 	objects.push_back(mario);
 
 	//=======================================================================================================================================
-	for (int i = 0; i < 1; i++)
+	/*for (int i = 0; i < 1; i++)
 	{
 		conco = new CConCo();
 		conco->AddAnimation(901);
@@ -1442,7 +1463,7 @@ void LoadResources()
 	goomba->AddAnimation(703);
 	goomba->SetPosition(1600, 100);
 	goomba->SetState(GOOMBA_STATE_WALKING);
-	objects.push_back(goomba);
+	objects.push_back(goomba);*/
 
 	
 
@@ -1512,7 +1533,7 @@ void LoadResources()
 	objects.push_back(brickcoin);*/
 
 	//chùm gạch đầu tiên
-	brickcoin = new Brick_Coin();
+	/*brickcoin = new Brick_Coin();
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
 	brickcoin->SetPosition(530,340);
@@ -1547,7 +1568,7 @@ void LoadResources()
 	brickcoin->SetPosition(530 , 340);
 	//set state đâu?
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
-	objects.push_back(brickcoin);
+	objects.push_back(brickcoin);*/
 
 
 /*	ongnuoc = new OngNuoc();
@@ -1605,9 +1626,27 @@ void LoadResources()
 	flatform->SetPosition(1872, 532-50);
 	objects.push_back(flatform);
 
-	flatform = new Flatform(6049, 5);
-	flatform->SetPosition(3262, 532 );
+	flatform = new Flatform(1052, 5);
+	flatform->SetPosition(3470, 532 );
 	objects.push_back(flatform);
+
+	//4
+	flatform = new Flatform(230, 5);
+	flatform->SetPosition(4620, 532);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(1724, 5);
+	flatform->SetPosition(5005, 532);
+	objects.push_back(flatform);
+
+	//6
+	flatform = new Flatform(2000, 5);
+	flatform->SetPosition(6782, 532);
+	objects.push_back(flatform);
+
+
+	//chùm 3 gạch thiệt bự tăng dần chiều cao
+
 
 
 	/*//4
@@ -1629,15 +1668,40 @@ void LoadResources()
 	objects.push_back(flatform);
 
 	//ống nước
+	//1
 	flatform = new Flatform(91, 144);
 	flatform->SetPosition(1058, 388-2);
 	objects.push_back(flatform);
 
+	//2 3
+	flatform = new Flatform(91, 94);
+	flatform->SetPosition(5376, 438);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(91, 144);
+	flatform->SetPosition(5568, 386);
+	objects.push_back(flatform);
+
+	//hai cái chụm
+	flatform = new Flatform(96, 248);
+	flatform->SetPosition(6768, 0);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(96, 144);
+	flatform->SetPosition(6768, 390);
+	objects.push_back(flatform);
+
+	//ống nước cuối 
+	flatform = new Flatform(96, 144);
+	flatform->SetPosition(6960, 438);
+	objects.push_back(flatform);
+
 	//group 4 cục: x-c-t-x
 
+	//chùm gach bự
 	//x
 	flatform = new Flatform(243, 5);
-	flatform->SetPosition(1199, 388-2);
+	flatform->SetPosition(1199, 386);
 	objects.push_back(flatform);
 
 	//c
@@ -1656,8 +1720,69 @@ void LoadResources()
 	flatform->SetPosition(1537, 432);
 	objects.push_back(flatform);
 
+	//chùm 3 gạch bự:
 
+	//
+	flatform = new Flatform(333, 5);
+	flatform->SetPosition(3794, 436);
+	objects.push_back(flatform);
+
+	//
+	flatform = new Flatform(334, 5);
+	flatform->SetPosition(3893, 338);
+	objects.push_back(flatform);
+
+	//
+	flatform = new Flatform(328, 5);
+	flatform->SetPosition(3984, 243);
+	objects.push_back(flatform);
+
+	//chùm 2 gạch bự:
+
+		//
+	flatform = new Flatform(144, 5);
+	flatform->SetPosition(6432, 338+50);
+	objects.push_back(flatform);
+
+	//
+	flatform = new Flatform(144, 5);
+	flatform->SetPosition(6528, 50+50);
+	objects.push_back(flatform);
 	
+
+
+	//gạch đá bình thường:
+	//2 chụm đầu
+	flatform = new Flatform(48*2, 48);
+	flatform->SetPosition(4515, 300-15);
+	objects.push_back(flatform);
+
+	//chùm đối xứng:
+	flatform = new Flatform(48 * 3, 48);
+	flatform->SetPosition(4706, 485);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(48 * 2, 48);
+	flatform->SetPosition(4706+48, 485-48);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(48 *1, 48);
+	flatform->SetPosition(4706+48*2, 485-48*2);
+	objects.push_back(flatform);
+
+	//chùm đối xứng:
+	flatform = new Flatform(48 * 3, 48);
+	flatform->SetPosition(4993, 485);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(48 * 2, 48);
+	flatform->SetPosition(4993, 485-48);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(48 * 1, 48);
+	flatform->SetPosition(4993, 485-48*2);
+	objects.push_back(flatform);
+
 	//DebugOut(L"[ERROR------------------------------] day la sizeeeeeee:  %d\n", objects.size());
 
 

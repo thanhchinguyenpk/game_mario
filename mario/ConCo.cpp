@@ -6,14 +6,22 @@
 
 void CConCo::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + CONCO_BBOX_WIDTH;
+	left = x- (float)CONCO_BBOX_WIDTH/2;
+	top = y- (float)CONCO_BBOX_HEIGHT/2;
+	right = x + (float)CONCO_BBOX_WIDTH/2;
 
 	if (state == CONCO_STATE_DIE) // chua ok
-		bottom = y + CONCO_BBOX_HEIGHT_DIE;
+		bottom = y + (float)CONCO_BBOX_HEIGHT_DIE/2;
 	else
-		bottom = y + CONCO_BBOX_HEIGHT;
+		bottom = y + (float)CONCO_BBOX_HEIGHT/2;
+
+	if (state == CONCO_STATE_THUT_VAO||state==CONCO_STATE_MAI_RUA_CHAY)
+	{
+		left = x - (float)16*3/2;// ủa tại sao để define thì lại lỗi ????
+		top = y - (float)17*3/2;
+		right = x + (float)16*3/2;
+		bottom = y + (float)17*3/2;
+	}
 }
 
 void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -193,7 +201,7 @@ void CConCo::Render()
 	//int ani = CONCO_ANI_THUT_VAO;
 	DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", nx);
 	animations[ani]->Render(x, y,0,255,nx,ny);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CConCo::SetState(int state)
@@ -207,7 +215,7 @@ void CConCo::SetState(int state)
 		vy = 0;
 		break;
 	case CONCO_STATE_WALKING_LEFT:
-		vx = -CONCO_WALKING_SPEED;
+		vx =  -CONCO_WALKING_SPEED;
 		nx = -1;
 		break;
 	case CONCO_STATE_WALKING_RIGHT:

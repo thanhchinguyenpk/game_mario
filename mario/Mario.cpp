@@ -151,7 +151,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (GetTickCount() - jumping_start < 250) //  < ấn nhẹ thì nó bay thấp, ấn mạnh thì nó bay cao.
 	{											// > ấn nhẹ nhảy cao , ấn mạnh nhảy thấp.
-		vy -= 0.02f*2;
+		vy -= MARIO_VY_JUM_UP;
 		//DebugOut(L"[ERROR-----------get-------------------] DINPUT::GetDeviceData failed. Error: %lu\n", GetTickCount());
 	}
 
@@ -406,6 +406,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				this->hold_somthing->SetPosition(this->x - 40, this->y-50);
 		}
 
+		if (level == MARIO_LEVEL_BIG_TAIL)
+		{
+			this->hold_somthing->SetPosition(this->x + 50, this->y );
+			if (this->nx < 0)
+				this->hold_somthing->SetPosition(this->x -50, this->y);
+		}
+
 
 		CConCo* conco = dynamic_cast<CConCo*>(this->hold_somthing);
 		conco->is_brought = true;
@@ -614,7 +621,7 @@ void CMario::Render()
 	DebugOut(L"[ERROR----state cua nó la %d\n", state);
 	animations[ani]->Render(x, y,0,alpha,nx);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CMario::SetState(int state)
@@ -683,19 +690,24 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
-	top = y; 
+	//left = x;
+	//top = y; 
+	left = x - MARIO_BIG_BBOX_WIDTH / 2;
+	top = y - MARIO_BIG_BBOX_HEIGHT / 2;
 
 	if (level==MARIO_LEVEL_BIG|| level== MARIO_LEVEL_BIG_ORANGE)
 	{
 		if (is_sitdown == false) {
-			right = x + MARIO_BIG_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		
+			right = x + MARIO_BIG_BBOX_WIDTH/2;
+			bottom = y + MARIO_BIG_BBOX_HEIGHT/2;
 		}
 		else
 		{
-			right = x + MARIO_BIG_SITDOWN_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_SITDOWN_BBOX_HEIGHT;
+			//left = x - MARIO_BIG_SITDOWN_BBOX_WIDTH / 2;
+			//top = y - MARIO_BIG_SITDOWN_BBOX_HEIGHT / 2;
+			right = x + MARIO_BIG_SITDOWN_BBOX_WIDTH/2;
+			bottom = y + MARIO_BIG_SITDOWN_BBOX_HEIGHT/2;
 		}
 		
 	}
@@ -703,25 +715,27 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	{
 		if (is_sitdown == false) {
 
-			right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+			right = x + MARIO_BIG_TAIL_BBOX_WIDTH/2;
+			bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT/2;
 
 			if (state == MARIO_STATE_SPIN)
 			{
-				right = x + MARIO_BIG_TAIL_BBOX_WIDTH;
-				bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT;
+				right = x + MARIO_BIG_TAIL_BBOX_WIDTH/2;
+				bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT/2;
 			}
 		}
 		else
 		{
-			right = x + MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT;
+			right = x + MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH/2;
+			bottom = y + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT/2;
 		}
 	}
 	else if(level==MARIO_LEVEL_SMALL)
 	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+	//	left = x - MARIO_SMALL_BBOX_WIDTH / 2;
+		//top = y - MARIO_SMALL_BBOX_HEIGHT / 2;
+		right = x + MARIO_SMALL_BBOX_WIDTH/2;
+		bottom = y + MARIO_SMALL_BBOX_HEIGHT/2;
 	}
 }
 

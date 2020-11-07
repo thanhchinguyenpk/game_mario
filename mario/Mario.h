@@ -8,6 +8,7 @@
 #define MARIO_GRAVITY			0.002f*1.5
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f*3
 #define MARIO_ACCELERATION 0.001f
+#define MARIO_VY_JUM_UP 0.02f * 2
 
 #define MARIO_STATE_IDLE						0
 #define MARIO_STATE_WALKING_RIGHT				100
@@ -167,7 +168,7 @@ public:
 public: 
 	CMario() : CGameObject()
 	{
-		level = MARIO_LEVEL_BIG_ORANGE;
+		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		nx = 1;
 	}
