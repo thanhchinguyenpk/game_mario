@@ -7,5 +7,5 @@
 <br> Thời gian: Tháng 9/2020 - 1/2021
 
 ## Công cụ 
-- Dirext9
-- C++
+- Dirext9.
+- C++.
