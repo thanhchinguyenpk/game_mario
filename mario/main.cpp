@@ -1438,7 +1438,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(100, 80.0f);
+	mario->SetPosition(200, 80.0f);
 	objects.push_back(mario);
 
 	//=======================================================================================================================================
@@ -1613,6 +1613,16 @@ void LoadResources()
 	//set state đâu?
 	mario_bullet->SetState(100);
 	objects.push_back(mario_bullet);*/
+	
+
+	//chặt đầu chặt cuối:
+	flatform = new Flatform(5, 700);
+	flatform->SetPosition(0, 0);
+	objects.push_back(flatform);
+
+	flatform = new Flatform(5, 700);
+	flatform->SetPosition(8447, 0);
+	objects.push_back(flatform);
 
 	//nền
 	//1
@@ -1842,12 +1852,21 @@ void Update(DWORD dt)
 	float cx, cy;
 	mario->GetPosition(cx, cy);
 
-	cx -= SCREEN_WIDTH / 2;
+
+		
+	cx -= SCREEN_WIDTH / 2; // set cam sao cho mario ở giữa màn hình
 	cy -= SCREEN_HEIGHT / 2;
+
+	cx += 200;// camera tiến lên xíu
 	//cho cái cam bằng nửa chiều cao, chiều rộng của mario
 	//xét cái chiều x của camera bằng chiều x của mario  như vậy nó sẽ đi theo thằng mario
 
-	CGame::GetInstance()->SetCamPos(cx+90+200, 1 /*cy*/);
+	if (cx < 180)
+		return;
+	if (cx > 8447 - SCREEN_WIDTH+MARIO_BIG_BBOX_WIDTH/2)
+		return;
+
+	CGame::GetInstance()->SetCamPos(cx, 1 /*cy*/);
 
 	
 }

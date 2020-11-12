@@ -1,24 +1,4 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (04-Collision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ConCo.cpp
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.cpp(36,18): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  Flatform.cpp
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
-  Mario.cpp
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.h(4): message : see previous definition of 'CONCO_WALKING_SPEED'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Coin.h(21,1): warning C4005: 'CONCO_ANI_DIE': macro redefinition
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.h(29): message : see previous definition of 'CONCO_ANI_DIE'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.cpp(107,13): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.cpp(114,14): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.cpp(128,27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.cpp(681,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  MarioBullet.cpp
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\MarioBullet.cpp(36,34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   main.cpp
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(18,54): warning C4018: '>=': signed/unsigned mismatch
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
@@ -37,8 +17,7 @@ C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(5,1): warni
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\BrickBlink.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1814,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1819,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1871,21): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1824,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1829,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1890,21): warning C4018: '<': signed/unsigned mismatch
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

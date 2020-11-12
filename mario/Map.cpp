@@ -200,17 +200,17 @@ void Map::Draw()
 	int w = 48;
 	//int h = CTiles::GetInstance()->GetFrameHeight();
 	int h = 48;
-	CGame::GetInstance()->GetCamX();
+	//CGame::GetInstance()->GetCamX();
 	int begin_row = CGame::GetInstance()->GetCamY() / h;
 	int end_row = (CGame::GetInstance()->GetCamY() + SCREEN_HEIGHT) / h + 1;
 
 	int begin_column = CGame::GetInstance()->GetCamX() / w;
 	int end_column = (CGame::GetInstance()->GetCamX() + SCREEN_WIDTH) / w + 1;
 
-	if (end_column > 176)
-		end_column = 176;
-	if (end_row > 41)
-		end_row = 41;
+	//if (end_column > 176)
+	//	end_column = 176;
+	//if (end_row > 41)
+	//	end_row = 41;
 
 	int x = 15;
 
