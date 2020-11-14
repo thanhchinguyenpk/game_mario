@@ -17,7 +17,7 @@ C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(5,1): warni
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\BrickBlink.h(5): message : see previous definition of 'BRICK_BBOX_HEIGHT'
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1824,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1829,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1890,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1845,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1850,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(1919,21): warning C4018: '<': signed/unsigned mismatch
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

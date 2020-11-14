@@ -23,6 +23,8 @@
 #include "MarioBullet.h"
 #include "Map.h"
 #include "Flatform.h"
+#include "UI.h"
+#include "GameTime.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -49,6 +51,7 @@
 #define ID_TEX_MARIO_BULLET	130
 #define ID_TEX_MARIO_TAIL_SPIN	140
 #define ID_TEX_BULLET_EFFECT	150
+#define ID_TEX_NUMBER_AND_TEXT	160
 
 
 
@@ -68,6 +71,8 @@ Plant* plant;
 MarioBullet* mario_bullet;
 Map* map;
 Flatform* flatform;
+UI* game_ui;
+GameTime* game_time;
 
 
 
@@ -591,6 +596,7 @@ void LoadResources()
 	textures->Add(ID_TEX_MARIO_BULLET, L"textures\\MARIOPRO.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MARIO_TAIL_SPIN, L"textures\\MARIO_TAIL_SPIN.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_BULLET_EFFECT, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_NUMBER_AND_TEXT, L"textures\\TextAndNumber.png", D3DCOLOR_XRGB(176, 224, 248));
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -869,8 +875,20 @@ void LoadResources()
 	//	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	//sprites->Add(20001, 408, 225, 424, 241, texMisc);
 
+	LPDIRECT3DTEXTURE9 texNumberAndText = textures->Get(ID_TEX_NUMBER_AND_TEXT);
+	sprites->Add(200000, 31, 24, 31 + 9, 24 + 8, texNumberAndText);//0
+	sprites->Add(200001, 54, 24, 54 + 7, 24 + 7, texNumberAndText);
+	sprites->Add(200002, 71, 24, 71 + 9, 24 + 8, texNumberAndText);
 
+	sprites->Add(200003, 90, 24, 90 + 8, 24 + 7, texNumberAndText);//3
+	sprites->Add(200004, 108, 24, 108 + 8, 24 + 7, texNumberAndText);
+	sprites->Add(200005, 127, 24, 127 + 8, 24 + 8, texNumberAndText);
 
+	sprites->Add(200006, 143, 24, 143 + 10, 24 + 7, texNumberAndText);//6
+	sprites->Add(200007, 162, 24, 162 + 8, 24 + 8, texNumberAndText);
+	sprites->Add(200008, 179, 24, 179 + 9, 24 + 8, texNumberAndText);
+
+	sprites->Add(200009, 197, 24, 197 + 8, 24 + 8, texNumberAndText);//9
 	
 
 
@@ -1809,6 +1827,9 @@ void LoadResources()
 	map = new Map();
 	map->LoadMap(0, L"textures\\map_thanh.txt", 41, 176, L"textures\\Final1.png", 30, 29, 48, 48);
 
+	game_ui = new UI();
+
+
 }
 
 /*
@@ -1830,6 +1851,10 @@ void Update(DWORD dt)
 	{
 		objects[i]->Update(dt,&coObjects);
 	}
+
+
+	GameTime::GetInstance()->Update(dt);
+
 
 /*	vector<LPGAMEOBJECT> coObjects;
 
@@ -1861,7 +1886,7 @@ void Update(DWORD dt)
 	//cho cái cam bằng nửa chiều cao, chiều rộng của mario
 	//xét cái chiều x của camera bằng chiều x của mario  như vậy nó sẽ đi theo thằng mario
 
-	if (cx < 180)
+	if (cx < 0)
 		return;
 	if (cx > 8447 - SCREEN_WIDTH+MARIO_BIG_BBOX_WIDTH/2)
 		return;
@@ -1886,7 +1911,11 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
 		map->Draw();
+		game_time = GameTime::GetInstance();
+		game_ui->Render(300-game_time->GetTime());
+
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
 		

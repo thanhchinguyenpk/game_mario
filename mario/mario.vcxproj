@@ -134,6 +134,7 @@
     <ClInclude Include="Flatform.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
@@ -143,8 +144,10 @@
     <ClInclude Include="Plant.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="TextAndNumber.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TimerCustom.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -158,6 +161,7 @@
     <ClCompile Include="Flatform.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -167,8 +171,10 @@
     <ClCompile Include="OngNuoc.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="TextAndNumber.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TimerCustom.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
