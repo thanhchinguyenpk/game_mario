@@ -25,6 +25,7 @@
 #include "Flatform.h"
 #include "UI.h"
 #include "GameTime.h"
+#include "PlantBullet.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -73,6 +74,7 @@ Map* map;
 Flatform* flatform;
 UI* game_ui;
 GameTime* game_time;
+PlantBullet *plant_bullet;
 
 
 
@@ -857,8 +859,8 @@ void LoadResources()
 	LPDIRECT3DTEXTURE9 texPlant = textures->Get(ID_TEX_PLANT);
 	sprites->Add(130001, 189, 71, 189 + 16, 71 + 33, texPlant);
 	sprites->Add(130002, 189, 35, 189 + 16, 35 + 31, texPlant);
-	sprites->Add(130003,   6, 71,   6 + 17, 71 + 32, texPlant);
-	sprites->Add(130004,   6, 33,   6 + 17, 33 + 33, texPlant);
+	sprites->Add(130003,   6, 71,   6 + 17, 71 + 32, texPlant);//ngước lên
+	sprites->Add(130004,   6, 33-1,   6 + 17, 33 + 33, texPlant);// trừ 1px để trống phần trên của texture cho nó khỏi bị thụt lên thụt xuống cái cành
 	
 
 	//Bullet
@@ -1456,9 +1458,11 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(200, 80.0f);
+	mario->SetPosition(700, 80.0f);
 	objects.push_back(mario);
 
+
+	
 	//=======================================================================================================================================
 	/*for (int i = 0; i < 1; i++)
 	{
@@ -1594,13 +1598,18 @@ void LoadResources()
 	ongnuoc->SetPosition(220.0f, 150-48);
 	objects.push_back(ongnuoc);
 
+
+*/
+
+//1058, 388-2
 	plant = new Plant();
 	plant->AddAnimation(13001);
 	plant->AddAnimation(13002);
 	plant->AddAnimation(13003);
-	plant->SetPosition(227.0f, 150 - 48);
-	plant->SetState(PLANT_STATE_WALKING);
-	objects.insert(objects.begin() + 3, plant);*/
+	plant->SetPosition(1058+96/2, 435);
+	plant->SetState(PLANT_STATE_GOING_UP);
+	//objects.insert(objects.begin() + 3, plant);
+	objects.push_back(plant);
 
 
 

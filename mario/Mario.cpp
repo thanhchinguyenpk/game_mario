@@ -621,7 +621,7 @@ void CMario::Render()
 	DebugOut(L"[ERROR----state cua nó la %d\n", state);
 	animations[ani]->Render(x, y,0,alpha,nx);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

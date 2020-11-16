@@ -201,7 +201,7 @@ void CConCo::Render()
 	//int ani = CONCO_ANI_THUT_VAO;
 	DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", nx);
 	animations[ani]->Render(x, y,0,255,nx,ny);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CConCo::SetState(int state)

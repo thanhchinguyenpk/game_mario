@@ -142,6 +142,7 @@
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="OngNuoc.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="PlantBullet.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="TextAndNumber.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="OngNuoc.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PlantBullet.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="TextAndNumber.cpp" />
     <ClCompile Include="Textures.cpp" />
