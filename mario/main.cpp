@@ -527,7 +527,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			mario->is_right = false;
 			//mario->is_walking = false;
 
-			DebugOut(L"helooo , zo idle hemmmmmmmmmmm: \n");
+			//DebugOut(L"helooo , zo idle hemmmmmmmmmmm: \n");
 			mario->SetIsFly(false);
 
 			
@@ -1458,7 +1458,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(700, 80.0f);
+	mario->SetPosition(100, 80.0f);
 	objects.push_back(mario);
 
 
@@ -1612,9 +1612,35 @@ void LoadResources()
 	objects.push_back(plant);
 
 
-
+	conco = new CConCo();
+	conco->AddAnimation(901);
+	conco->AddAnimation(902);
+	conco->AddAnimation(903);
+	conco->AddAnimation(904);
+	conco->AddAnimation(905);
+	conco->AddAnimation(906);
+	conco->SetPosition(1745,391);
+	conco->SetState(CONCO_STATE_WALKING_RIGHT);//CONCO_STATE_WALKING_LEFT
+	objects.push_back(conco);
 	
-
+	brickcoin = new Brick_Coin(360);
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(200, 360);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+	brickcoin = new Brick_Coin(360);
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(250, 360);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
+	brickcoin = new Brick_Coin(360);
+	brickcoin->AddAnimation(1001);
+	brickcoin->AddAnimation(1002);
+	brickcoin->SetPosition(300, 360);
+	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
+	objects.push_back(brickcoin);
 
 	
 	//viên đá lấp lánh <3
@@ -1923,7 +1949,7 @@ void Render()
 
 		map->Draw();
 		game_time = GameTime::GetInstance();
-		game_ui->Render(300-game_time->GetTime());
+		//game_ui->Render(300-game_time->GetTime());
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
@@ -1989,7 +2015,7 @@ int Run()
 {
 	MSG msg;
 	int done = 0;
-	DWORD frameStart = GetTickCount();
+	DWORD frameStart = GetTickCount64();
 	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
 
 	while (!done)
@@ -2002,7 +2028,7 @@ int Run()
 			DispatchMessage(&msg);
 		}
 
-		DWORD now = GetTickCount();
+		DWORD now = GetTickCount64();
 
 		// dt: the time between (beginning of last frame) and now
 		// this frame: the frame we are about to render

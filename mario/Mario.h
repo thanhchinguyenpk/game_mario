@@ -177,7 +177,7 @@ public:
 	void SetState(int state);
 	void SetIsInObject(bool temp) { is_in_object = temp; }
 	void SetLevel(int l) { level = l; }
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void SetShoot(bool temp) { is_shoot = temp; }
 	void SetSpin(bool temp) { is_spin = temp; }
 	void SetIsFly(bool temp) { is_fly = temp; }
@@ -185,7 +185,7 @@ public:
 	void SetIsIncreaseSpeed(bool temp) { is_increase_speed = temp; }
 	void SetAcceleration(float temp) { acceleration = temp; }
 
-	void StartJumping() { jumping_start = GetTickCount(); };
+	void StartJumping() { jumping_start = GetTickCount64(); };
 	void EndJumping() { jumping_start = 0; };
 	DWORD GetJumpingTime() { return jumping_start; };
 	bool GetIsInObject() { return is_in_object; };

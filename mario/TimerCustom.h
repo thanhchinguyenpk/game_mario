@@ -14,8 +14,8 @@ public:
 	~TimerCustom() {};
 
 
-	void StartTime() { startTime = GetTickCount(); };
-	bool IsTimeUp() { return GetTickCount() - startTime >= limitTime; };
+	void StartTime() { startTime = GetTickCount64(); };
+	bool IsTimeUp() { return GetTickCount64() - startTime >= limitTime; };
 	void Reset() { startTime = 0; }
 };
 

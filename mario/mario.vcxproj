@@ -145,6 +145,7 @@
     <ClInclude Include="PlantBullet.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="SuperLeaf.h" />
     <ClInclude Include="TextAndNumber.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TimerCustom.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlantBullet.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="SuperLeaf.cpp" />
     <ClCompile Include="TextAndNumber.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TimerCustom.cpp" />

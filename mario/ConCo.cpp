@@ -1,6 +1,7 @@
 ﻿#include "ConCo.h"
 #include "Game.h"
 #include "debug.h"
+#include "Flatform.h"
 
 
 
@@ -128,6 +129,20 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
+
+
+			if (dynamic_cast<Flatform*>(e->obj)) // if e->obj is Goomba // nếu như là goomba
+			{
+
+				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
+
+				if (this->x > flatform->x + 243)
+					SetState(CONCO_STATE_WALKING_LEFT);
+				if(this->x < flatform->x)
+					SetState(CONCO_STATE_WALKING_RIGHT);
+				
+				
+			}
 			// biến bỏ qua viên đá đồng tiền đầu tiên là để bỏ qua viên đá mà con 
 			//nấm chui ra
 			

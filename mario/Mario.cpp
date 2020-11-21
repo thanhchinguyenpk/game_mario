@@ -309,8 +309,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						brickcoin->SetState(BRICK_COIN_STATE_DA_DAP);
 
-						Mushroom* mushroom = new Mushroom();
-						objects.insert(objects.begin()+2, mushroom);
+						//Mushroom* mushroom = new Mushroom();
+						//objects.insert(objects.begin()+2, mushroom);
 
 
 
@@ -618,7 +618,7 @@ void CMario::Render()
 	//DebugOut(L"[ERROR---------------ani--------------------ani cua nó la %d\n", ani);
 	//DebugOut(L"[ERROR---------------nx--------------------ani cua nó la %d\n", nx);
 	//DebugOut(L"[ERROR---------------nx--------------------ani cua nó la %f\n", vx);
-	DebugOut(L"[ERROR----state cua nó la %d\n", state);
+	//DebugOut(L"[ERROR----state cua nó la %d\n", state);
 	animations[ani]->Render(x, y,0,alpha,nx);
 
 	RenderBoundingBox();
