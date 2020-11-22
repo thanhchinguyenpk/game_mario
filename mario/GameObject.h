@@ -51,6 +51,8 @@ public:
 
 	int state;
 
+	bool used = false;
+
 	DWORD dt; 
 
 	vector<LPANIMATION> animations;

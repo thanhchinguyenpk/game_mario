@@ -26,6 +26,8 @@
 #include "UI.h"
 #include "GameTime.h"
 #include "PlantBullet.h"
+#include "SuperLeaf.h"
+#include "DebrisBrick.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -94,6 +96,26 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_7:
+	{
+	DebrisBrick* debrick_brick = new DebrisBrick(100, 100, -1, 1);
+	debrick_brick->AddAnimation(16000);
+	objects.push_back(debrick_brick);
+
+	debrick_brick = new DebrisBrick(150, 100, 1, 1);
+	debrick_brick->AddAnimation(16000);
+	objects.push_back(debrick_brick);
+
+	debrick_brick = new DebrisBrick(100, 100, -1, 1.5);
+	debrick_brick->AddAnimation(16000);
+	objects.push_back(debrick_brick);
+
+
+	debrick_brick = new DebrisBrick(150, 100, 1, 1.5);
+	debrick_brick->AddAnimation(16000);
+	objects.push_back(debrick_brick);
+	}
+		break;
 	case DIK_5:
 		goomba = new CGoomba();
 		goomba->AddAnimation(701);
@@ -891,8 +913,16 @@ void LoadResources()
 	sprites->Add(200008, 179, 24, 179 + 9, 24 + 8, texNumberAndText);
 
 	sprites->Add(200009, 197, 24, 197 + 8, 24 + 8, texNumberAndText);//9
-	
 
+	//super leaf
+	LPDIRECT3DTEXTURE9 texSuperLeaf = textures->Get(ID_TEX_BRICK_COIN);
+	sprites->Add(210000, 180, 123, 180 + 16, 123 + 14, texSuperLeaf);
+	
+	//debris brick
+	LPDIRECT3DTEXTURE9 texDebrisBrick = textures->Get(ID_TEX_MISC);
+	sprites->Add(220000, 458, 119, 458+10, 119+10, texDebrisBrick);
+	sprites->Add(220001, 470, 119, 470 + 10, 119 + 10, texDebrisBrick);
+	
 
 
 
@@ -1356,6 +1386,16 @@ void LoadResources()
 	ani->Add(140007);
 	animations->Add(14002, ani);
 
+	//superleaf
+	ani = new CAnimation(200);
+	ani->Add(210000);
+	animations->Add(15000, ani);
+
+	//superleaf
+	ani = new CAnimation(50);
+	ani->Add(220000);
+	ani->Add(220001);
+	animations->Add(16000, ani);
 
 
 
@@ -1642,7 +1682,16 @@ void LoadResources()
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 
+	SuperLeaf* super_leaf = new SuperLeaf(300, 360);
+	super_leaf->AddAnimation(15000);
+	super_leaf->SetState(SUPER_LEAF_STATE_MOVE_UP);
+	super_leaf->SetPosition(300, 360);
+	objects.push_back(super_leaf);
+
 	
+
+
+
 	//viên đá lấp lánh <3
 
 	/*brickblink = new BrickBlink();
@@ -1888,7 +1937,21 @@ void Update(DWORD dt)
 	}
 
 
+	//remove
+	for (auto& pointer : objects)
+	{
+		if (pointer->used == true)
+		{
+			delete pointer;
+			pointer = nullptr;
+			DebugOut(L"xoas roi ne!\n");
+		}
+	}
+	objects.erase(std::remove(objects.begin(), objects.end(), nullptr), objects.end());
+
+
 	GameTime::GetInstance()->Update(dt);
+
 
 
 /*	vector<LPGAMEOBJECT> coObjects;
