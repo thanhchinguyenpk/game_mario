@@ -26,6 +26,7 @@
 #include "CoinFly.h"
 #include "Mushroom.h"
 #include "Flatform.h"
+#include "BrickBlink.h"
 
 
 
@@ -316,11 +317,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 					}
-				
-
 				}
+			}
 
 
+			if (dynamic_cast<BrickBlink*>(e->obj))
+			{
+				BrickBlink* brick_blink = dynamic_cast<BrickBlink*>(e->obj);
+				if (e->ny > 0) // phương va chạm hướng lên
+				{
+					
+						brick_blink->SetState(BRICK_BLINK_STATE_WAS_HIT);
+				}
 			}
 
 #pragma endregion			

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define  DEBRIS_BRICK_GRAVITY		0.0008
+#define  DEBRIS_BRICK_GRAVITY		0.0009
 #define  DEBRIS_BRICK_SPEED_X		0.07
 #define  DEBRIS_BRICK_SPEED_Y		0.26
 

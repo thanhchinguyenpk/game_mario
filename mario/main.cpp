@@ -28,6 +28,7 @@
 #include "PlantBullet.h"
 #include "SuperLeaf.h"
 #include "DebrisBrick.h"
+#include "ParaGoomba.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -96,25 +97,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
-	case DIK_7:
-	{
-	DebrisBrick* debrick_brick = new DebrisBrick(100, 100, -1, 1);
-	debrick_brick->AddAnimation(16000);
-	objects.push_back(debrick_brick);
-
-	debrick_brick = new DebrisBrick(150, 100, 1, 1);
-	debrick_brick->AddAnimation(16000);
-	objects.push_back(debrick_brick);
-
-	debrick_brick = new DebrisBrick(100, 100, -1, 1.5);
-	debrick_brick->AddAnimation(16000);
-	objects.push_back(debrick_brick);
-
-
-	debrick_brick = new DebrisBrick(150, 100, 1, 1.5);
-	debrick_brick->AddAnimation(16000);
-	objects.push_back(debrick_brick);
-	}
+	
 		break;
 	case DIK_5:
 		goomba = new CGoomba();
@@ -923,7 +906,16 @@ void LoadResources()
 	sprites->Add(220000, 458, 119, 458+10, 119+10, texDebrisBrick);
 	sprites->Add(220001, 470, 119, 470 + 10, 119 + 10, texDebrisBrick);
 	
+	//para goompa
+	LPDIRECT3DTEXTURE9 texParaGoomba = textures->Get(ID_TEX_PLANT);
+	sprites->Add(230000, 116, 40, 116 + 20, 40 + 19, texParaGoomba);//walking
+	sprites->Add(230001, 140, 40, 140 + 20, 40 + 19, texParaGoomba);
 
+	sprites->Add(230002, 66, 35, 66 + 20, 35 + 24, texParaGoomba);//swing small
+
+	sprites->Add(230003, 116, 35, 116 + 20, 34 + 24, texParaGoomba);//swing big
+
+	
 
 
 
@@ -1397,6 +1389,21 @@ void LoadResources()
 	ani->Add(220001);
 	animations->Add(16000, ani);
 
+	//para koompa
+	ani = new CAnimation(100);
+	ani->Add(230000);
+	ani->Add(230001);
+	animations->Add(17000, ani);
+
+	ani = new CAnimation(100); //jumb swing small
+	ani->Add(230002);
+	animations->Add(17001, ani);
+
+	ani = new CAnimation(40); //jumb swing big
+	ani->Add(230002);
+	ani->Add(230003);
+	animations->Add(17002, ani);
+
 
 
 
@@ -1682,14 +1689,27 @@ void LoadResources()
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 
-	SuperLeaf* super_leaf = new SuperLeaf(300, 360);
+	/*SuperLeaf* super_leaf = new SuperLeaf(300, 360);
 	super_leaf->AddAnimation(15000);
 	super_leaf->SetState(SUPER_LEAF_STATE_MOVE_UP);
 	super_leaf->SetPosition(300, 360);
-	objects.push_back(super_leaf);
+	objects.push_back(super_leaf);*/
 
+	brickblink = new BrickBlink();
+	brickblink->AddAnimation(9001);
+	brickblink->SetPosition(100.0f, 360.0f);
+	brickblink->SetState(100);
+	objects.push_back(brickblink);
+
+	ParaGoomba* para_goomba = new ParaGoomba();
+	para_goomba->AddAnimation(17000);
+	para_goomba->AddAnimation(17001);
+	para_goomba->AddAnimation(17002);
+	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
+	para_goomba->SetPosition(500, 460);
+	objects.push_back(para_goomba);
 	
-
+//==========================================================================================================================================
 
 
 	//viên đá lấp lánh <3
@@ -1942,6 +1962,9 @@ void Update(DWORD dt)
 	{
 		if (pointer->used == true)
 		{
+			/*if (dynamic_cast<SuperLeaf*>(pointer))
+				DebugOut(L"xoas roi ne!\n");
+				*/
 			delete pointer;
 			pointer = nullptr;
 			DebugOut(L"xoas roi ne!\n");

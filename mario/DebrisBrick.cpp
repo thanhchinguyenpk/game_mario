@@ -1,4 +1,6 @@
 #include "DebrisBrick.h"
+#include "Game.h"
+#include "Map.h"
 
 void DebrisBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -9,6 +11,9 @@ void DebrisBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += dx;
 	y += dy;
+
+	if (y > CGame::GetInstance()->GetCamY() + SCREEN_WIDTH)
+		this->used = true;
 }
 
 void DebrisBrick::Render()
@@ -28,5 +33,7 @@ DebrisBrick::DebrisBrick(float brick_pos_x, float brick_pos_y, int nx, float hei
 	vy = -DEBRIS_BRICK_SPEED_Y * height;
 	x = brick_pos_x;
 	y = brick_pos_y;
+	
+	this->AddAnimation(16000);
 	
 }

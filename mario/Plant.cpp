@@ -28,7 +28,7 @@ void Plant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		y += dy;
 
-		if (GetTickCount() - time_going_up > PLANT_TIME_GOING_UP)
+		if (GetTickCount64() - time_going_up > PLANT_TIME_GOING_UP)
 			SetState(PLANT_STATE_SEEING);
 
 	}
@@ -39,7 +39,7 @@ void Plant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else if (mario->y >= PLANT_HEIGHT_RAISE_HEAD)
 			SetState(PLANT_STATE_SHOOTING_DOWN);
 
-		if (GetTickCount() - time_seeing > PLANT_TIME_SHOOTING && is_shoot==true)
+		if (GetTickCount64() - time_seeing > PLANT_TIME_SHOOTING && is_shoot==true)
 		{
 			PlantBullet* plant_bullet;
 			plant_bullet = new PlantBullet();
@@ -59,7 +59,7 @@ void Plant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			is_shoot = false;
 		}
 
-		if (GetTickCount() - time_seeing > PLANT_TIME_SEEING)
+		if (GetTickCount64() - time_seeing > PLANT_TIME_SEEING)
 		{
 			SetState(PLANT_STATE_GOING_DOWN);
 			DebugOut(L"[ERROR-------------s ddax troiq qua-------------] MARIOOOOO.");
@@ -68,12 +68,12 @@ void Plant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (state == PLANT_STATE_GOING_DOWN)
 	{
 		y += dy;
-		if (GetTickCount() - time_going_down > PLANT_TIME_GOING_UP)
+		if (GetTickCount64() - time_going_down > PLANT_TIME_GOING_UP)
 			SetState(PLANT_STATE_STANDING_STILL);
 	}
 	else if (state == PLANT_STATE_STANDING_STILL)
 	{
-		if (GetTickCount() - time_stading_still > PLANT_TIME_STANDING_STILL)
+		if (GetTickCount64() - time_stading_still > PLANT_TIME_STANDING_STILL)
 			SetState(PLANT_STATE_GOING_UP);
 	}
 

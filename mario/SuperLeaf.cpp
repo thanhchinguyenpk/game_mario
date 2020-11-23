@@ -1,6 +1,8 @@
 #include "SuperLeaf.h"
 #include "Mario.h"
 #include "debug.h"
+#include "Game.h"
+#include "Map.h"
 
 SuperLeaf::SuperLeaf(float brick_pos_x, float brick_pos_y)
 {
@@ -39,6 +41,9 @@ void SuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (state == SUPER_LEAF_STATE_MOVE_LEFT && this->x <= original_pos_x)
 		SetState(SUPER_LEAF_STATE_MOVE_RIGHT);
+
+	if (y > CGame::GetInstance()->GetCamY() + SCREEN_WIDTH)
+		this->used = true;
 
 }
 
