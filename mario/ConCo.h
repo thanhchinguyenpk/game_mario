@@ -19,6 +19,8 @@
 #define CONCO_STATE_FLY_RIGHT	    700
 #define CONCO_STATE_WAS_BROUGHT	    800
 #define CONCO_STATE_WAS_SHOOTED		900
+#define CONCO_STATE_INDENT_OUT		1000
+#define CONCO_STATE_SHELL_MOVING		1100
 
 #define CONCO_ANI_WALKING_LEFT	 0
 #define CONCO_ANI_WALKING_RIGHT	 1
@@ -26,7 +28,9 @@
 #define CONCO_ANI_MAI_RUA_CHAY	 3
 #define CONCO_ANI_FLY_LEFT	    4
 #define CONCO_ANI_FLY_RIGHT	    5
-#define CONCO_ANI_DIE			 6
+//#define CONCO_ANI_DIE			 6
+#define CONCO_ANI_INDENT_OUT			6
+#define CONCO_ANI_SHELL_MOVING			7
 
 #define CONCO_GRAVITY			0.002f*1.5
 
@@ -34,6 +38,8 @@ class CConCo : public CGameObject
 {
 public:
 	bool is_brought = false;
+	DWORD time_to_indent_out;
+	bool shell_moving = false;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

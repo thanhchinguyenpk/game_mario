@@ -29,6 +29,7 @@
 #include "SuperLeaf.h"
 #include "DebrisBrick.h"
 #include "ParaGoomba.h"
+#include "PiranhaPlant.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -105,7 +106,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		goomba->AddAnimation(702);
 		goomba->AddAnimation(703);
 		goomba->SetPosition(mario->x+500, 100);
-		goomba->SetState(GOOMBA_STATE_WALKING);
+		goomba->SetState(CONCO_STATE_THUT_VAO);
 		objects.push_back(goomba);
 		break;
 	case DIK_6:
@@ -116,6 +117,8 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		conco->AddAnimation(904);
 		conco->AddAnimation(905);
 		conco->AddAnimation(906);
+		conco->AddAnimation(907);
+		conco->AddAnimation(908);
 		conco->SetPosition(mario->x + 500, 100.0f);
 		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
@@ -819,6 +822,20 @@ void LoadResources()
 	sprites->Add(60015, 296, 250, 296 + 16, 250 + 26, texConCo2);
 	sprites->Add(60016, 313, 248, 313 + 16, 248 + 28, texConCo2);
 
+	LPDIRECT3DTEXTURE9 texConCo3 = textures->Get(ID_TEX_PLANT);
+	sprites->Add(60017, 32, 149, 32 + 16, 149 + 16, texConCo3);// mai rùa thụt vào rung rinh
+	sprites->Add(60018, 31, 149, 32 + 16, 149 + 16, texConCo3);
+	//sprites->Add(60019, 30, 149, 32 + 16, 149 + 16, texConCo3);
+	//sprites->Add(60020, 32, 149, 32 + 16, 149 + 16, texConCo3);
+
+	sprites->Add(60021, 74, 127, 74 + 18, 127 + 16, texConCo3);// mai rùa thò chân
+	sprites->Add(60022, 31, 149, 32 + 16, 149 + 16, texConCo3);
+
+
+
+
+
+
 
 
 	//gạch chấm hỏi có tiền
@@ -914,6 +931,12 @@ void LoadResources()
 	sprites->Add(230002, 66, 35, 66 + 20, 35 + 24, texParaGoomba);//swing small
 
 	sprites->Add(230003, 116, 35, 116 + 20, 34 + 24, texParaGoomba);//swing big
+
+	//piranha plant
+	LPDIRECT3DTEXTURE9 texPiranhaPlant = textures->Get(ID_TEX_PLANT);
+	sprites->Add(240000, 6, 108, 6 + 17, 108 + 24, texPiranhaPlant);//cạp cạp
+	sprites->Add(240001, 7, 137, 7 + 16, 137 + 24, texPiranhaPlant);
+
 
 	
 
@@ -1296,6 +1319,25 @@ void LoadResources()
 	ani->Add(60016);
 	animations->Add(906, ani);
 
+	/*ani = new CAnimation(300); //mai rùa thụt vào rung rinh
+	ani->Add(60017);
+	ani->Add(60018);
+	ani->Add(60019);
+	ani->Add(60020);
+	animations->Add(907, ani);*/
+
+	ani = new CAnimation(15); //mai rùa thụt chân ra vào
+	ani->Add(60021);
+	ani->Add(60022);
+	animations->Add(907, ani);
+
+	ani = new CAnimation(10); //mai rùa thụt vào rung rinh
+	ani->Add(60017);
+	ani->Add(60018);
+	//ani->Add(60019);
+	//ani->Add(60020);
+	animations->Add(908, ani);
+
 	
 	
 
@@ -1403,6 +1445,12 @@ void LoadResources()
 	ani->Add(230002);
 	ani->Add(230003);
 	animations->Add(17002, ani);
+
+	//piranha plant
+	ani = new CAnimation(100);
+	ani->Add(240000);
+	ani->Add(240001);
+	animations->Add(18000, ani);
 
 
 
@@ -1666,6 +1714,8 @@ void LoadResources()
 	conco->AddAnimation(904);
 	conco->AddAnimation(905);
 	conco->AddAnimation(906);
+	conco->AddAnimation(907);
+	conco->AddAnimation(908);
 	conco->SetPosition(1745,391);
 	conco->SetState(CONCO_STATE_WALKING_RIGHT);//CONCO_STATE_WALKING_LEFT
 	objects.push_back(conco);
@@ -1708,6 +1758,13 @@ void LoadResources()
 	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
 	para_goomba->SetPosition(500, 460);
 	objects.push_back(para_goomba);
+
+
+	PiranhaPlant* paranha_plant = new PiranhaPlant();
+	paranha_plant->AddAnimation(18000);
+	//paranha_plant->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
+	paranha_plant->SetPosition(500, 460);
+	objects.push_back(paranha_plant);
 	
 //==========================================================================================================================================
 

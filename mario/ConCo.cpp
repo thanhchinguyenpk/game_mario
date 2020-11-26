@@ -16,7 +16,8 @@ void CConCo::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	else
 		bottom = y + (float)CONCO_BBOX_HEIGHT/2;
 
-	if (state == CONCO_STATE_THUT_VAO||state==CONCO_STATE_MAI_RUA_CHAY)
+	if (state == CONCO_STATE_THUT_VAO||state==CONCO_STATE_MAI_RUA_CHAY|| state == CONCO_STATE_INDENT_OUT
+		|| state == CONCO_STATE_SHELL_MOVING)
 	{
 		left = x - (float)16*3/2;// ủa tại sao để define thì lại lỗi ????
 		top = y - (float)17*3/2;
@@ -29,49 +30,14 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
 
-	if (is_brought == false)
-	{
+//	if (is_brought == false)
+	//{
 		CGameObject::Update(dt, coObjects);
-	}
+	//}
 
 	vy += 0.002 * dt;
 
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
-	//x += dx;
-	//y += dy;
-
-
-
-	/*if (vx < 0 && x < 250) { // tai sao
-		if (state == CONCO_STATE_MAI_RUA_CHAY) // mai rùa chạy thì kệ nó
-			state = CONCO_STATE_MAI_RUA_CHAY;
-		else if(state==CONCO_STATE_WALKING_LEFT){ // tới biên qua bên trái thì đi ngược chiều lại
-			state = CONCO_STATE_WALKING_RIGHT;
-		}
-		else if (state == CONCO_STATE_FLY_LEFT)
-			state = CONCO_STATE_FLY_RIGHT;
-
-		x = 250; vx = -vx;
-	}
-
-	if (vx > 0 && x > 290) {
-		if (state == CONCO_STATE_MAI_RUA_CHAY) // mai rùa chạy thì kệ nó
-			state = CONCO_STATE_MAI_RUA_CHAY;
-		else if (state == CONCO_STATE_WALKING_RIGHT) { // tới biên qua bên trái thì đi ngược chiều lại
-			state = CONCO_STATE_WALKING_LEFT;
-		}
-		else if (state == CONCO_STATE_FLY_RIGHT)
-			state = CONCO_STATE_FLY_LEFT;
-	//	state = CONCO_STATE_WALKING_LEFT;
-		x = 290; vx = -vx;
-
-		
-	}*/
-
-
+	
 
 
 	
@@ -133,14 +99,12 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (dynamic_cast<Flatform*>(e->obj)) // if e->obj is Goomba // nếu như là goomba
 			{
-
 				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
 
-				if (this->x > flatform->x + 243)
+				if (this->x > flatform->x + 243 && state==CONCO_STATE_WALKING_RIGHT)
 					SetState(CONCO_STATE_WALKING_LEFT);
-				if(this->x < flatform->x)
+				if(this->x < flatform->x &&state == CONCO_STATE_WALKING_LEFT)
 					SetState(CONCO_STATE_WALKING_RIGHT);
-				
 				
 			}
 			// biến bỏ qua viên đá đồng tiền đầu tiên là để bỏ qua viên đá mà con 
@@ -166,13 +130,23 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//vx = MUSHROOM_WALKING_SPEED;// cẩn thận nha, xem lại kĩ càng
 
 		//vx = 0; vy = 0;
-
-
-
-
-
-	
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+
+	if (state == CONCO_STATE_THUT_VAO && GetTickCount64() - time_to_indent_out > 4000)
+	{
+		SetState(CONCO_STATE_SHELL_MOVING);
+		
+	}
+
+	if (state== CONCO_STATE_SHELL_MOVING && GetTickCount64() - time_to_indent_out > 6000)
+		SetState(CONCO_STATE_INDENT_OUT);
+
+	if (state == CONCO_STATE_INDENT_OUT && GetTickCount64() - time_to_indent_out > 7000)
+	{
+		SetPosition(this->x, this->y - 32);//để khi thọt ra mai rùa không bị rơi xuống
+		SetState(CONCO_STATE_WALKING_RIGHT);
+	}
 }
 
 void CConCo::Render()
@@ -209,12 +183,16 @@ void CConCo::Render()
 	int ani = CONCO_ANI_WALKING_RIGHT;
 	if (state == CONCO_STATE_WALKING_RIGHT)
 		ani = CONCO_ANI_WALKING_RIGHT;
-	else if (state == CONCO_STATE_THUT_VAO||state==CONCO_STATE_WAS_SHOOTED)
+	else if (state == CONCO_STATE_THUT_VAO || state == CONCO_STATE_WAS_SHOOTED)
 		ani = CONCO_ANI_THUT_VAO;
 	else if (state == CONCO_STATE_MAI_RUA_CHAY)
 		ani = CONCO_ANI_MAI_RUA_CHAY;
+	else if (state == CONCO_STATE_INDENT_OUT)
+		ani = CONCO_ANI_INDENT_OUT;
+	else if (state == CONCO_STATE_SHELL_MOVING)
+		ani = CONCO_ANI_SHELL_MOVING;
 	//int ani = CONCO_ANI_THUT_VAO;
-	DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", nx);
+	DebugOut(L"[ERROR----------render tại vị trí:------------------] DINPUT::GetDeviceData failed. Error: %f\n", x);
 	animations[ani]->Render(x, y,0,255,nx,ny);
 	RenderBoundingBox();
 }
@@ -241,6 +219,7 @@ void CConCo::SetState(int state)
 		vx = 0;
 		vy = 0;
 		nx = 1;
+		time_to_indent_out = GetTickCount64();
 		//y = 135;
 		break;
 	case CONCO_STATE_MAI_RUA_CHAY:
@@ -267,6 +246,13 @@ void CConCo::SetState(int state)
 		ny = -1;
 		//nx = 1;
 		break;
+	case CONCO_STATE_INDENT_OUT:
+
+		break;
+	case CONCO_STATE_SHELL_MOVING:
+
+		break;
+
 	}
 }
 
