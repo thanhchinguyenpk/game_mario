@@ -1,6 +1,10 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (04-Collision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ConCo.cpp
+  PiranhaPlant.cpp
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(17,47): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.cpp(38,18): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.cpp(222,38): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(180,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(188,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(14,32): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(19,29): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(66,30): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(70,29): warning C4305: '=': truncation from 'double' to 'float'
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

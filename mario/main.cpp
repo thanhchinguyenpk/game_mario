@@ -934,8 +934,8 @@ void LoadResources()
 
 	//piranha plant
 	LPDIRECT3DTEXTURE9 texPiranhaPlant = textures->Get(ID_TEX_PLANT);
-	sprites->Add(240000, 6, 108, 6 + 17, 108 + 24, texPiranhaPlant);//cạp cạp
-	sprites->Add(240001, 7, 137, 7 + 16, 137 + 24, texPiranhaPlant);
+	sprites->Add(240000, 6, 108-1, 6 + 17, 108 + 24, texPiranhaPlant);//cạp cạp
+	sprites->Add(240001, 7, 137, 7 + 17, 137 + 24, texPiranhaPlant);
 
 
 	
@@ -1553,7 +1553,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(100, 80.0f);
+	mario->SetPosition(5300, 80.0f);
 	objects.push_back(mario);
 
 
@@ -1762,8 +1762,8 @@ void LoadResources()
 
 	PiranhaPlant* paranha_plant = new PiranhaPlant();
 	paranha_plant->AddAnimation(18000);
-	//paranha_plant->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
-	paranha_plant->SetPosition(500, 460);
+	paranha_plant->SetState(PIRANHA_PLANT_STATE_GOING_UP);
+	paranha_plant->SetPosition(5424, 397+ 24 * 3);
 	objects.push_back(paranha_plant);
 	
 //==========================================================================================================================================

@@ -31,7 +31,7 @@ void Brick_Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	 else if ( flag==true && y>=originalY)
 	{
-		DebugOut(L"[ERROR-------vy của viên gạch-----------------] DINPUT::GetDeviceData failed. Error: %f\n",y);
+		//DebugOut(L"[ERROR-------vy của viên gạch-----------------] DINPUT::GetDeviceData failed. Error: %f\n",y);
 		
 		vy = 0;
 		y = originalY;
