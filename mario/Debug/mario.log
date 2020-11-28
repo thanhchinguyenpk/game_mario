@@ -1,10 +1,26 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (04-Collision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  PiranhaPlant.cpp
+  Brick_Coin.cpp
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(17,47): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(180,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(188,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(14,32): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(19,29): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(66,30): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\PiranhaPlant.cpp(70,29): warning C4305: '=': truncation from 'double' to 'float'
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Brick_Coin.cpp(54,12): warning C4305: '=': truncation from 'double' to 'float'
+  main.cpp
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(17,47): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(181,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(189,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.h(4): message : see previous definition of 'CONCO_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Goomba.h(4): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Brick.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2065,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2070,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2077,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2180,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2183,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2247,19): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2260,13): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+  Generating Code...
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

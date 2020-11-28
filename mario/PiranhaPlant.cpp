@@ -37,7 +37,7 @@ void PiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	}
 
-	DebugOut(L"[ERROR---------pira-----------------] DINPUT::GetDeviceData failed. Error: %d\n", state);
+	//DebugOut(L"[ERROR---------pira-----------------] DINPUT::GetDeviceData failed. Error: %d\n", state);
 }
 
 void PiranhaPlant::Render()

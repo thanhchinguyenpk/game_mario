@@ -1,6 +1,8 @@
 ﻿#include "Brick_Coin.h"
 #include <dinput.h>
 #include "debug.h"
+#include "Mushroom.h"
+extern vector<LPGAMEOBJECT> objects;
 
 void Brick_Coin::Render()
 {
@@ -50,6 +52,14 @@ void Brick_Coin::SetState(int state)
 	{
 	case BRICK_COIN_STATE_DA_DAP:
 		vy = -0.2;
+		{
+		Mushroom* mr = new Mushroom(this->x,this->y);
+		//mr->AddAnimation(11001);
+		mr->AddAnimation(21000);
+		mr->SetPosition(this->x, this->y);
+		mr->SetState(MUSHROOM_STATE_GOING_UP);
+		itemsMarioCanEat.push_back(mr);
+		}
 	
 		break;
 	case BRICK_COIN_STATE_BOUCING:

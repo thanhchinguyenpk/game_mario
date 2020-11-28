@@ -58,6 +58,8 @@ public:
 	vector<LPANIMATION> animations;
 
 public: 
+	bool CheckOverLap(float l_a, float t_a, float r_a, float b_a, float l_b, float t_b, float r_b, float b_b){ return (l_a < r_b && r_a > l_b && t_a < b_b && b_a > t_b); }
+																												//return (l_a < r_b&& r_a > l_b && t_a < b_b&& b_a > t_b);	
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }

@@ -172,6 +172,7 @@ public:
 		untouchable = 0;
 		nx = 1;
 	}
+	void CheckOverlapWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);

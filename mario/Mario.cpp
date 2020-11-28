@@ -27,6 +27,7 @@
 #include "Mushroom.h"
 #include "Flatform.h"
 #include "BrickBlink.h"
+#include "SwitchBlock.h"
 
 
 
@@ -34,6 +35,24 @@
 extern vector<LPGAMEOBJECT> objects;
 
 
+
+void CMario::CheckOverlapWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat)
+{
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(ml, mt, mr, mb);
+
+	for (UINT i = 0; i < itemsMarioCanEat->size(); i++)
+	{
+		LPGAMEOBJECT item = itemsMarioCanEat->at(i);
+		 
+		item->GetBoundingBox(il, it, ir, ib);
+
+		if (this->CheckOverLap(ml, mt, mr, mb, il, it, ir, ib))
+			item->used = true;
+	}
+}
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -309,16 +328,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (brickcoin->GetState() == BRICK_COIN_STATE_CHUA_DAP)
 					{
 						brickcoin->SetState(BRICK_COIN_STATE_DA_DAP);
-						brickcoin->used = true;
-
-						//Mushroom* mushroom = new Mushroom();
-						//objects.insert(objects.begin()+2, mushroom);
-
-
-
 					}
 				}
 			}
+
+
+				if (dynamic_cast<SwitchBlock*>(e->obj))// khỏi bị nhích xuống, rơi ra ngoài thê giưới
+			{
+					SwitchBlock* switch_block = dynamic_cast<SwitchBlock*>(e->obj);
+					if (e->ny < 0) // phương va chạm hướng lên
+					{
+						
+							switch_block->SetState(SWITCH_BLOCK_STATE_WAS_PRESSED);
+
+					}
+			}
+
 
 
 			if (dynamic_cast<BrickBlink*>(e->obj))

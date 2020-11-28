@@ -149,10 +149,12 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="SuperLeaf.h" />
+    <ClInclude Include="SwitchBlock.h" />
     <ClInclude Include="TextAndNumber.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TimerCustom.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UpMushroom.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -181,10 +183,12 @@
     <ClCompile Include="PlantBullet.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="SuperLeaf.cpp" />
+    <ClCompile Include="SwitchBlock.cpp" />
     <ClCompile Include="TextAndNumber.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TimerCustom.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UpMushroom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

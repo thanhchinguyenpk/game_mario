@@ -30,6 +30,7 @@
 #include "DebrisBrick.h"
 #include "ParaGoomba.h"
 #include "PiranhaPlant.h"
+#include "SwitchBlock.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -61,6 +62,7 @@
 
 
 vector<LPGAMEOBJECT> objects;
+vector<LPGAMEOBJECT> itemsMarioCanEat;
 
 CGame *game;
 
@@ -937,6 +939,16 @@ void LoadResources()
 	sprites->Add(240000, 6, 108-1, 6 + 17, 108 + 24, texPiranhaPlant);//cạp cạp
 	sprites->Add(240001, 7, 137, 7 + 17, 137 + 24, texPiranhaPlant);
 
+	LPDIRECT3DTEXTURE9 texCoin = textures->Get(ID_TEX_BRICK_COIN); // Đồng tiên đứng yên
+	sprites->Add(250000, 334, 100, 334 + 14, 100 + 16, texCoin);
+
+	LPDIRECT3DTEXTURE9 texSwitchBlock = textures->Get(ID_TEX_BRICK_COIN); // switch block
+	sprites->Add(260000, 156, 144, 156 + 16, 144 + 16, texSwitchBlock);// nhấp nháy chữ P
+	sprites->Add(260001, 178, 144, 178 + 16, 144 + 16, texSwitchBlock);
+	sprites->Add(260002, 200, 144, 200 + 16, 144 + 16, texSwitchBlock);// switch bị đạp
+
+	LPDIRECT3DTEXTURE9 texUpMushroom = textures->Get(ID_TEX_BRICK_COIN);
+	sprites->Add(270000, 286, 121, 286 + 16, 121 + 16, texSwitchBlock);//nấm xanh
 
 	
 
@@ -1453,10 +1465,26 @@ void LoadResources()
 	animations->Add(18000, ani);
 
 
+	//coin stay
+	ani = new CAnimation(100);
+	ani->Add(250000);
+	animations->Add(19000, ani);
 
+	//switch block chữ P nhấp nháy
+	ani = new CAnimation(100); 
+	ani->Add(260000);
+	ani->Add(260001);
+	animations->Add(20000, ani);
 
-
-
+	//switch block bị đạp
+	ani = new CAnimation(100);
+	ani->Add(260002);
+	animations->Add(20001, ani);
+	
+	//nấm xanh 270000
+	ani = new CAnimation(100);
+	ani->Add(270000);
+	animations->Add(21000, ani);
 
 
 
@@ -1553,7 +1581,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(5300, 80.0f);
+	mario->SetPosition(100, 80.0f);
 	objects.push_back(mario);
 
 
@@ -1739,25 +1767,45 @@ void LoadResources()
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 
-	/*SuperLeaf* super_leaf = new SuperLeaf(300, 360);
+	SuperLeaf* super_leaf = new SuperLeaf(300, 360);
 	super_leaf->AddAnimation(15000);
 	super_leaf->SetState(SUPER_LEAF_STATE_MOVE_UP);
 	super_leaf->SetPosition(300, 360);
-	objects.push_back(super_leaf);*/
+	itemsMarioCanEat.push_back(super_leaf);
 
 	brickblink = new BrickBlink();
 	brickblink->AddAnimation(9001);
-	brickblink->SetPosition(100.0f, 360.0f);
+	brickblink->SetPosition(100.0f, 420.0f);
 	brickblink->SetState(100);
 	objects.push_back(brickblink);
 
-	ParaGoomba* para_goomba = new ParaGoomba();
+	
+
+	/*Mushroom* mr = new Mushroom(60, 60);
+	mr->AddAnimation(11001);
+	mr->SetPosition(300, 500);
+	mr->SetState(MUSHROOM_STATE_GOING_UP);
+	objects.push_back(mr);
+
+	 mr = new Mushroom(60, 60);
+	mr->AddAnimation(11001);
+	mr->SetPosition(400, 500);
+	mr->SetState(MUSHROOM_STATE_GOING_UP);
+	objects.push_back(mr);
+
+	 mr = new Mushroom(60, 60);
+	mr->AddAnimation(11001);
+	mr->SetPosition(500, 500);
+	mr->SetState(MUSHROOM_STATE_GOING_UP);
+	objects.push_back(mr);*/
+
+	/*ParaGoomba* para_goomba = new ParaGoomba();
 	para_goomba->AddAnimation(17000);
 	para_goomba->AddAnimation(17001);
 	para_goomba->AddAnimation(17002);
 	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
 	para_goomba->SetPosition(500, 460);
-	objects.push_back(para_goomba);
+	objects.push_back(para_goomba);*/
 
 
 	PiranhaPlant* paranha_plant = new PiranhaPlant();
@@ -1765,6 +1813,17 @@ void LoadResources()
 	paranha_plant->SetState(PIRANHA_PLANT_STATE_GOING_UP);
 	paranha_plant->SetPosition(5424, 397+ 24 * 3);
 	objects.push_back(paranha_plant);
+
+	Coin* coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(500, 360);
+	itemsMarioCanEat.push_back(coin);
+
+	SwitchBlock* switch_block = new SwitchBlock();
+	switch_block->AddAnimation(20000);
+	switch_block->AddAnimation(20001);
+	switch_block->SetPosition(600, 360);
+	objects.push_back(switch_block);
 	
 //==========================================================================================================================================
 
@@ -2014,7 +2073,16 @@ void Update(DWORD dt)
 	}
 
 
-	//remove
+
+	for (int i = 0; i < itemsMarioCanEat.size(); i++)
+	{
+		itemsMarioCanEat[i]->Update(dt, &coObjects);
+	}
+
+
+	mario->CheckOverlapWithItems(&itemsMarioCanEat);
+
+	//remove objects which is used
 	for (auto& pointer : objects)
 	{
 		if (pointer->used == true)
@@ -2028,6 +2096,21 @@ void Update(DWORD dt)
 		}
 	}
 	objects.erase(std::remove(objects.begin(), objects.end(), nullptr), objects.end());
+
+	//remove itmes which is used
+	for (auto& item : itemsMarioCanEat)
+	{
+		if (item->used == true)
+		{
+			/*if (dynamic_cast<SuperLeaf*>(pointer))
+				DebugOut(L"xoas roi ne!\n");
+				*/
+			delete item;
+			item = nullptr;
+			DebugOut(L"xoas roi ne!\n");
+		}
+	}
+	itemsMarioCanEat.erase(std::remove(itemsMarioCanEat.begin(), itemsMarioCanEat.end(), nullptr), itemsMarioCanEat.end());
 
 
 	GameTime::GetInstance()->Update(dt);
@@ -2096,6 +2179,9 @@ void Render()
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
+
+		for (int i = 0; i < itemsMarioCanEat.size(); i++)
+			itemsMarioCanEat[i]->Render();
 		
 		spriteHandler->End();
 		d3ddv->EndScene();
