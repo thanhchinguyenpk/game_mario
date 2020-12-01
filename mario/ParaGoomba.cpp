@@ -1,4 +1,5 @@
 ﻿#include "ParaGoomba.h"
+#include "Mario.h"
 
 void ParaGoomba::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
@@ -43,18 +44,24 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (ny != 0)
 		{
-			if (GetTickCount64() - moving_time > 1200 && turn_on_moving == true)
+			// nếu mà <1200s thì đi á còn lớn thì set cho nó nhảy nhỏ
+			if (state == PARA_GROOMBA_STATE_WALKING)
 			{
-				SetState(PARA_GROOMBA_STATE_JUMP_SMALL);
-				turn_on_moving = false;
-				count++;
-			}
-			else if(state== PARA_GROOMBA_STATE_JUMP_BIG|| state== PARA_GROOMBA_STATE_JUMP_SMALL)
+				//vx = -vx;
+			}else if (GetTickCount64() - moving_time > 500 ) //ban đầu chưa set thời gian này thì if chắc chắc đúng
 			{
-				if (count % 5 == 0)
+
+				if (count % 6 == 0)
 					SetState(PARA_GROOMBA_STATE_JUMP_BIG);
-				else if(count %5==1)
+				else if(count %6==1)
 					vx > 0 ? SetState(PARA_GROOMBA_STATE_MOVE_RIGHT): SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
+				else if (count % 6 == 2)
+				{
+					if (mario->x > this->x)
+						SetState(PARA_GROOMBA_STATE_MOVE_RIGHT);
+					else if (mario->x < this->x)
+						SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
+				}
 				else
 					SetState(PARA_GROOMBA_STATE_JUMP_SMALL);
 
@@ -64,37 +71,17 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		}	
 
-
-
-
-
-
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-
-
-			/*if (dynamic_cast<Flatform*>(e->obj)) 
-			{
-
-				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
-
-				if (this->x > flatform->x + 243)
-					SetState(CONCO_STATE_WALKING_LEFT);
-				if (this->x < flatform->x)
-					SetState(CONCO_STATE_WALKING_RIGHT);
-			}*/
-
 		}
 
 	}
-
-
-
-
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	DebugOut(L"[ERROR-------------walking la----------------] DINPUT::GetDeviceData failed. Error: %f\n",vx);
 }
 
 void ParaGoomba::SetState(int state)
@@ -114,17 +101,27 @@ void ParaGoomba::SetState(int state)
 		moving_time = GetTickCount64();
 		break;
 	case PARA_GROOMBA_STATE_JUMP_SMALL:
-		vy = -0.2;
+		vy = -0.13;
 		break;
 	case PARA_GROOMBA_STATE_JUMP_BIG:
-		vy = -0.35;
+		vy = -0.4;
 		break;
+	case PARA_GROOMBA_STATE_WALKING:
+		//vy = 0;
+		break;
+	case PARA_GROOMBA_STATE_DIE:
+		vy = 0;
+		vx = 0;
+		break;
+
+
+		
 	}
 }
 
 void ParaGoomba::Render()
 {
-	int ani = 0;
+	int ani = PARA_GROOMBA_ANI_MOVE;
 	int direction = 1;
 	int ny = 1;
 
@@ -132,6 +129,12 @@ void ParaGoomba::Render()
 		ani = PARA_GROOMBA_ANI_JUMP_SMALL;
 	else if(state == PARA_GROOMBA_STATE_JUMP_BIG && vy <= 0)
 		ani = PARA_GROOMBA_ANI_JUMP_BIG;
+	
+	if (state == PARA_GROOMBA_STATE_WALKING)
+		ani = PARA_GROOMBA_ANI_WALKING;
+
+	if (state == PARA_GROOMBA_STATE_DIE)
+		ani = PARA_GROOMBA_ANI_DIE;
 
 	animations[ani]->Render(x, y, 0, 255, direction, ny);
 
@@ -139,6 +142,6 @@ void ParaGoomba::Render()
 }
 
 ParaGoomba::ParaGoomba()
-{
-	 vx = -PARA_GROOMBA_WALKING_SPEED;
+{	
+	vx = -PARA_GROOMBA_WALKING_SPEED;
 }

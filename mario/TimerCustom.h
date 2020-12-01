@@ -15,7 +15,7 @@ public:
 
 
 	void StartTime() { startTime = GetTickCount64(); };
-	bool IsTimeUp() { return GetTickCount64() - startTime >= limitTime; };
+	bool IsTimeUp() { return (startTime && GetTickCount64() - startTime >= limitTime); };
 	void Reset() { startTime = 0; }
 };
 

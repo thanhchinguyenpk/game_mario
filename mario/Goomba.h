@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "TimerCustom.h"
 
 #define GOOMBA_WALKING_SPEED 0.01f;
 #define GOOMBA_GRAVITY			0.002f*1.5
@@ -19,6 +20,7 @@
 class CGoomba : public CGameObject
 {
 
+	TimerCustom* time_to_disapear = new TimerCustom(500);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

@@ -5,9 +5,13 @@ extern vector<LPGAMEOBJECT> objects;
 
 void BrickBlink::Render()
 {
+	int ani = BRICK_BLINK_ANI_BLINK;
 	int direction = 1;
 	int ny = 1;
-	animations[0]->Render(x, y, 0, 255, direction, ny);
+	if (is_brick == false)
+		ani = BRICK_BLINK_ANI_COIN;
+
+	animations[ani]->Render(x, y, 0, 255, direction, ny);
 	//RenderBoundingBox();
 }
 
@@ -26,13 +30,11 @@ void BrickBlink::SetState(int state)
 	switch (state)
 	{
 	case BRICK_BLINK_STATE_WAS_HIT:
-
-		
-
+	{
 		float pos_x = this->x;
 		float pos_y = this->y;
 
-		DebrisBrick* debrick_brick=NULL;
+		DebrisBrick* debrick_brick = NULL;
 
 		debrick_brick = new DebrisBrick(pos_x + DEBRIS_DISTANCE, pos_y - DEBRIS_DISTANCE, 1, 1.5);
 		objects.push_back(debrick_brick);
@@ -48,10 +50,20 @@ void BrickBlink::SetState(int state)
 		debrick_brick = new DebrisBrick(pos_x - DEBRIS_DISTANCE, pos_y - DEBRIS_DISTANCE, -1, 1.5);
 		objects.push_back(debrick_brick);
 
-		used = true;
+		//used = true;
+	}
 		break;
+
+	case BRICK_BLINK_STATE_TRANSFORM:
+		is_brick = !is_brick;
+
+		
 	}
 
+}
+
+void BrickBlink::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
 }
 
 BrickBlink::BrickBlink()

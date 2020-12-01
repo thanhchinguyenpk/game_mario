@@ -28,6 +28,7 @@
 #include "Flatform.h"
 #include "BrickBlink.h"
 #include "SwitchBlock.h"
+#include "ParaGoomba.h"
 
 
 
@@ -332,6 +333,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 			}
 
+			if (dynamic_cast<ParaGoomba*>(e->obj))
+			{
+				ParaGoomba* paragoomba = dynamic_cast<ParaGoomba*>(e->obj);
+				if (e->ny < 0) // phương va chạm hướng lên
+				{
+					if (paragoomba->GetState() == PARA_GROOMBA_STATE_WALKING)
+					{
+						paragoomba->SetState(PARA_GROOMBA_STATE_DIE);
+						paragoomba->used = true;
+						DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+					}else
+						paragoomba->SetState(PARA_GROOMBA_STATE_WALKING);
+
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
+					
+				}
+			}
+
 
 				if (dynamic_cast<SwitchBlock*>(e->obj))// khỏi bị nhích xuống, rơi ra ngoài thê giưới
 			{
@@ -344,16 +363,31 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 			}
 
-
+				if (dynamic_cast<Coin*>(e->obj))
+				{
+					Coin* coin = dynamic_cast<Coin*>(e->obj);
+						coin->used=true;
+					
+				}
 
 			if (dynamic_cast<BrickBlink*>(e->obj))
 			{
 				BrickBlink* brick_blink = dynamic_cast<BrickBlink*>(e->obj);
-				if (e->ny > 0) // phương va chạm hướng lên
-				{
-					
-						brick_blink->SetState(BRICK_BLINK_STATE_WAS_HIT);
-				}
+				
+					if (brick_blink->is_brick==true)
+					{
+						if (e->ny > 0) // phương va chạm hướng lên
+						{
+							brick_blink->SetState(BRICK_BLINK_STATE_WAS_HIT);
+							brick_blink->used = true;
+						}
+					}
+					else if(brick_blink->is_brick == false)
+					{
+						x -= min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+						y -= min_ty * dy + ny * 0.4f;
+						brick_blink->used = true;
+					}
 			}
 
 #pragma endregion			

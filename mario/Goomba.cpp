@@ -8,11 +8,11 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 	left = x- GOOMBA_BBOX_WIDTH/2;
 	top = y- GOOMBA_BBOX_HEIGHT/2;
 	right = x + GOOMBA_BBOX_WIDTH/2;
+	bottom = y + GOOMBA_BBOX_HEIGHT/2;
 
-	if (state == GOOMBA_STATE_DIE)
-		bottom = y + GOOMBA_BBOX_HEIGHT_DIE/2;
-	else 	
-		bottom = y + GOOMBA_BBOX_HEIGHT/2;
+		/*if (state == GOOMBA_STATE_DIE)*/
+
+		
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -103,11 +103,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	
-	/*	if (state == GOOMBA_STATE_WAS_SHOOTED)
-	{
-		y += 20;
-	}
-	*/
+	if (time_to_disapear->IsTimeUp())
+		used = true;
 }
 
 void CGoomba::Render()
@@ -126,7 +123,7 @@ void CGoomba::Render()
 
 	int alpha = 255;
 	animations[ani]->Render(x, y, 0, alpha, nx,ny);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
@@ -135,9 +132,10 @@ void CGoomba::SetState(int state)
 	switch (state)
 	{
 		case GOOMBA_STATE_DIE:
-			y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
+			//y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
 			vx = 0;
 			vy = 0;
+			time_to_disapear->StartTime();
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -0.05;//GOOMBA_WALKING_SPEED;

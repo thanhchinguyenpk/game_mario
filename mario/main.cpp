@@ -63,6 +63,7 @@
 
 vector<LPGAMEOBJECT> objects;
 vector<LPGAMEOBJECT> itemsMarioCanEat;
+vector<LPGAMEOBJECT> listBricks;
 
 CGame *game;
 
@@ -793,7 +794,7 @@ void LoadResources()
 	sprites->Add(30001, 5, 14, 21, 29, texEnemy);//walk
 	sprites->Add(30002, 25, 14, 41, 29, texEnemy);
 
-	sprites->Add(30003, 45, 21, 61, 29, texEnemy); // die sprite
+	sprites->Add(30003, 45, 14, 45+16, 14 +16, texEnemy); // die sprite
 
 	sprites->Add(30004, 5, 14, 21, 29, texEnemy);//was shooted
 
@@ -927,12 +928,19 @@ void LoadResources()
 	
 	//para goompa
 	LPDIRECT3DTEXTURE9 texParaGoomba = textures->Get(ID_TEX_PLANT);
-	sprites->Add(230000, 116, 40, 116 + 20, 40 + 19, texParaGoomba);//walking
+	sprites->Add(230000, 116, 40, 116 + 20, 40 + 19, texParaGoomba);//walking with swing
 	sprites->Add(230001, 140, 40, 140 + 20, 40 + 19, texParaGoomba);
 
 	sprites->Add(230002, 66, 35, 66 + 20, 35 + 24, texParaGoomba);//swing small
 
 	sprites->Add(230003, 116, 35, 116 + 20, 34 + 24, texParaGoomba);//swing big
+
+	sprites->Add(230004, 104, 70, 104 + 16, 70 + 16, texParaGoomba);// walking without swing
+	sprites->Add(230005, 125, 70, 125 + 16, 70 + 16, texParaGoomba);
+
+	sprites->Add(230006, 145, 70, 145 + 16, 70 + 16, texParaGoomba);//dead
+
+
 
 	//piranha plant
 	LPDIRECT3DTEXTURE9 texPiranhaPlant = textures->Get(ID_TEX_PLANT);
@@ -1444,7 +1452,7 @@ void LoadResources()
 	animations->Add(16000, ani);
 
 	//para koompa
-	ani = new CAnimation(100);
+	ani = new CAnimation(100);//walking with swing
 	ani->Add(230000);
 	ani->Add(230001);
 	animations->Add(17000, ani);
@@ -1457,6 +1465,18 @@ void LoadResources()
 	ani->Add(230002);
 	ani->Add(230003);
 	animations->Add(17002, ani);
+
+
+	ani = new CAnimation(100); //walking without swing
+	ani->Add(230004);
+	ani->Add(230005);
+	animations->Add(17003, ani);
+
+	ani = new CAnimation(100); //walking without swing
+	ani->Add(230006);
+	animations->Add(17004, ani);
+
+
 
 	//piranha plant
 	ani = new CAnimation(100);
@@ -1601,14 +1621,14 @@ void LoadResources()
 		objects.push_back(conco);
 	}
 
-
+	*/
 	goomba = new CGoomba();
 	goomba->AddAnimation(701);
 	goomba->AddAnimation(702);
 	goomba->AddAnimation(703);
-	goomba->SetPosition(1600, 100);
+	goomba->SetPosition(800, 100);
 	goomba->SetState(GOOMBA_STATE_WALKING);
-	objects.push_back(goomba);*/
+	objects.push_back(goomba);
 
 	
 
@@ -1751,19 +1771,19 @@ void LoadResources()
 	brickcoin = new Brick_Coin(360);
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
-	brickcoin->SetPosition(200, 360);
+	brickcoin->SetPosition(200, 260);
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 	brickcoin = new Brick_Coin(360);
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
-	brickcoin->SetPosition(250, 360);
+	brickcoin->SetPosition(250, 260);
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 	brickcoin = new Brick_Coin(360);
 	brickcoin->AddAnimation(1001);
 	brickcoin->AddAnimation(1002);
-	brickcoin->SetPosition(300, 360);
+	brickcoin->SetPosition(300, 260);
 	brickcoin->SetState(BRICK_COIN_STATE_CHUA_DAP);
 	objects.push_back(brickcoin);
 
@@ -1774,10 +1794,18 @@ void LoadResources()
 	itemsMarioCanEat.push_back(super_leaf);
 
 	brickblink = new BrickBlink();
-	brickblink->AddAnimation(9001);
-	brickblink->SetPosition(100.0f, 420.0f);
-	brickblink->SetState(100);
-	objects.push_back(brickblink);
+	brickblink->AddAnimation(9001); // viên gạch lấp lánh
+	brickblink->AddAnimation(19000); // đồng tiền
+	brickblink->SetPosition(150.0f, 220.0f);
+	brickblink->SetState(0);
+	listBricks.push_back(brickblink);
+
+	brickblink = new BrickBlink();
+	brickblink->AddAnimation(9001); // viên gạch lấp lánh
+	brickblink->AddAnimation(19000); // đồng tiền
+	brickblink->SetPosition(450.0f, 220.0f);
+	brickblink->SetState(0);
+	listBricks.push_back(brickblink);
 
 	
 
@@ -1799,13 +1827,15 @@ void LoadResources()
 	mr->SetState(MUSHROOM_STATE_GOING_UP);
 	objects.push_back(mr);*/
 
-	/*ParaGoomba* para_goomba = new ParaGoomba();
+	ParaGoomba* para_goomba = new ParaGoomba();
 	para_goomba->AddAnimation(17000);
 	para_goomba->AddAnimation(17001);
 	para_goomba->AddAnimation(17002);
+	para_goomba->AddAnimation(17003);
+	para_goomba->AddAnimation(17004);
 	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
 	para_goomba->SetPosition(500, 460);
-	objects.push_back(para_goomba);*/
+	objects.push_back(para_goomba);
 
 
 	PiranhaPlant* paranha_plant = new PiranhaPlant();
@@ -1819,11 +1849,23 @@ void LoadResources()
 	coin->SetPosition(500, 360);
 	itemsMarioCanEat.push_back(coin);
 
-	SwitchBlock* switch_block = new SwitchBlock();
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(650, 360);
+	itemsMarioCanEat.push_back(coin);
+
+	 coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(700, 360);
+	itemsMarioCanEat.push_back(coin);
+
+
+/*	SwitchBlock* switch_block = new SwitchBlock();
 	switch_block->AddAnimation(20000);
 	switch_block->AddAnimation(20001);
+	switch_block->SetState(SWITCH_BLOCK_STATE_INIT);
 	switch_block->SetPosition(600, 360);
-	objects.push_back(switch_block);
+	objects.push_back(switch_block);*/
 	
 //==========================================================================================================================================
 
@@ -2067,9 +2109,25 @@ void Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 
+
+	// push listbick vô trong mảng object
+	for (int i = 0; i < listBricks.size(); i++)
+	{
+		//listBricks[i]->Update(dt, &coObjects);
+		coObjects.push_back(listBricks[i]);
+	}
+
+
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt,&coObjects);
+	}
+
+
+	for (int i = 0; i < listBricks.size(); i++)
+	{
+		listBricks[i]->Update(dt, &coObjects);
 	}
 
 
@@ -2111,6 +2169,21 @@ void Update(DWORD dt)
 		}
 	}
 	itemsMarioCanEat.erase(std::remove(itemsMarioCanEat.begin(), itemsMarioCanEat.end(), nullptr), itemsMarioCanEat.end());
+
+
+	for (auto& item : listBricks)
+	{
+		if (item->used == true)
+		{
+			/*if (dynamic_cast<SuperLeaf*>(pointer))
+				DebugOut(L"xoas roi ne!\n");
+				*/
+			delete item;
+			item = nullptr;
+			DebugOut(L"xoas roi ne!\n");
+		}
+	}
+	listBricks.erase(std::remove(listBricks.begin(), listBricks.end(), nullptr), listBricks.end());
 
 
 	GameTime::GetInstance()->Update(dt);
@@ -2182,6 +2255,9 @@ void Render()
 
 		for (int i = 0; i < itemsMarioCanEat.size(); i++)
 			itemsMarioCanEat[i]->Render();
+
+		for (int i = 0; i < listBricks.size(); i++)
+			listBricks[i]->Render();
 		
 		spriteHandler->End();
 		d3ddv->EndScene();
