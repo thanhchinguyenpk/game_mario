@@ -109,7 +109,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		goomba->AddAnimation(702);
 		goomba->AddAnimation(703);
 		goomba->SetPosition(mario->x+500, 100);
-		goomba->SetState(CONCO_STATE_THUT_VAO);
+		goomba->SetState(GOOMBA_STATE_WALKING);
 		objects.push_back(goomba);
 		break;
 	case DIK_6:
@@ -1622,13 +1622,13 @@ void LoadResources()
 	}
 
 	*/
-	goomba = new CGoomba();
+	/*goomba = new CGoomba();
 	goomba->AddAnimation(701);
 	goomba->AddAnimation(702);
 	goomba->AddAnimation(703);
 	goomba->SetPosition(800, 100);
 	goomba->SetState(GOOMBA_STATE_WALKING);
-	objects.push_back(goomba);
+	objects.push_back(goomba);*/
 
 	
 
@@ -1796,14 +1796,14 @@ void LoadResources()
 	brickblink = new BrickBlink();
 	brickblink->AddAnimation(9001); // viên gạch lấp lánh
 	brickblink->AddAnimation(19000); // đồng tiền
-	brickblink->SetPosition(150.0f, 220.0f);
+	brickblink->SetPosition(150.0f, 320.0f);
 	brickblink->SetState(0);
 	listBricks.push_back(brickblink);
 
 	brickblink = new BrickBlink();
 	brickblink->AddAnimation(9001); // viên gạch lấp lánh
 	brickblink->AddAnimation(19000); // đồng tiền
-	brickblink->SetPosition(450.0f, 220.0f);
+	brickblink->SetPosition(450.0f, 320.0f);
 	brickblink->SetState(0);
 	listBricks.push_back(brickblink);
 

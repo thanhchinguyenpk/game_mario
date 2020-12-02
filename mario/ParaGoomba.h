@@ -36,6 +36,7 @@ class ParaGoomba :public CGameObject
 	int count =1;
 	DWORD moving_time;
 	bool turn_on_moving = false;
+	TimerCustom* time_to_disapear = new TimerCustom(500);
 public:
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

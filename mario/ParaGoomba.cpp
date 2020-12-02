@@ -1,6 +1,6 @@
 ﻿#include "ParaGoomba.h"
 #include "Mario.h"
-
+#include "Flatform.h"
 void ParaGoomba::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - PARA_GROOMBA_BBOX_WIDTH / 2;
@@ -45,29 +45,8 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny != 0)
 		{
 			// nếu mà <1200s thì đi á còn lớn thì set cho nó nhảy nhỏ
-			if (state == PARA_GROOMBA_STATE_WALKING)
-			{
-				//vx = -vx;
-			}else if (GetTickCount64() - moving_time > 500 ) //ban đầu chưa set thời gian này thì if chắc chắc đúng
-			{
-
-				if (count % 6 == 0)
-					SetState(PARA_GROOMBA_STATE_JUMP_BIG);
-				else if(count %6==1)
-					vx > 0 ? SetState(PARA_GROOMBA_STATE_MOVE_RIGHT): SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
-				else if (count % 6 == 2)
-				{
-					if (mario->x > this->x)
-						SetState(PARA_GROOMBA_STATE_MOVE_RIGHT);
-					else if (mario->x < this->x)
-						SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
-				}
-				else
-					SetState(PARA_GROOMBA_STATE_JUMP_SMALL);
-
-				count++;
-			}
-		
+			
+			vy = 0;
 
 		}	
 
@@ -76,12 +55,43 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
+			if (dynamic_cast<Flatform*>(e->obj))
+			{
+				if (state == PARA_GROOMBA_STATE_WALKING|| state == PARA_GROOMBA_STATE_DIE)
+				{
+					//vx = -vx;
+				}
+				else if (GetTickCount64() - moving_time > 500) //ban đầu chưa set thời gian này thì if chắc chắc đúng
+				{
+
+					if (count % 6 == 0)
+						SetState(PARA_GROOMBA_STATE_JUMP_BIG);
+					else if (count % 6 == 1)
+						vx > 0 ? SetState(PARA_GROOMBA_STATE_MOVE_RIGHT) : SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
+					else if (count % 6 == 2)
+					{
+						if (mario->x > this->x)
+							SetState(PARA_GROOMBA_STATE_MOVE_RIGHT);
+						else if (mario->x < this->x)
+							SetState(PARA_GROOMBA_STATE_MOVE_LEFT);
+					}
+					else
+						SetState(PARA_GROOMBA_STATE_JUMP_SMALL);
+
+					count++;
+				}
+			}
+
 		}
 
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOut(L"[ERROR-------------walking la----------------] DINPUT::GetDeviceData failed. Error: %f\n",vx);
+
+	if (time_to_disapear->IsTimeUp())
+		used = true;
+
+	DebugOut(L"[ERROR-------------state----------------] DINPUT::GetDeviceData failed. Error: %d\n",state);
 }
 
 void ParaGoomba::SetState(int state)
@@ -112,6 +122,7 @@ void ParaGoomba::SetState(int state)
 	case PARA_GROOMBA_STATE_DIE:
 		vy = 0;
 		vx = 0;
+		time_to_disapear->StartTime();
 		break;
 
 

@@ -20,7 +20,7 @@
 class CGoomba : public CGameObject
 {
 
-	TimerCustom* time_to_disapear = new TimerCustom(500);
+	TimerCustom* time_to_disapear = new TimerCustom(400);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

@@ -55,13 +55,14 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0)
 		{
-			//vx = -vx;
+			//vx = 0;
+			vx = -vx;
 		//	DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] co nhay vo phuong ngang. Error: \n");
 			//delete this;
 		}// tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
 		if (ny != 0)
 		{
-			//DebugOut(L"[ERROR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~] co nhay vo phuong DOC Error: \n");
+			DebugOut(L"[ERROR~~~~~~~~~con cua vo day nhiu lan~~~~~~~~~~~~~~~~~] co nhay vo phuong DOC Error: \n");
 			 // sẽ bị chặn lại_ không đúng má ơi.
 
 			vy = 0;
@@ -105,6 +106,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (time_to_disapear->IsTimeUp())
 		used = true;
+
+	DebugOut(L"[ERROR----------vy cua con cua-----------------] DINPUT::GetDeviceData failed. Error: %g\n", vy);
 }
 
 void CGoomba::Render()

@@ -227,11 +227,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (e->ny < 0) //nêu như phương va chạm hướng lên ( lưu ý trục y hướng xuống)
 					// thì cho phép đạp bẹp
 				{
-					if (goomba->GetState()!= GOOMBA_STATE_DIE)
-					{
+					
 						goomba->SetState(GOOMBA_STATE_DIE);
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
-					}
+					
 				}
 
 				//SÀI NHA
@@ -260,7 +259,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			if (dynamic_cast<CConCo*>(e->obj))
 			{
-				DebugOut(L"chạm mấy lần? %d\n");
+				//DebugOut(L"chạm mấy lần? %d\n");
 				CConCo* conco = dynamic_cast<CConCo*>(e->obj);
 
 
@@ -341,8 +340,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (paragoomba->GetState() == PARA_GROOMBA_STATE_WALKING)
 					{
 						paragoomba->SetState(PARA_GROOMBA_STATE_DIE);
-						paragoomba->used = true;
-						DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+						//paragoomba->used = true;
+						//DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
 					}else
 						paragoomba->SetState(PARA_GROOMBA_STATE_WALKING);
 
