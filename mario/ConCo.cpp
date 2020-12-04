@@ -35,7 +35,7 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CGameObject::Update(dt, coObjects);
 	//}
 
-	vy += 0.002 * dt;
+	vy += 0.001 * dt;
 
 	
 
@@ -99,37 +99,24 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (dynamic_cast<Flatform*>(e->obj)) // if e->obj is Goomba // nếu như là goomba
 			{
-				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
+				/*Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
 
 				if (this->x > flatform->x + 243 && state==CONCO_STATE_WALKING_RIGHT)
 					SetState(CONCO_STATE_WALKING_LEFT);
 				if(this->x < flatform->x &&state == CONCO_STATE_WALKING_LEFT)
-					SetState(CONCO_STATE_WALKING_RIGHT);
+					SetState(CONCO_STATE_WALKING_RIGHT);*/
+
+				if (state == CONCO_STATE_FLY_LEFT)
+					vy = -0.6;
 				
 			}
-			// biến bỏ qua viên đá đồng tiền đầu tiên là để bỏ qua viên đá mà con 
-			//nấm chui ra
-			
 
-				//vx = -vx;
-				//if (nx != 0)
-				//{
-				//	if (nx < 0)
-				//	{
-						//vx = 0;
-				//		DebugOut(L"[ERROR~~~~~~~~~~~~~cham phia tren trai~~~~~~~~~~~~~~~~] co nhay vo phuong ngang. Error: \n");
-				//		DebugOut(L"[ERROR-------------VY*----------------] DINPUT::GetDeviceData failed. Error: %f\n", vy);
-				//	}
-				//}
+
 
 			}
 
 		}
 
-		//}
-		//vx = MUSHROOM_WALKING_SPEED;// cẩn thận nha, xem lại kĩ càng
-
-		//vx = 0; vy = 0;
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 
@@ -151,36 +138,8 @@ void CConCo::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CConCo::Render()
 {
-	/*int ani = CONCO_ANI_WALKING_LEFT;
-	if (state == CONCO_STATE_DIE) { //chua ok
-		ani = CONCO_ANI_DIE;
-	}
-	else if (state == CONCO_STATE_WALKING_RIGHT)
-	{
-		ani = CONCO_ANI_WALKING_RIGHT;
-	}
-	else if (state == CONCO_STATE_THUT_VAO)
-	{
-		ani = CONCO_ANI_THUT_VAO;
-	}
-	else if (state == CONCO_STATE_MAI_RUA_CHAY)
-	{
-		ani = CONCO_ANI_MAI_RUA_CHAY;
-	}
-	else if (state == CONCO_STATE_FLY_LEFT)
-	{
-		ani = CONCO_ANI_FLY_LEFT;
-	}
-	else if (state == CONCO_STATE_FLY_RIGHT)
-	{
-		ani = CONCO_ANI_FLY_RIGHT;
-	}
-	else if (state == CONCO_STATE_WALKING_RIGHT)
-	{
-		ani = CONCO_ANI_WALKING_RIGHT;
-	}
-	*/
-	int ani = CONCO_ANI_WALKING_RIGHT;
+	
+	int ani = CONCO_ANI_WALKING_LEFT;
 	if (state == CONCO_STATE_WALKING_RIGHT)
 		ani = CONCO_ANI_WALKING_RIGHT;
 	else if (state == CONCO_STATE_THUT_VAO || state == CONCO_STATE_WAS_SHOOTED)
@@ -191,9 +150,11 @@ void CConCo::Render()
 		ani = CONCO_ANI_INDENT_OUT;
 	else if (state == CONCO_STATE_SHELL_MOVING)
 		ani = CONCO_ANI_SHELL_MOVING;
+	else if (state == CONCO_STATE_FLY_LEFT)
+		ani = CONCO_ANI_FLY_LEFT; // thôi kệ nó đi :(
 	//int ani = CONCO_ANI_THUT_VAO;
 	DebugOut(L"[ERROR----------render tại vị trí:------------------] DINPUT::GetDeviceData failed. Error: %f\n", x);
-	animations[ani]->Render(x, y,0,255,nx,ny);
+	animations[ani]->Render(x, y,0,255,1,1);
 	RenderBoundingBox();
 }
 
@@ -227,7 +188,7 @@ void CConCo::SetState(int state)
 		break;
 	case CONCO_STATE_FLY_LEFT:
 		vx = -CONCO_WALKING_SPEED;
-		vy = 0;
+		//vy = 0;
 		nx = -1;
 		break;
 	case CONCO_STATE_FLY_RIGHT:

@@ -31,6 +31,7 @@
 #include "ParaGoomba.h"
 #include "PiranhaPlant.h"
 #include "SwitchBlock.h"
+#include "VenusFireTrap.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -123,7 +124,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		conco->AddAnimation(907);
 		conco->AddAnimation(908);
 		conco->SetPosition(mario->x + 500, 100.0f);
-		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
+		conco->SetState(CONCO_STATE_FLY_LEFT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
 			break;
 	case DIK_1:
@@ -1325,14 +1326,14 @@ void LoadResources()
 	ani->Add(60008);
 	animations->Add(904, ani);
 
-	ani = new CAnimation(300); //rùa bay trái
+	ani = new CAnimation(100); //rùa bay trái
 	ani->Add(60009);
 	ani->Add(60010);
 	ani->Add(60011);
 	ani->Add(60012);
 	animations->Add(905, ani);
 
-	ani = new CAnimation(300); //rùa bay phải
+	ani = new CAnimation(80); //rùa bay phải
 	ani->Add(60013);
 	ani->Add(60014);
 	ani->Add(60015);
@@ -1601,7 +1602,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(100, 80.0f);
+	mario->SetPosition(1058, 80.0f);
 	objects.push_back(mario);
 
 
@@ -1745,14 +1746,24 @@ void LoadResources()
 */
 
 //1058, 388-2
-	plant = new Plant();
+	/*plant = new Plant();
 	plant->AddAnimation(13001);
 	plant->AddAnimation(13002);
 	plant->AddAnimation(13003);
 	plant->SetPosition(1058+96/2, 435);
 	plant->SetState(PLANT_STATE_GOING_UP);
 	//objects.insert(objects.begin() + 3, plant);
-	objects.push_back(plant);
+	objects.push_back(plant);*/
+
+	VenusFireTrap *venus = new VenusFireTrap();
+	venus->AddAnimation(13001);
+	venus->AddAnimation(13002);
+	venus->AddAnimation(13003);
+	venus->SetPosition(1058 + 96 / 2, 435);
+	venus->SetState(PLANT_STATE_GOING_UP);
+	//objects.insert(objects.begin() + 3, plant);
+	objects.push_back(venus);
+
 
 
 	conco = new CConCo();

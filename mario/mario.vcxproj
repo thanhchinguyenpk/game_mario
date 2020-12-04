@@ -155,6 +155,7 @@
     <ClInclude Include="TimerCustom.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UpMushroom.h" />
+    <ClInclude Include="VenusFireTrap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="TimerCustom.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UpMushroom.cpp" />
+    <ClCompile Include="VenusFireTrap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

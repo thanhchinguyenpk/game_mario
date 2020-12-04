@@ -277,10 +277,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)
 						conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
-					if (conco->GetState() == CONCO_STATE_WALKING_LEFT || conco->GetState() == CONCO_STATE_WALKING_RIGHT)
+					else if (conco->GetState() == CONCO_STATE_WALKING_LEFT || conco->GetState() == CONCO_STATE_WALKING_RIGHT)
 					{
 						conco->SetState(CONCO_STATE_THUT_VAO);
-					}
+					}else if(conco->GetState() == CONCO_STATE_FLY_LEFT)
+						conco->SetState(CONCO_STATE_WALKING_LEFT);
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 				
@@ -337,6 +338,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				ParaGoomba* paragoomba = dynamic_cast<ParaGoomba*>(e->obj);
 				if (e->ny < 0) // phương va chạm hướng lên
 				{
+
 					if (paragoomba->GetState() == PARA_GROOMBA_STATE_WALKING)
 					{
 						paragoomba->SetState(PARA_GROOMBA_STATE_DIE);
