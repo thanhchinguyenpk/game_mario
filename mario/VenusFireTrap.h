@@ -15,10 +15,12 @@
 #define PLANT_STATE_SHOOTING_DOWN		 400
 #define PLANT_STATE_SEEING				 500
 #define PLANT_STATE_STANDING_STILL		 600
+#define PLANT_STATE_SLEEPING	700
 
-#define PLANT_ANI_WALKING 0
-#define PLANT_ANI_SHOOTING_UP 1
+#define PLANT_ANI_SCORPION_DOWN 0
+#define PLANT_ANI_SCORPION_UP 1
 #define PLANT_ANI_SHOOTING_DOWN 2
+#define PLANT_ANI_SHOOTING_UP 3
 
 
 
@@ -40,6 +42,13 @@ public:
 
 	virtual void SetState(int state);
 	VenusFireTrap();
+	//TimerCustom* contemplation_time = new TimerCustom(3000);
+	TimerCustom* sleep_time = new TimerCustom(2000);
+	TimerCustom* seeing_time = new TimerCustom(1800);
+	TimerCustom* seeing_time_shoot_go_down = new TimerCustom(3000);
+
+	bool CheckInArea(float l,float t,float r,float b);
+
 
 };
 

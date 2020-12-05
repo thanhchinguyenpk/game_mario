@@ -883,11 +883,10 @@ void LoadResources()
 
 	//plant
 	LPDIRECT3DTEXTURE9 texPlant = textures->Get(ID_TEX_PLANT);
-	sprites->Add(130001, 189, 71, 189 + 16, 71 + 33, texPlant);
-	sprites->Add(130002, 189, 35, 189 + 16, 35 + 31, texPlant);
-	sprites->Add(130003,   6, 71,   6 + 17, 71 + 32, texPlant);//ngước lên
-	sprites->Add(130004,   6, 33-1,   6 + 17, 33 + 33, texPlant);// trừ 1px để trống phần trên của texture cho nó khỏi bị thụt lên thụt xuống cái cành
-	
+	sprites->Add(130001, 219, 81, 219 + 16, 81 + 32, texPlant); // hả miệng ngước xuống
+	sprites->Add(130002, 242, 81, 242 + 16, 81 + 32, texPlant); //khép miệng ngước xuống
+	sprites->Add(130003, 267, 81, 267 + 16, 81 + 32, texPlant); // hả miệng ngước lên
+	sprites->Add(130004, 289, 81, 289 + 16, 81 + 32, texPlant);//khép miệng ngước lên
 
 	//Bullet
 	LPDIRECT3DTEXTURE9 texMarioBullet = textures->Get(ID_TEX_MARIO_BULLET);
@@ -1412,18 +1411,23 @@ void LoadResources()
 	animations->Add(12001, ani);
 
 	//plant
-	ani = new CAnimation(200); // go up
+	ani = new CAnimation(200); // cạp cạp ngước xuống
 	ani->Add(130001);
 	ani->Add(130002);
 	animations->Add(13001, ani);
 
-	ani = new CAnimation(200); //shooting up
+	ani = new CAnimation(200); // cạp cạp ngước lên
 	ani->Add(130003);
+	ani->Add(130004);
 	animations->Add(13002, ani);
 
-	ani = new CAnimation(200); //shooting down
-	ani->Add(130004);
+	ani = new CAnimation(200); // hả miệng ngước xuống
+	ani->Add(130001);
 	animations->Add(13003, ani);
+
+	ani = new CAnimation(200); // hả ngước lên
+	ani->Add(130003);
+	animations->Add(13004, ani);
 
 	//mario bullet
 
@@ -1759,6 +1763,7 @@ void LoadResources()
 	venus->AddAnimation(13001);
 	venus->AddAnimation(13002);
 	venus->AddAnimation(13003);
+	venus->AddAnimation(13004);
 	venus->SetPosition(1058 + 96 / 2, 435);
 	venus->SetState(PLANT_STATE_GOING_UP);
 	//objects.insert(objects.begin() + 3, plant);
