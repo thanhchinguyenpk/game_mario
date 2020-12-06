@@ -380,7 +380,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						if (e->ny > 0) // phương va chạm hướng lên
 						{
 							brick_blink->SetState(BRICK_BLINK_STATE_WAS_HIT);
-							brick_blink->used = true;
+							//brick_blink->used = true;
 						}
 					}
 					else if(brick_blink->is_brick == false)
@@ -453,7 +453,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		is_brouse = false;
-		DebugOut(L"Hello vo 700s khong, vo day khong???\n");
+		//DebugOut(L"Hello vo 700s khong, vo day khong???\n");
 		//is_fly = false;
 	}
 
@@ -782,14 +782,15 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 	else if (level == MARIO_LEVEL_BIG_TAIL)
 	{
-		if (is_sitdown == false) {
+		if (is_sitdown == false)
+		{
 
 			right = x + MARIO_BIG_TAIL_BBOX_WIDTH/2;
 			bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT/2;
 
 			if (state == MARIO_STATE_SPIN)
 			{
-				right = x + MARIO_BIG_TAIL_BBOX_WIDTH/2;
+				right = x + MARIO_BIG_TAIL_SPIN_BBOX_WIDTH/2;
 				bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT/2;
 			}
 		}

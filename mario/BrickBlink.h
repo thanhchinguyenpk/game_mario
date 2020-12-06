@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "TimerCustom.h"
+#include "Mario.h"
 
 #define BRICK_BLINK_BBOX_WIDTH  16*3
 #define BRICK_BLINK_BBOX_HEIGHT 16*3
@@ -17,6 +18,7 @@
 #define  BRICK_BLINK_STATE_MOVE_LEFT		100 // chỗ này chưa
 #define  BRICK_BLINK_STATE_MOVE_RIGHT	200
 
+extern CMario* mario;
 class BrickBlink : public CGameObject
 {
 public:

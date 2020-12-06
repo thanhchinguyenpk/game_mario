@@ -78,7 +78,8 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			//state = MARIOBULLET_STATE_BUM;
 			vy = 0;
 			vx = 0;
-			is_disapear = true;
+			//is_disapear = true;
+			this->used = true;
 			
 		}; // tại sao lại có hai dòng này- theo mình nghĩ là té từ trên cao xuống thì
 			if (ny != 0) vy = -0.25*1.5;// tưng lên
@@ -119,11 +120,7 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 
 
-	if (is_disapear == true)
-	{
-		objects.pop_back();
-		delete this;
-	}
+	
 	/*if (is_delete == false && state == MARIOBULLET_STATE_BUM && animations[MARIOBULLET_ANI_BUM]->IsRenderDone())
 		is_delete = true;
 

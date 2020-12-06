@@ -104,10 +104,25 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	
+
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(il, it, ir, ib);
+
+
+
+	mario->GetBoundingBox(ml, mt, mr, mb);
+
+	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb) && mario->GetState()== MARIO_STATE_SPIN)
+		SetState(GOOMBA_STATE_WAS_SHOOTED);
+
+
+
 	if (time_to_disapear->IsTimeUp())
 		used = true;
 
-	DebugOut(L"[ERROR----------vy cua con cua-----------------] DINPUT::GetDeviceData failed. Error: %g\n", vy);
+	//DebugOut(L"[ERROR----------vy cua con cua-----------------] DINPUT::GetDeviceData failed. Error: %g\n", vy);
 }
 
 void CGoomba::Render()

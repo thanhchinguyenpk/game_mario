@@ -124,7 +124,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		conco->AddAnimation(907);
 		conco->AddAnimation(908);
 		conco->SetPosition(mario->x + 500, 100.0f);
-		conco->SetState(CONCO_STATE_FLY_LEFT);//CONCO_STATE_WALKING_LEFT
+		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
 			break;
 	case DIK_1:
@@ -883,10 +883,15 @@ void LoadResources()
 
 	//plant
 	LPDIRECT3DTEXTURE9 texPlant = textures->Get(ID_TEX_PLANT);
-	sprites->Add(130001, 219, 81, 219 + 16, 81 + 32, texPlant); // hả miệng ngước xuống
-	sprites->Add(130002, 242, 81, 242 + 16, 81 + 32, texPlant); //khép miệng ngước xuống
-	sprites->Add(130003, 267, 81, 267 + 16, 81 + 32, texPlant); // hả miệng ngước lên
-	sprites->Add(130004, 289, 81, 289 + 16, 81 + 32, texPlant);//khép miệng ngước lên
+	sprites->Add(130001, 219, 81, 219 + 16, 81 + 32, texPlant); //đỏ hả miệng ngước xuống
+	sprites->Add(130002, 242, 81, 242 + 16, 81 + 32, texPlant); //đỏ khép miệng ngước xuống
+	sprites->Add(130003, 267, 81, 267 + 16, 81 + 32, texPlant); //đỏ hả miệng ngước lên
+	sprites->Add(130004, 289, 81, 289 + 16, 81 + 32, texPlant); //đỏ khép miệng ngước lên
+
+	sprites->Add(130005, 219, 43, 219 + 16, 43 + 24, texPlant); //xanh hả miệng ngước xuống
+	sprites->Add(130006, 244, 43, 244 + 16, 43 + 24, texPlant); //xanh khép miệng ngước xuống
+	sprites->Add(130007, 267, 43, 267 + 16, 43 + 24, texPlant); //xanh hả miệng ngước lên
+	sprites->Add(130008, 289, 43, 289 + 16, 43 + 24, texPlant); //xanh khép miệng ngước lên
 
 	//Bullet
 	LPDIRECT3DTEXTURE9 texMarioBullet = textures->Get(ID_TEX_MARIO_BULLET);
@@ -1147,8 +1152,8 @@ void LoadResources()
 	animations->Add(479, ani);
 
 	//tail
-	ani = new CAnimation(50);		// tail spin right
-	ani->Add(10064);
+	ani = new CAnimation(30);		// tail spin right
+	//ani->Add(10064);
 	ani->Add(10065);
 	ani->Add(10066);
 	ani->Add(10067);
@@ -1410,7 +1415,7 @@ void LoadResources()
 	ani->Add(120001);
 	animations->Add(12001, ani);
 
-	//plant
+	//venus đỏ
 	ani = new CAnimation(200); // cạp cạp ngước xuống
 	ani->Add(130001);
 	ani->Add(130002);
@@ -1428,6 +1433,32 @@ void LoadResources()
 	ani = new CAnimation(200); // hả ngước lên
 	ani->Add(130003);
 	animations->Add(13004, ani);
+
+	//venus xanh
+	ani = new CAnimation(200); // cạp cạp ngước xuống
+	ani->Add(130005);
+	ani->Add(130006);
+	animations->Add(13005, ani);
+
+	ani = new CAnimation(200); // cạp cạp ngước lên
+	ani->Add(130007);
+	ani->Add(130008);
+	animations->Add(13006, ani);
+
+
+	ani = new CAnimation(200); // hả miệng ngước xuống
+	ani->Add(130005);
+	animations->Add(13007, ani);
+
+	ani = new CAnimation(200); // hả ngước lên
+	ani->Add(130007);
+	animations->Add(13008, ani);
+
+
+
+
+
+
 
 	//mario bullet
 
@@ -1606,7 +1637,7 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(1058, 80.0f);
+	mario->SetPosition(100, 80.0f);
 	objects.push_back(mario);
 
 
@@ -1759,15 +1790,34 @@ void LoadResources()
 	//objects.insert(objects.begin() + 3, plant);
 	objects.push_back(plant);*/
 
-	VenusFireTrap *venus = new VenusFireTrap();
+	VenusFireTrap *venus = new VenusFireTrap(1);
 	venus->AddAnimation(13001);
 	venus->AddAnimation(13002);
 	venus->AddAnimation(13003);
 	venus->AddAnimation(13004);
+	venus->AddAnimation(13005);
+	venus->AddAnimation(13006);
+	venus->AddAnimation(13007);
+	venus->AddAnimation(13008);
 	venus->SetPosition(1058 + 96 / 2, 435);
 	venus->SetState(PLANT_STATE_GOING_UP);
 	//objects.insert(objects.begin() + 3, plant);
 	objects.push_back(venus);
+
+	venus = new VenusFireTrap(2);
+	venus->AddAnimation(13001);
+	venus->AddAnimation(13002);
+	venus->AddAnimation(13003);
+	venus->AddAnimation(13004);
+	venus->AddAnimation(13005);
+	venus->AddAnimation(13006);
+	venus->AddAnimation(13007);
+	venus->AddAnimation(13008);
+	venus->SetPosition(5615, 435);
+	venus->SetState(PLANT_STATE_GOING_UP);
+	//objects.insert(objects.begin() + 3, plant);
+	objects.push_back(venus);
+
 
 
 
@@ -1819,7 +1869,14 @@ void LoadResources()
 	brickblink = new BrickBlink();
 	brickblink->AddAnimation(9001); // viên gạch lấp lánh
 	brickblink->AddAnimation(19000); // đồng tiền
-	brickblink->SetPosition(450.0f, 320.0f);
+	brickblink->SetPosition(450.0f, 520.0f);
+	brickblink->SetState(0);
+	listBricks.push_back(brickblink);
+
+	brickblink = new BrickBlink();
+	brickblink->AddAnimation(9001); // viên gạch lấp lánh
+	brickblink->AddAnimation(19000); // đồng tiền
+	brickblink->SetPosition(650.0f, 520.0f);
 	brickblink->SetState(0);
 	listBricks.push_back(brickblink);
 
@@ -1843,7 +1900,7 @@ void LoadResources()
 	mr->SetState(MUSHROOM_STATE_GOING_UP);
 	objects.push_back(mr);*/
 
-	ParaGoomba* para_goomba = new ParaGoomba();
+	/*ParaGoomba* para_goomba = new ParaGoomba();
 	para_goomba->AddAnimation(17000);
 	para_goomba->AddAnimation(17001);
 	para_goomba->AddAnimation(17002);
@@ -1851,7 +1908,7 @@ void LoadResources()
 	para_goomba->AddAnimation(17004);
 	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
 	para_goomba->SetPosition(500, 460);
-	objects.push_back(para_goomba);
+	objects.push_back(para_goomba);*/
 
 
 	PiranhaPlant* paranha_plant = new PiranhaPlant();

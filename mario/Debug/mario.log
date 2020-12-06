@@ -1,6 +1,7 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (04-Collision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  VenusFireTrap.cpp
+  MarioBullet.cpp
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(17,47): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(181,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(189,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(184,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(192,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\MarioBullet.cpp(36,34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

@@ -50,6 +50,8 @@ void BrickBlink::SetState(int state)
 		debrick_brick = new DebrisBrick(pos_x - DEBRIS_DISTANCE, pos_y - DEBRIS_DISTANCE, -1, 1.5);
 		objects.push_back(debrick_brick);
 
+		this->used = true;
+
 		//used = true;
 	}
 		break;
@@ -64,6 +66,18 @@ void BrickBlink::SetState(int state)
 
 void BrickBlink::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(il, it, ir, ib);
+
+
+
+		mario->GetBoundingBox(ml, mt, mr, mb);
+
+		if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
+			SetState(BRICK_BLINK_STATE_WAS_HIT);
+	
 }
 
 BrickBlink::BrickBlink()

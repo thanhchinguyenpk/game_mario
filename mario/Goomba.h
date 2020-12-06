@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "TimerCustom.h"
+#include "Mario.h"
 
 #define GOOMBA_WALKING_SPEED 0.01f;
 #define GOOMBA_GRAVITY			0.002f*1.5
@@ -17,16 +18,18 @@
 #define GOOMBA_ANI_DIE 1
 #define GOOMBA_ANI_WAS_SHOOTED 2
 
+extern CMario* mario;
+
 class CGoomba : public CGameObject
 {
-
+public:
 	TimerCustom* time_to_disapear = new TimerCustom(400);
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
 
-public: 	
+
 	virtual void SetState(int state);
 };
