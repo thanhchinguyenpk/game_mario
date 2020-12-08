@@ -5,10 +5,11 @@
 
 class Flatform : public CGameObject
 {
-private:
+public:
 	float width;
 	float height;
-public:
+	bool is_portal = false;
+
 	Flatform(float Width, float Height) { width = Width; height = Height; };
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

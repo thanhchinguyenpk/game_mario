@@ -269,14 +269,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				else if (conco->GetState() == CONCO_STATE_THUT_VAO&&(GetState()== MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT))
 				{
-					conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+					if(this->x<conco->x)
+						conco->SetState(CONCO_STATE_MAI_RUA_CHAY_PHAI);
+					else
+						conco->SetState(CONCO_STATE_MAI_RUA_CHAY_TRAI);
+
 					SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
 				}
 				
 				else if (e->ny < 0)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)
-						conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+						conco->SetState(CONCO_STATE_MAI_RUA_CHAY_PHAI);
 					else if (conco->GetState() == CONCO_STATE_WALKING_LEFT || conco->GetState() == CONCO_STATE_WALKING_RIGHT)
 					{
 						conco->SetState(CONCO_STATE_THUT_VAO);
@@ -297,7 +301,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (conco->GetState() == CONCO_STATE_THUT_VAO)// nếu đang chạy sẽ thụt vào,else cuối
 					{
-						conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+						conco->SetState(CONCO_STATE_MAI_RUA_CHAY_PHAI);
 						
 					}
 					else if (conco->GetState()==CONCO_STATE_FLY_LEFT|| 
@@ -393,11 +397,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 #pragma endregion			
 
-			if (dynamic_cast<Flatform*>(e->obj)) {
+			if (dynamic_cast<Flatform*>(e->obj)) 
+			{
+				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
+				
 				if (e->ny > 0) // hướng xuống
 				{
 					y +=( y_flatform + y_flatform);// double for safe
 					vy = vy_flatform;
+				}
+
+				if (e->ny < 0 && flatform->is_portal)
+				{
+					this->SetPosition(6363+16,1521);
+					CGame::GetInstance()->SetCamPos(2064*3+16*3,456*3);
 				}
 			}
 

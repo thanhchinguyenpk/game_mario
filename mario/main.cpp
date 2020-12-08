@@ -103,6 +103,17 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	
+	case DIK_K:
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() + 100, CGame::GetInstance()->GetCamY());
+		break;
+	case DIK_U:
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX(), CGame::GetInstance()->GetCamY() - 100);
+		break;
+	case DIK_G:
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() - 100, CGame::GetInstance()->GetCamY());
+		break;
+	case DIK_N:
+		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() , CGame::GetInstance()->GetCamY() + 50);
 		break;
 	case DIK_5:
 		goomba = new CGoomba();
@@ -307,8 +318,12 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 			mario->is_press_h = false;
 			CConCo* conco = dynamic_cast<CConCo*>(mario->hold_somthing);
 			conco->is_brought = false;
-			conco->is_brought = false;
-			conco->SetState(CONCO_STATE_MAI_RUA_CHAY);
+
+			if (mario->x < conco->x)
+				conco->SetState(CONCO_STATE_MAI_RUA_CHAY_PHAI);
+			else
+				conco->SetState(CONCO_STATE_MAI_RUA_CHAY_TRAI);
+
 			mario->hold_somthing = NULL;
 			mario->is_bring = false;
 			mario->SetState(MARIO_STATE_ROUSE_KOOMPASHELL_RIGHT);
@@ -1637,7 +1652,8 @@ void LoadResources()
 	mario->AddAnimation(499);		//orange rouse r
 	mario->AddAnimation(600);		//orange bring r
 
-	mario->SetPosition(100, 80.0f);
+	//mario->SetPosition(6399,1800);
+	mario->SetPosition(200, 1000);
 	objects.push_back(mario);
 
 
@@ -1933,6 +1949,67 @@ void LoadResources()
 	itemsMarioCanEat.push_back(coin);
 
 
+
+
+
+	//coin dưới lòng đất:
+
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6606, 1512);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6606, 1704);
+	itemsMarioCanEat.push_back(coin);
+
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6654, 1464);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6654, 1608);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6654, 1752);
+	itemsMarioCanEat.push_back(coin);
+
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6702, 1464);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6702, 1608);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6702, 1752);
+	itemsMarioCanEat.push_back(coin);
+
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6750, 1512);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6750, 1560);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6750, 1656);
+	itemsMarioCanEat.push_back(coin);
+	coin = new Coin();
+	coin->AddAnimation(19000);
+	coin->SetPosition(6750, 1704);
+	itemsMarioCanEat.push_back(coin);
+
+
+
+
+
 /*	SwitchBlock* switch_block = new SwitchBlock();
 	switch_block->AddAnimation(20000);
 	switch_block->AddAnimation(20001);
@@ -1966,47 +2043,60 @@ void LoadResources()
 	//set state đâu?
 	mario_bullet->SetState(100);
 	objects.push_back(mario_bullet);*/
-	
+
+
+	//cổng thử nghiệm:
+	flatform = new Flatform(50, 70);
+	flatform->SetPosition(300, 1194);
+	flatform->is_portal = true;
+	objects.push_back(flatform);
 
 	//chặt đầu chặt cuối:
 	flatform = new Flatform(5, 700);
-	flatform->SetPosition(0, 0);
+	flatform->SetPosition(0, 916);
 	objects.push_back(flatform);
 
 	flatform = new Flatform(5, 700);
-	flatform->SetPosition(8447, 0);
+	flatform->SetPosition(8447, 916);
 	objects.push_back(flatform);
 
 	//nền
 	//1
 	flatform = new Flatform(1872, 5);
-	flatform->SetPosition(0, 532);
+	flatform->SetPosition(0,1248 ); //532 + 700
 	objects.push_back(flatform);
 
 
 	//2
 	flatform = new Flatform(1390, 5);//nền cao  Flatform(1392, 100)onkeyup//1390
-	flatform->SetPosition(1872, 532-50);
+	flatform->SetPosition(1872, 1200);
 	objects.push_back(flatform);
 
+
+	//3
 	flatform = new Flatform(1052, 5);
-	flatform->SetPosition(3470, 532 );
+	flatform->SetPosition(3470, 1248 );
 	objects.push_back(flatform);
 
 	//4
 	flatform = new Flatform(230, 5);
-	flatform->SetPosition(4620, 532);
+	flatform->SetPosition(4620, 1248);
 	objects.push_back(flatform);
 
 	flatform = new Flatform(1724, 5);
-	flatform->SetPosition(5005, 532);
+	flatform->SetPosition(5005, 1248);
 	objects.push_back(flatform);
 
 	//6
 	flatform = new Flatform(2000, 5);
-	flatform->SetPosition(6782, 532);
+	flatform->SetPosition(6782, 1248);
 	objects.push_back(flatform);
 
+
+	// dưới nền demo:
+	flatform = new Flatform(1000, 5);
+	flatform->SetPosition(6288, 1872);
+	objects.push_back(flatform);
 
 	//chùm 3 gạch thiệt bự tăng dần chiều cao
 
@@ -2281,7 +2371,7 @@ void Update(DWORD dt)
 
 
 	// Update camera to follow mario
-	float cx, cy;
+/*	float cx, cy;
 	mario->GetPosition(cx, cy);
 
 
@@ -2298,7 +2388,7 @@ void Update(DWORD dt)
 	if (cx > 8447 - SCREEN_WIDTH+MARIO_BIG_BBOX_WIDTH/2)
 		return;
 
-	CGame::GetInstance()->SetCamPos(cx, 1 /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx, 1 );*/
 
 	
 }

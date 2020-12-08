@@ -212,13 +212,16 @@ void Map::Draw()
 	//if (end_row > 41)
 	//	end_row = 41;
 
+	if (begin_column < 0) begin_column = 0;
+	if (begin_row < 0) begin_row = 0;
+
 	int x = 15;
 
 	//vector<LPSPRITE> tiles = CTiles::GetInstance()->GetTiles();
-	for (int i = 15; i < end_row + x; i++) {
+	for (int i = begin_row; i < end_row + x; i++) {
 		for (int j = begin_column; j < end_column; j++) {
 			if (TileMapArray2D[i][j] != 0) {
-				tileMapSprite->Get(TileMapArray2D[i][j])->Draw(j * w, (i - x) * (h), 255);
+				tileMapSprite->Get(TileMapArray2D[i][j])->Draw( j*w, i*h, 255);
 			}
 		}
 	}

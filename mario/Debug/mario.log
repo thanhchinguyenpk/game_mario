@@ -1,7 +1,24 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (04-Collision.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  MarioBullet.cpp
+  main.cpp
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\TimerCustom.h(17,47): warning C4244: '=': conversion from 'ULONGLONG' to 'int', possible loss of data
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(184,79): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
 C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Mario.h(192,54): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\MarioBullet.cpp(36,34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Coin.h(4,1): warning C4005: 'CONCO_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\ConCo.h(4): message : see previous definition of 'CONCO_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\CoinFly.h(4,1): warning C4005: 'GOOMBA_WALKING_SPEED': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Goomba.h(6): message : see previous definition of 'GOOMBA_WALKING_SPEED'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Brick.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\Flatform.h(3,1): warning C4005: 'BRICK_BBOX_WIDTH': macro redefinition
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\OngNuoc.h(4): message : see previous definition of 'BRICK_BBOX_WIDTH'
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2266,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2273,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2281,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2287,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2294,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2412,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2415,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2418,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2482,19): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+C:\Users\admin\Desktop\GameConvert - Copy\game_mario\mario\main.cpp(2495,13): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
   mario.vcxproj -> C:\Users\admin\Desktop\GameConvert - Copy\game_mario\Debug\mario.exe

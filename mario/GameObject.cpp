@@ -121,6 +121,15 @@ void CGameObject::FilterCollision(
 }
 
 
+void CGameObject::DeleteWhenOutOfCam()
+{
+	if (x< CGame::GetInstance()->GetCamX() || x> CGame::GetInstance()->GetCamX() + 760)
+	{
+		this->used = true;
+		DebugOut(L"[ERROR----------hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+	}
+}
+
 void CGameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);

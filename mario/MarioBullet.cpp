@@ -118,7 +118,7 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	
-
+	DeleteWhenOutOfCam();
 
 	
 	/*if (is_delete == false && state == MARIOBULLET_STATE_BUM && animations[MARIOBULLET_ANI_BUM]->IsRenderDone())
