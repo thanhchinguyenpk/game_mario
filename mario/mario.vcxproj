@@ -137,6 +137,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Hub.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioBullet.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PlantBullet.h" />
+    <ClInclude Include="Pmeter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="SuperLeaf.h" />
@@ -172,6 +174,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Hub.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlantBullet.cpp" />
+    <ClCompile Include="Pmeter.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="SuperLeaf.cpp" />
     <ClCompile Include="SwitchBlock.cpp" />

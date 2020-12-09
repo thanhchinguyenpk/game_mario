@@ -146,6 +146,9 @@ public:
 
 	DWORD untouchable_start;
 	DWORD jumping_start;
+	
+	bool is_on_the_ground = false;
+
 	bool is_in_object = false;
 	bool is_sitdown = false;
 	bool is_shoot = false;

@@ -32,6 +32,8 @@
 #include "PiranhaPlant.h"
 #include "SwitchBlock.h"
 #include "VenusFireTrap.h"
+#include "Hub.h"
+#include "Pmeter.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"mario"
@@ -59,7 +61,8 @@
 #define ID_TEX_MARIO_TAIL_SPIN	140
 #define ID_TEX_BULLET_EFFECT	150
 #define ID_TEX_NUMBER_AND_TEXT	160
-
+#define ID_TEX_HUB	170
+#define ID_TEX_P	180
 
 
 vector<LPGAMEOBJECT> objects;
@@ -626,6 +629,9 @@ void LoadResources()
 	textures->Add(ID_TEX_MARIO_TAIL_SPIN, L"textures\\MARIO_TAIL_SPIN.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_BULLET_EFFECT, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_NUMBER_AND_TEXT, L"textures\\TextAndNumber.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_HUB, L"textures\\status_bar.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_P, L"textures\\power_state.png", D3DCOLOR_XRGB(176, 224, 248));
+	
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -978,7 +984,39 @@ void LoadResources()
 	LPDIRECT3DTEXTURE9 texUpMushroom = textures->Get(ID_TEX_BRICK_COIN);
 	sprites->Add(270000, 286, 121, 286 + 16, 121 + 16, texSwitchBlock);//nấm xanh
 
+	LPDIRECT3DTEXTURE9 texHub = textures->Get(ID_TEX_HUB);
+	sprites->Add(280000, 3, 3, 3 + 152, 3 + 28, texHub);//nấm xanh
+
+
+	LPDIRECT3DTEXTURE9 texP = textures->Get(ID_TEX_P);
+	sprites->Add(290000, 2,  2, 66,  9, texP);
+	sprites->Add(290001, 2, 11, 66, 18, texP);
+	sprites->Add(290002, 2, 20, 66, 27, texP);
+	sprites->Add(290003, 2, 29, 66, 36, texP);
+	sprites->Add(290004, 2, 38, 66, 45, texP);
+	sprites->Add(290005, 2, 47, 66, 54, texP);
+	sprites->Add(290006, 2, 56, 66, 63, texP);
+	sprites->Add(290007, 2, 65, 66, 72, texP);
+
 	
+
+	/*# tier_0
+		1020	2	2	66	9	
+		# tier_1
+		1021	2	11	66	18	
+		# tier_2
+		1022	2	20	66	27	
+		# tier_3
+		1023	2	29	66	36	
+		# tier_4
+		1024	2	38	66	45	
+		# tier_5
+		1025	2	47	66	54	
+		# tier_6
+		1026	2	56	66	63	
+		# tier_7
+		1027	2	65	66	72	
+		*/
 
 
 
@@ -1557,6 +1595,17 @@ void LoadResources()
 	ani->Add(270000);
 	animations->Add(21000, ani);
 
+	ani = new CAnimation(100);
+	ani->Add(290000);
+	ani->Add(290001);
+	ani->Add(290002);
+	ani->Add(290003);
+	ani->Add(290004);
+	ani->Add(290005);
+	ani->Add(290006);
+	ani->Add(290007);
+	animations->Add(28000, ani);
+
 
 
 
@@ -2046,10 +2095,25 @@ void LoadResources()
 
 
 	//cổng thử nghiệm:
+	//cổng trên đất
+	Hub* hub = new Hub();
+	objects.push_back(hub);
+
+	Pmeter* pmeter = new Pmeter();
+	pmeter->AddAnimation(28000);
+	objects.push_back(pmeter);
+
 	flatform = new Flatform(50, 70);
 	flatform->SetPosition(300, 1194);
 	flatform->is_portal = true;
 	objects.push_back(flatform);
+
+	//cổng dưới đất
+	flatform = new Flatform(50, 70);
+	flatform->SetPosition(2151*3, 540*3);
+	flatform->is_portal = true;
+	objects.push_back(flatform);
+
 
 	//chặt đầu chặt cuối:
 	flatform = new Flatform(5, 700);
@@ -2371,7 +2435,7 @@ void Update(DWORD dt)
 
 
 	// Update camera to follow mario
-/*	float cx, cy;
+	float cx, cy;
 	mario->GetPosition(cx, cy);
 
 
@@ -2388,7 +2452,8 @@ void Update(DWORD dt)
 	if (cx > 8447 - SCREEN_WIDTH+MARIO_BIG_BBOX_WIDTH/2)
 		return;
 
-	CGame::GetInstance()->SetCamPos(cx, 1 );*/
+	if(mario->is_on_the_ground==false)
+		CGame::GetInstance()->SetCamPos(cx, 700 );
 
 	
 }

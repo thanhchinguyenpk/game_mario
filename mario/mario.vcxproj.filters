@@ -110,6 +110,12 @@
     <ClInclude Include="VenusFireTrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pmeter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -209,6 +215,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VenusFireTrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pmeter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

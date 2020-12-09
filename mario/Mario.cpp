@@ -401,17 +401,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				Flatform* flatform = dynamic_cast<Flatform*>(e->obj);
 				
-				if (e->ny > 0) // hướng xuống
-				{
-					y +=( y_flatform + y_flatform);// double for safe
-					vy = vy_flatform;
-				}
-
-				if (e->ny < 0 && flatform->is_portal)
+				 if (e->ny < 0 && flatform->is_portal)
 				{
 					this->SetPosition(6363+16,1521);
 					CGame::GetInstance()->SetCamPos(2064*3+16*3,456*3);
-				}
+					this->is_on_the_ground = true;
+
+				} else if (e->ny > 0 && flatform->is_portal) // hướng xuống
+				 {
+					this->SetPosition(2336*3, 360*3);
+					CGame::GetInstance()->SetCamPos(2199 * 3 + 16 * 3, 287 * 3-150);
+					this->is_on_the_ground = false;
+				 }
+				else if (e->ny > 0)
+				 {
+					 y += (y_flatform + y_flatform);// double for safe
+					 vy = vy_flatform;
+				 }
+
 			}
 
 		}
