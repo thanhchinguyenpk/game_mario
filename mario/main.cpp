@@ -1595,16 +1595,31 @@ void LoadResources()
 	ani->Add(270000);
 	animations->Add(21000, ani);
 
+	//nấc p
 	ani = new CAnimation(100);
 	ani->Add(290000);
-	ani->Add(290001);
-	ani->Add(290002);
-	ani->Add(290003);
-	ani->Add(290004);
-	ani->Add(290005);
-	ani->Add(290006);
-	ani->Add(290007);
 	animations->Add(28000, ani);
+	ani = new CAnimation(100);
+	ani->Add(290001);
+	animations->Add(28001, ani);
+	ani = new CAnimation(100);
+	ani->Add(290002);
+	animations->Add(28002, ani);
+	ani = new CAnimation(100);
+	ani->Add(290003);
+	animations->Add(28003, ani);
+	ani = new CAnimation(100);
+	ani->Add(290004);
+	animations->Add(28004, ani);
+	ani = new CAnimation(100);
+	ani->Add(290005);
+	animations->Add(28005, ani);
+	ani = new CAnimation(100);
+	ani->Add(290006);
+	animations->Add(28006, ani);
+	ani = new CAnimation(100);
+	ani->Add(290007);
+	animations->Add(28007, ani);
 
 
 
@@ -2101,6 +2116,13 @@ void LoadResources()
 
 	Pmeter* pmeter = new Pmeter();
 	pmeter->AddAnimation(28000);
+	pmeter->AddAnimation(28001);
+	pmeter->AddAnimation(28002);
+	pmeter->AddAnimation(28003);
+	pmeter->AddAnimation(28004);
+	pmeter->AddAnimation(28005);
+	pmeter->AddAnimation(28006);
+	pmeter->AddAnimation(28007);
 	objects.push_back(pmeter);
 
 	flatform = new Flatform(50, 70);

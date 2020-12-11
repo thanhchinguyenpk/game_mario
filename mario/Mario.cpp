@@ -424,7 +424,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-	//DebugOut(L"[ERROR------------------------------] DINPUT::GetDeviceData failed. Error: %d\n", y);
+	DebugOut(L"[ERROR------------vx la--------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
 
 	// clean up collision events
 
