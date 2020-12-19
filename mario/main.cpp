@@ -118,7 +118,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_N:
 		CGame::GetInstance()->SetCamPos(CGame::GetInstance()->GetCamX() , CGame::GetInstance()->GetCamY() + 50);
 		break;
-	case DIK_5:
+	/*case DIK_5:
 		goomba = new CGoomba();
 		goomba->AddAnimation(701);
 		goomba->AddAnimation(702);
@@ -140,7 +140,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		conco->SetPosition(mario->x + 500, 100.0f);
 		conco->SetState(CONCO_STATE_WALKING_LEFT);//CONCO_STATE_WALKING_LEFT
 		objects.push_back(conco);
-			break;
+			break;*/
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		mario->SetPosition(mario->x, 80.0f);
