@@ -110,14 +110,14 @@ void VenusFireTrap::Render()
 	
 	if (level == VENUS_RED_TRAP)
 	{
-		if (mario->y < 345)
+		if (mario->y < 1035)
 			ani = VENUS_ANI_SHOOTING_UP;
 		else
 			ani = VENUS_ANI_SHOOTING_DOWN;
 
 		if (state == VENUS_STATE_GOING_UP || state == VENUS_STATE_GOING_DOWN)
 		{
-			if (mario->y < 345)
+			if (mario->y < 1035)
 				ani = VENUS_ANI_SCORPION_UP;
 			else
 				ani = VENUS_ANI_SCORPION_DOWN;
@@ -186,22 +186,22 @@ bool VenusFireTrap::CheckInArea(float l, float t, float r, float b)
 {
 	if (level == VENUS_GREEN_TRAP)
 	{
-		return l < 5690 && r>5530 && t < 530 && b>0;
+		return l < 5690 && r>5530 && t < 1530 && b>0;
 		DebugOut(L"[ERROR----------lv2?------------------] DINPUT::GetDeviceData failed. Error: %d\n");
 	}
-	return l<1180 && r>1030 && t<530 && b>0;
+	return l<1180 && r>1030 && t<1530 && b>0;
 }
 
 void VenusFireTrap::TakeMaxTopAndBot()
 {
 	if (level == VENUS_RED_TRAP)
 	{
-		pos_y_venus_max_top = 340;//dm chiều y hướng xuống :(
-		pos_y_venus_max_bot = 440;
+		pos_y_venus_max_top = 1002+50+7;//dm chiều y hướng xuống :(
+		pos_y_venus_max_bot = 1102+50;
 	}
 	else if(level == VENUS_GREEN_TRAP)
 	{
-		pos_y_venus_max_top = 350;//dm chiều y hướng xuống :(
-		pos_y_venus_max_bot = 430;
+		pos_y_venus_max_top = 1072;//dm chiều y hướng xuống :(
+		pos_y_venus_max_bot = 1143;
 	}
 }

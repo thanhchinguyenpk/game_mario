@@ -44,8 +44,8 @@
 class VenusFireTrap : public CGameObject
 {
 public:
-	int pos_y_venus_max_top=340;//dm chiều y hướng xuống :(
-	int pos_y_venus_max_bot= 440;
+	int pos_y_venus_max_top=1002;//dm chiều y hướng xuống :(
+	int pos_y_venus_max_bot= 11002;
 
 	float pos_y_fireball;
 	float pos_x_fireball;

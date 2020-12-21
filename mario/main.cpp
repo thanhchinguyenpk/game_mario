@@ -1717,7 +1717,7 @@ void LoadResources()
 	mario->AddAnimation(600);		//orange bring r
 
 	//mario->SetPosition(6399,1800);
-	mario->SetPosition(200, 1000);
+	mario->SetPosition(5415, 1000);
 	objects.push_back(mario);
 
 
@@ -1879,7 +1879,7 @@ void LoadResources()
 	venus->AddAnimation(13006);
 	venus->AddAnimation(13007);
 	venus->AddAnimation(13008);
-	venus->SetPosition(1058 + 96 / 2, 435);
+	venus->SetPosition(1058 + 96 / 2, 1080);
 	venus->SetState(PLANT_STATE_GOING_UP);
 	//objects.insert(objects.begin() + 3, plant);
 	objects.push_back(venus);
@@ -1893,7 +1893,7 @@ void LoadResources()
 	venus->AddAnimation(13006);
 	venus->AddAnimation(13007);
 	venus->AddAnimation(13008);
-	venus->SetPosition(5615, 435);
+	venus->SetPosition(5615, 1130);
 	venus->SetState(PLANT_STATE_GOING_UP);
 	//objects.insert(objects.begin() + 3, plant);
 	objects.push_back(venus);
@@ -1980,7 +1980,7 @@ void LoadResources()
 	mr->SetState(MUSHROOM_STATE_GOING_UP);
 	objects.push_back(mr);*/
 
-	/*ParaGoomba* para_goomba = new ParaGoomba();
+	ParaGoomba* para_goomba = new ParaGoomba();
 	para_goomba->AddAnimation(17000);
 	para_goomba->AddAnimation(17001);
 	para_goomba->AddAnimation(17002);
@@ -1988,13 +1988,13 @@ void LoadResources()
 	para_goomba->AddAnimation(17004);
 	para_goomba->SetState(PARA_GROOMBA_STATE_JUMP_BIG);
 	para_goomba->SetPosition(500, 460);
-	objects.push_back(para_goomba);*/
+	objects.push_back(para_goomba);
 
 
 	PiranhaPlant* paranha_plant = new PiranhaPlant();
 	paranha_plant->AddAnimation(18000);
 	paranha_plant->SetState(PIRANHA_PLANT_STATE_GOING_UP);
-	paranha_plant->SetPosition(5424, 397+ 24 * 3);
+	paranha_plant->SetPosition(5424, 1160);
 	objects.push_back(paranha_plant);
 
 	Coin* coin = new Coin();
